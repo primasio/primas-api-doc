@@ -64,9 +64,7 @@ Asymmetric Cryptography
 Primas uses ECDSA-SECP256K1 to calculate the signature which is also the same with DTCP and Ethereum.
 The private key is a 32-byte big number. And the address is a portion of the public key.
 
-
-
-##### Example of Signature Calculation and Verification in Golang
+##### Example of signature calculation and verification in Golang
 
 ```
 import (
@@ -108,3 +106,17 @@ func Verify(data []byte, signature, public string) error {
 }
 ```
 
+### RESTful API and Transfer Encoding
+
+APIs are served using standard RESTful methods with HTTPS. For posting, both JSON and Form-Data are
+supported for request body. Data sent from Primas Node will always in JSON format.
+
+API should be prefixed with version. For example, when trying to get the metadata for an article.
+We should call:
+
+`GET https://staging.primas.io/v3/article/1GFYUNP815RUIFDNNRKLNU78RPCFLNL5DWGT7EXODHFVRCRVXJ`
+
+### API List
+
+
+### Error Code and Troubleshooting
