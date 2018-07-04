@@ -30,11 +30,11 @@ Primas is built upon DCTP, which contains a standard for metadata of content and
 For compatibility the metadata used in Primas is the same as DCTP,
 which including metadata for content(articles, images, and in the future videos and audios),
 groups and links. Like is a link between content and a person. Sharing is a link between content
-and group. Comment is a new article and a link between this article and the original one.
+and a group. Comment is a new article and a link between this article and the original one.
 
 For all the metadata related APIs such as person registration, article posting, group creation and article sharing,
 the metadata in DTCP standard is post in request body. And the metadata is saved
-the same format in decentralized storage.
+in the same format in decentralized storage.
 
 For content posting APIs there's a small difference in metadata however
 which is about the raw content. Since DTCP concerns about metadata only so the raw data
@@ -42,7 +42,7 @@ is not stored in DTCP metadata. DTCP contains a field called `content` which is 
 to store a URI to the raw content. The raw content is stored separately in other places
 that can be accessed using URI.
 
-In Primas however, the raw content in its base64 encoded form should be filled in the `content`
+In Primas API however, the raw content in its base64 encoded form should be filled in the `content`
 field in the post metadata. Primas Node extracts the content from metadata
 and saves it in decentralized storage, gets a URI(in the case of IPFS, a link starts with "ipfs://"),
 and puts the URI in the `content` field and saves the metadata to decentralized storage then.
