@@ -128,7 +128,7 @@ We should call:
 
 ### API Categories
 
-* [Person](./person.md)
+* [Account](./account.md)
 * [Content](./content.md)
 * [Group](./group.md)
 * [Token](./token.md)
