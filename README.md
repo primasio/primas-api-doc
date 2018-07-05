@@ -1,4 +1,4 @@
-# Primas Open API Documentation
+# Primas Node API Documentation
 
 ### Version
 
@@ -13,16 +13,18 @@ and allows readers to see personalized, high-quality content through social reco
 Traditional Internet applications can also use APIs to access Primas,
 immediately gaining access to the power Primas offers.
 
-### Primas Nodes
+### Primas Node
 
 Primas decentralized network is accessible through one of the Primas Nodes.
 And every Primas Node exposes the same collection of APIs as described in this document.
 To use these APIs, you need to find a live Primas Node or host one yourself.
 Nodes hosted by the Primas development team are accessible at:
 
-Testnet: https://staging.primas.io
+Testnet: [https://staging.primas.io](https://staging.primas.io)
 
-Mainnet:  https://info.primas.io
+Mainnet Nodes:
+
+* Rigel A: [https://rigel-a.primas.network](https://rigel-a.primas.network)
 
 ### DTCP Metadata Posting
 
@@ -66,7 +68,9 @@ The private key is a 32-byte big number. And the address is a portion of the pub
 
 ##### Example of signature calculation and verification in Golang
 
-```
+```go
+package main
+
 import (
 	"crypto"
 	"crypto/rand"
@@ -109,14 +113,30 @@ func Verify(data []byte, signature, public string) error {
 ### RESTful API and Transfer Encoding
 
 APIs are served using standard RESTful methods with HTTPS. For posting, both JSON and Form-Data are
-supported for request body. Data sent from Primas Node will always in JSON format.
+supported for request body. Data sent from Primas Node is always in JSON format.
 
-API should be prefixed with version. For example, when trying to get the metadata for an article.
+API should be prefixed with API version. For example, when trying to get the metadata for an article.
 We should call:
 
 `GET https://staging.primas.io/v3/article/1GFYUNP815RUIFDNNRKLNU78RPCFLNL5DWGT7EXODHFVRCRVXJ`
 
-### API List
+### API Categories
 
+* [Person](./person.md)
+* [Content](./content.md)
+* [Group](./group.md)
+* [Token](./token.md)
 
 ### Error Code and Troubleshooting
+
+| result_code	| result_msg | description |
+| ------------ | ------------- | ------------- |
+| 200	| success | Success|
+| 400 | client error | Client error|
+| 401	| invalid data | Invalid post data |
+| 402 | parse input JSON format error | Invalid JSON string |
+| 403 | client signature error | Signature verification failed |
+| 404	| input parameter error | Invalid parameter |
+| 405	| input parameter empty | Empty parameter |
+| 406	| nonce less than lasted | Nonce is used before |
+| 500	| server error | Server error |
