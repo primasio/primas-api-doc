@@ -1,5 +1,11 @@
 # Primas Node API Documentation
 
+**Notice: this document is in a working draft status.
+We're still tweaking many aspects of the APIs.
+Parameters are constantly changing. Examples are missing.
+APIs can't be found on the mainnet.
+We're trying our best to release it soon.**
+
 ### Version
 
 3.0
