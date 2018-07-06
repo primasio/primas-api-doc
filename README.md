@@ -124,7 +124,12 @@ supported for request body. Data sent from Primas Node is always in JSON format.
 API should be prefixed with API version. For example, when trying to get the metadata for an article.
 We should call:
 
-`GET https://staging.primas.io/v3/article/1GFYUNP815RUIFDNNRKLNU78RPCFLNL5DWGT7EXODHFVRCRVXJ`
+`GET https://staging.primas.io/v3/content/1GFYUNP815RUIFDNNRKLNU78RPCFLNL5DWGT7EXODHFVRCRVXJ`
+
+The response data will always include a field `result_code` indicating the invocation status.
+On successful invocation `result_code` will be `0`. And the response data is in the field `data`. Otherwise `result_code` will be the corresponding
+error type while at the same time there will be another field `result_msg` containing the detailed
+description of the error.
 
 ### API Categories
 
@@ -137,7 +142,7 @@ We should call:
 
 | result_code	| result_msg | description |
 | ------------ | ------------- | ------------- |
-| 200	| success | Success|
+| 0	| success | Success|
 | 400 | client error | Client error|
 | 401	| invalid data | Invalid post data |
 | 402 | parse input JSON format error | Invalid JSON string |
