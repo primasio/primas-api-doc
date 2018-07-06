@@ -12,7 +12,7 @@ We're trying our best to release it soon.**
 
 ### Introduction
 
-Primas is a platform for premium quality content based on DTCP (Distributed Trusted Content Protocol).
+Primas is a platform for premium quality content based on DTCP (Decentralized Trusted Content Protocol).
 Primas uses blockchain technology to ensure the credibility of content, 
 uses economic incentives to accelerate the generation and circulation of high-quality content,
 and allows readers to see personalized, high-quality content through social recommendations.
