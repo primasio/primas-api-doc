@@ -10,6 +10,9 @@
 
 [POST] /groups
 
+### Edit group
+[PUT] /groups/{group_dna}
+
 ### Dismiss group
 
 [DELETE] /groups/{group_dna}
@@ -26,7 +29,7 @@
 
 [POST] /groups/{group_dna}/members/applications
 
-### Cancel application
+### Cancel member application
 
 [DELETE] /groups/{group_dna}/members/applications/{person_dna}
 
@@ -42,6 +45,34 @@
 
 [DELETE] /groups/{group_dna}/members/{person_dna}
 
-### Get group content
+### Get group shares
 
-[GET] /groups/{group_dna}/content
+[GET] /groups/{group_dna}/shares
+ 
+### Get group share applications
+
+[GET] /groups/{group_dna}/shares/applications
+
+### Apply to share
+
+[POST] /groups/{group_dna}/shares/applications
+
+### Approve or decline share application
+
+[PUT] /groups/{group_dna}/shares/applications/{application_dna}
+ 
+### Cancel share application
+
+[DELETE] /groups/{group_dna}/shares/applications/{application_dna}
+ 
+### Delete group share
+
+[DELETE] /groups/{group_dna}/shares/{share_dna}
+
+### Delete all shares of a person in a group
+
+[DELETE] /groups/{group_dna}/members/{person_dna}/shares
+
+
+
+

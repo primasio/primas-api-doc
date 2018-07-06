@@ -26,15 +26,15 @@
 
 [GET] /accounts/{address}/groups
 
-### Get account content in a single group
+### Get account shares in a single group
 
-[GET] /accounts/{address}/groups/{group_dna}/content
+[GET] /accounts/{address}/groups/{group_dna}/shares
 
-### Get account likes
+### Get account likes 
 
 [GET] /accounts/{address}/likes
 
-### Get account comments
+### Get account comments  
 
 [GET] /accounts/{address}/comments
 
