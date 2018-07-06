@@ -137,6 +137,8 @@ description of the error.
 * [Content](./content.md)
 * [Group](./group.md)
 * [Token](./token.md)
+* [Timeline](./timeline.md)
+* [Query](./query.md)
 
 ### Error Code and Troubleshooting
 

@@ -7,37 +7,46 @@ When interacting with content, the corresponding group DNA must be provided.
 
 ### Get content likes
 
-[GET] /groups/{group_dna}/content/{content_dna}/likes
+[GET] /shares/{share_dna}/likes
 
 ### Like content
 
-[POST] /groups/{group_dna}/content/{content_dna}/likes
+[POST] /shares/{share_dna}/likes
 
 ### Delete like
 
-[DELETE] /groups/{group_dna}/content/{content_dna}/likes/{like_dna}
+[DELETE] /shares/{share_dna}/likes/{like_dna}
 
 ### Get content comments
 
-[GET] /groups/{group_dna}/content/{content_dna}/comments
+[GET] /shares/{share_dna}/comments
 
 ### Comment content
 
-[POST] /groups/{group_dna}/content/{content_dna}/comments
+[POST] /shares/{share_dna}/comments
 
 ### Delete comment
 
-[DELETE] /groups/{group_dna}/content/{content_dna}/comments/{comment_dna}
+[DELETE] /shares/{share_dna}/comments/{comment_dna}
 
 ### Get content shares
 
-[GET] /groups/{group_dna}/content/{content_dna}/shares
+[GET] /shares/{share_dna}/shares
 
 ### Share content
 
-[POST] /groups/{group_dna}/content/{content_dna}/shares
+[POST] /shares/{share_dna}/shares
 
 ### Delete share
 
-[DELETE] /groups/{group_dna}/content/{content_dna}/shares/{share_dna}
+[DELETE] /shares/{share_dna}/shares/{share_dna}
+
+### Report shares
+
+[POST] /shares/{share_dna}/reports
+
+### Get share reports
+
+[GET] /shares/{share_dna}/reports
+
 
