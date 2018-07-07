@@ -116,6 +116,9 @@ func Verify(data []byte, signature, public string) error {
 }
 ```
 
+### Sub Accounts
+
+
 ### RESTful API and Transfer Encoding
 
 APIs are served using standard RESTful methods with HTTPS. For posting, both JSON and Form-Data are

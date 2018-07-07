@@ -43,23 +43,32 @@ $ curl -x https://rigel-a.primas.network/v3/content/1GFYUNP815RUIFDNNRKLNU78RPCF
 ```
 
 
-### Publish content
+### Post content
 
 [POST] /content
 
 #### Request
 
-| Parameter | Type | Optional | Description |
-| ------------ | ------------- | ------------ | ------------- |
-| type | string | no | Content type. Currently "article", "image", "person" are supported. | 
-|  content  | string | no | Base64 encoded original content |
-|  signature  | string | no | metadata signature |
+| Name                | type    | Optional | Description |
+| --------------      | ------- | -------- | ---------------------------------------- |
+| type                | string  | n        | Content type. Currently "article", "image" are supported. |
+| title               | string  | n        | Content title. |
+| abstract            | string  | n        | Content abstract. |
+| language            | string  | n        | Content language. [RFC4646](http://www.ietf.org/rfc/rfc4646.txt) defined locales such as "en-US" |
+| category            | string  | n        | Content categories. Comma separated words list. |
+| created_at          | string  | y        | Content creation time. Unix timestamp. Node time is used if empty.               |
+| content             | string  | n        | Raw content in base64 encoded format. |
+| license             | object  | y        | Content authorization license. |
+| license.name        | string  | n        | License name."cc" for Creative Commons and "cm" for Commercial. |
+| license.parameters  | object  | n        | License parameters. |
+| sub_account         | string  | y        | [Sub account identifier](./README.md#sub-accounts). |
+| signature           | string  | n        | [Metadata signature](./README.md#dtcp-metadata-signature). |
 
 #### Response
 
 | Parameter | Type | Optional | Description |
 | ------------ | ------------- | ------------ | ------------- | 
-|  dna  | string | no | The DNA of the content |
+|  dna  | string | n | The DNA of the content. |
 
 #### Example
 
