@@ -126,7 +126,6 @@ $ curl -x https://rigel-a.primas.network/v3/content -d '{"type":"article","conte
 
 | Parameter | Type | Optional | Description |
 | ------------ | ------------- | ------------ | ------------- | 
-| id  | string | n | The id of the (sub) account. |
 | dna | string | n | Updated DNA of the (sub) account. |
 
 #### Example

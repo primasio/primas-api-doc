@@ -159,7 +159,7 @@ $ curl -x https://rigel-a.primas.network/v3/content/1GFYUNP815RUIFDNNRKLNU78RPCF
 | abstract            | string  | n        | Content abstract. |
 | language            | string  | n        | Content language. [RFC4646](http://www.ietf.org/rfc/rfc4646.txt) defined locales such as "en-US" |
 | category            | string  | n        | Content categories. Comma separated words list. |
-| created             | string  | y        | Content creation time. Unix timestamp. Node time is used if empty. |
+| created             | string  | n        | Content creation time. Unix timestamp. |
 | content             | string  | n        | Raw content in base64 encoded format. |
 | license             | object  | y        | [Content authorization license](./content.md#content-licensing). "none" is used if empty. |
 | signature           | string  | n        | [Metadata signature](./README.md#dtcp-metadata-signature). |
@@ -178,6 +178,45 @@ $ curl -x https://rigel-a.primas.network/v3/content/1GFYUNP815RUIFDNNRKLNU78RPCF
 | ------------ | ------------- | ------------ | ------------- | 
 |  id  | string | n | The id of the content. |
 |  dna  | string | n | The DNA of the content. |
+
+#### Example
+
+```bash
+$ curl -x https://rigel-a.primas.network/v3/content -d '{"type":"article","content":"...","signature":"..."}'
+
+{"result_code":0,"data":{"dna":"", ...}}
+
+```
+
+
+### 4. Update content
+
+[PUT] /content/{content_id}
+
+#### Request
+
+| Name                | type    | Optional | Description |
+| --------------      | ------- | -------- | ---------------------------------------- |
+| title               | string  | n        | Content title. |
+| abstract            | string  | n        | Content abstract. |
+| creator             | object  | n        | Creator. Required when updating from a sub account. |
+| category            | string  | n        | Content categories. Comma separated words list. |
+| updated             | string  | n        | Content updating time. Unix timestamp.|
+| content             | string  | n        | Raw content in base64 encoded format. |
+| license             | object  | y        | [Content authorization license](./content.md#content-licensing). "none" is used if empty. |
+| signature           | string  | n        | [Metadata signature](./README.md#dtcp-metadata-signature). |
+
+`creator` object:
+
+| Name                | type    | Optional | Description |
+| --------------      | ------- | -------- | ---------------------------------------- |
+| sub_account_id      | string  | n        | Sub account id. Refer to [Sub account](./README.md#sub-accounts) for details. |
+
+#### Response
+
+| Parameter | Type | Optional | Description |
+| ------------ | ------------- | ------------ | ------------- | 
+|  dna  | string | n | The updated DNA of the content. |
 
 #### Example
 
