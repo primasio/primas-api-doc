@@ -13,12 +13,12 @@
 
 | Name                | type    | Optional | Description |
 | --------------      | ------- | -------- | ---------------------------------------- |
-| account_id          | string  | n        | Account id. |
-| address             | string  | n        | Account Address. |
-| name                | string  | n        | Name. |
+| id                  | string  | n        | Account id. |
+| address             | string  | n        | Account address. |
+| title               | string  | n        | Account name. |
 | abstract            | string  | y        | Description. |
 | avatar              | string  | y        | An image DNA used for avatar. |
-| creator             | object  | y        | Creator. Required when creating [sub account](./README.md#sub-accounts). |
+| creator             | object  | y        | Creator. Provided when this account is a [sub account](./README.md#sub-accounts). |
 | created             | string  | n        | Account creation time. Unix timestamp. |
 | updated             | string  | n        | Account last updating time. Unix timestamp. |
 | extra               | object  | y        | Extra metadata. |
@@ -30,6 +30,7 @@
 | Name                | Type    | Optional | Description |
 | --------------      | ------- | -------- | ---------------------------------------- |
 | account_id          | string  | n        | Root account id. |
+| account_name        | string  | n        | Root account name. |
 | sub_account_id      | string  | n        | Sub account id. This id is provided by the third-party application. Usually the id in the application system is used directly. |
 
 `extra` object:
@@ -58,7 +59,7 @@ $ curl -x https://rigel-a.primas.network/v3/content -d '{"type":"article","conte
 | --------------      | ------- | -------- | ---------------------------------------- |
 | name                | string  | n        | Name. |
 | abstract            | string  | y        | Description. |
-| avatar              | string  | y        | An image DNA used for avatar. |
+| avatar              | string  | y        | An image id used for avatar. |
 | creator             | object  | y        | Creator. Required when creating [sub account](./README.md#sub-accounts). |
 | created             | string  | n        | People creation time. Unix timestamp. |
 | extra               | object  | y        | Extra metadata. |

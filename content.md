@@ -81,9 +81,6 @@ to set a price on the authorization of the content:
 | content             | string  | n        | Content URI. In the case of IPFS, a link starts with "ipfs://" |
 | content_hash        | string  | n        | Keccak256 hash of the raw content. |
 | license             | object  | y        | [Content authorization license](./content.md#content-licensing). |
-| sub_account         | object  | y        | [Sub account](./README.md#sub-accounts). |
-| sub_account.id      | string  | n        | Sub account id. |
-| sub_account.name    | string  | y        | Sub account name. |
 | signature           | string  | n        | [Metadata signature](./README.md#dtcp-metadata-signature). |
 | dna                 | string  | n        | Content DNA. |
 | extra               | object  | n        | Extra content metadata. |
@@ -101,10 +98,9 @@ For image metadata, there're more fields:
 
 | Name                | Type    | Optional | Description |
 | --------------      | ------- | -------- | ---------------------------------------- |
-| dna                 | string  | n        | Person DNA. Root account DNA in the case of Sub account posting. |
-| name                | string  | n        | Person name. Root account name in the case of Sub account posting. |
+| id                  | string  | n        | Account id. Root account id in the case of Sub account posting. |
+| name                | string  | n        | Account name. Root account name in the case of Sub account posting. |
 | sub_account_id      | string  | y        | Sub account id. Refer to [Sub account](./README.md#sub-accounts) for details. |
-| sub_account_dna     | string  | y        | Sub account DNA. |
 | sub_account_name    | string  | y        | Sub account name. |
 
 
