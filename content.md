@@ -20,7 +20,7 @@ content can be shared.
 Primas supports CC 4.0 by filling "cc" in the `license.name` field.
 Different options can also be specified in the `license.parameters` field.
 
-```json
+```
 {
   "name": "cc",
   "version": "4.0",
@@ -40,7 +40,7 @@ Different options can also be specified in the `license.parameters` field.
 Beside CC license, Primas supports commercial license as well, which allows the author
 to set a price on the authorization of the content:
 
-```json
+```
 {
   "name": "commercial",
   "version": "2.0",
@@ -85,8 +85,15 @@ to set a price on the authorization of the content:
 | sub_account.name    | string  | y        | Sub account name. |
 | signature           | string  | n        | [Metadata signature](./README.md#dtcp-metadata-signature). |
 | extra               | object  | n        | Extra content metadata. |
-| extra.block_hash    | string  | n        | Block hash used to generate DNA. |
-| extra.transaction_id| string  | n        | Transaction that includes this content. |
+
+For image metadata, there're more fields:
+
+| name     | type    | must | comment              |
+| -------- | ------- | ---- | -------------------- |
+| ext      | string  | n    | image format, such as 'png', 'jpg' |
+| width    | integer | n    | image width in pixels |
+| height   | integer | n    | image height in pixels |
+| size     | integer | n    | image size in bytes |
 
 `creator` object:
 
@@ -98,15 +105,13 @@ to set a price on the authorization of the content:
 | sub_account_dna     | string  | y        | Sub account DNA. |
 | sub_account_name    | string  | y        | Sub account name. |
 
-For image metadata, there're more fields.
 
-| name     | type    | must | comment              |
-| -------- | ------- | ---- | -------------------- |
-| ext      | string  | n    | image format, such as 'png', 'jpg' |
-| width    | integer | n    | image width in pixels |
-| height   | integer | n    | image height in pixels |
-| size     | integer | n    | image size in bytes |
+`extra` object:
 
+| Name                | Type    | Optional | Description |
+| --------------      | ------- | -------- | ---------------------------------------- |
+| block_hash          | string  | n        | Block hash used to generate DNA. |
+| transaction_id      | string  | n        | Transaction that includes this content. |
 
 #### Example
 
