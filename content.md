@@ -76,7 +76,8 @@ to set a price on the authorization of the content:
 | abstract            | string  | n        | Content abstract. |
 | language            | string  | n        | Content language. [RFC4646](http://www.ietf.org/rfc/rfc4646.txt) defined locales such as "en-US" |
 | category            | string  | n        | Content categories. Comma separated words list. |
-| created_at          | string  | n        | Content creation time. Unix timestamp. |
+| created             | string  | n        | Content creation time. Unix timestamp. |
+| updated             | string  | n        | Content last updating time. Unix timestamp. |
 | content             | string  | n        | Content URI. In the case of IPFS, a link starts with "ipfs://" |
 | content_hash        | string  | n        | Keccak256 hash of the raw content. |
 | license             | object  | y        | [Content authorization license](./content.md#content-licensing). |
@@ -157,7 +158,7 @@ $ curl -x https://rigel-a.primas.network/v3/content/1GFYUNP815RUIFDNNRKLNU78RPCF
 | abstract            | string  | n        | Content abstract. |
 | language            | string  | n        | Content language. [RFC4646](http://www.ietf.org/rfc/rfc4646.txt) defined locales such as "en-US" |
 | category            | string  | n        | Content categories. Comma separated words list. |
-| created_at          | string  | y        | Content creation time. Unix timestamp. Node time is used if empty. |
+| created             | string  | y        | Content creation time. Unix timestamp. Node time is used if empty. |
 | content             | string  | n        | Raw content in base64 encoded format. |
 | license             | object  | y        | [Content authorization license](./content.md#content-licensing). "none" is used if empty. |
 | signature           | string  | n        | [Metadata signature](./README.md#dtcp-metadata-signature). |
