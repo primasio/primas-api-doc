@@ -73,13 +73,11 @@ to set a price on the authorization of the content:
 | type                | string  | n        | Content type. Currently "article", "image" are supported. |
 | title               | string  | n        | Content title. |
 | creator             | object  | n        | Creator of the content. |
-| creator.dna         | string  | n        | Creator DNA. |
-| creator.name        | string  | n        | Creator name. |
 | abstract            | string  | n        | Content abstract. |
 | language            | string  | n        | Content language. [RFC4646](http://www.ietf.org/rfc/rfc4646.txt) defined locales such as "en-US" |
 | category            | string  | n        | Content categories. Comma separated words list. |
 | created_at          | string  | n        | Content creation time. Unix timestamp. |
-| content             | string  | n        | Content URI. |
+| content             | string  | n        | Content URI. In the case of IPFS, a link starts with "ipfs://" |
 | content_hash        | string  | n        | Keccak256 hash of the raw content. |
 | license             | object  | y        | [Content authorization license](./content.md#content-licensing). |
 | sub_account         | object  | y        | [Sub account](./README.md#sub-accounts). |
@@ -89,6 +87,26 @@ to set a price on the authorization of the content:
 | extra               | object  | n        | Extra content metadata. |
 | extra.block_hash    | string  | n        | Block hash used to generate DNA. |
 | extra.transaction_id| string  | n        | Transaction that includes this content. |
+
+`creator` object:
+
+| Name                | Type    | Optional | Description |
+| --------------      | ------- | -------- | ---------------------------------------- |
+| dna                 | string  | n        | Person DNA. Root account DNA in the case of Sub account posting. |
+| name                | string  | n        | Person name. Root account name in the case of Sub account posting. |
+| sub_account_id      | string  | y        | Sub account id. Refer to [Sub account](./README.md#sub-accounts) for details. |
+| sub_account_dna     | string  | y        | Sub account DNA. |
+| sub_account_name    | string  | y        | Sub account name. |
+
+For image metadata, there're more fields.
+
+| name     | type    | must | comment              |
+| -------- | ------- | ---- | -------------------- |
+| ext      | string  | n    | image format, such as 'png', 'jpg' |
+| width    | integer | n    | image width in pixels |
+| height   | integer | n    | image height in pixels |
+| size     | integer | n    | image size in bytes |
+
 
 #### Example
 
@@ -130,16 +148,22 @@ $ curl -x https://rigel-a.primas.network/v3/content/1GFYUNP815RUIFDNNRKLNU78RPCF
 | --------------      | ------- | -------- | ---------------------------------------- |
 | type                | string  | n        | Content type. Currently "article", "image" are supported. |
 | title               | string  | n        | Content title. |
+| creator             | object  | n        | Creator. |
 | abstract            | string  | n        | Content abstract. |
 | language            | string  | n        | Content language. [RFC4646](http://www.ietf.org/rfc/rfc4646.txt) defined locales such as "en-US" |
 | category            | string  | n        | Content categories. Comma separated words list. |
 | created_at          | string  | y        | Content creation time. Unix timestamp. Node time is used if empty. |
 | content             | string  | n        | Raw content in base64 encoded format. |
 | license             | object  | y        | [Content authorization license](./content.md#content-licensing). "none" is used if empty. |
-| sub_account         | object  | y        | [Sub account](./README.md#sub-accounts). |
-| sub_account.id      | string  | n        | Sub account id. |
-| sub_account.name    | string  | y        | Sub account name. |
 | signature           | string  | n        | [Metadata signature](./README.md#dtcp-metadata-signature). |
+
+`creator` object:
+
+| Name                | type    | Optional | Description |
+| --------------      | ------- | -------- | ---------------------------------------- |
+| dna                 | string  | n        | Person DNA. Root account DNA in the case of Sub account posting. |
+| sub_account_id      | string  | y        | Sub account id. Refer to [Sub account](./README.md#sub-accounts) for details. |
+| sub_account_name    | string  | y        | Sub account name. For fast creation of new sub accounts. |
 
 #### Response
 

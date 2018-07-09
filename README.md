@@ -136,7 +136,7 @@ description of the error.
 
 ### API Categories
 
-* [Account](./account.md)
+* [People](./people.md)
 * [Content](./content.md)
 * [Group](./group.md)
 * [Token](./token.md)
