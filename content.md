@@ -63,13 +63,13 @@ to set a price on the authorization of the content:
 
 ### 1. Get content metadata
 
-[GET] /content/{content_dna}
+[GET] /content/{content_id}
 
 #### Response
 
 | Name                | type    | Optional | Description |
 | --------------      | ------- | -------- | ---------------------------------------- |
-| dna                 | string  | n        | Content DNA.
+| id                  | string  | n        | Content id.|
 | type                | string  | n        | Content type. Currently "article", "image" are supported. |
 | title               | string  | n        | Content title. |
 | creator             | object  | n        | Creator of the content. |
@@ -85,6 +85,7 @@ to set a price on the authorization of the content:
 | sub_account.id      | string  | n        | Sub account id. |
 | sub_account.name    | string  | y        | Sub account name. |
 | signature           | string  | n        | [Metadata signature](./README.md#dtcp-metadata-signature). |
+| dna                 | string  | n        | Content DNA. |
 | extra               | object  | n        | Extra content metadata. |
 
 For image metadata, there're more fields:
@@ -126,7 +127,7 @@ $ curl -x https://rigel-a.primas.network/v3/content/1GFYUNP815RUIFDNNRKLNU78RPCF
 
 ### 2. Get raw content
 
-[GET] /content/{content_dna}/content
+[GET] /content/{content_id}/content
 
 #### Response
 
@@ -175,7 +176,8 @@ $ curl -x https://rigel-a.primas.network/v3/content/1GFYUNP815RUIFDNNRKLNU78RPCF
 
 | Parameter | Type | Optional | Description |
 | ------------ | ------------- | ------------ | ------------- | 
-|  content_dna  | string | n | The DNA of the content. |
+|  id  | string | n | The id of the content. |
+|  dna  | string | n | The DNA of the content. |
 
 #### Example
 

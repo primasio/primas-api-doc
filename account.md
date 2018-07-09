@@ -23,6 +23,7 @@
 | updated             | string  | n        | Account last updating time. Unix timestamp. |
 | extra               | object  | y        | Extra metadata. |
 | signature           | string  | n        | [Metadata signature](./README.md#dtcp-metadata-signature). |
+| dna                 | string  | n        | DNA of the account. |
 
 `creator` object:
 
@@ -80,7 +81,8 @@ $ curl -x https://rigel-a.primas.network/v3/content -d '{"type":"article","conte
 
 | Parameter | Type | Optional | Description |
 | ------------ | ------------- | ------------ | ------------- | 
-|  account_id  | string | n | The id of the account. |
+|  id  | string | n | The id of the account. |
+|  dna  | string | n | The DNA of the account. |
 
 #### Example
 
@@ -124,7 +126,8 @@ $ curl -x https://rigel-a.primas.network/v3/content -d '{"type":"article","conte
 
 | Parameter | Type | Optional | Description |
 | ------------ | ------------- | ------------ | ------------- | 
-|  account_id  | string | n | The id of the account. |
+| id  | string | n | The id of the (sub) account. |
+| dna | string | n | Updated DNA of the (sub) account. |
 
 #### Example
 
@@ -150,7 +153,11 @@ $ curl -x https://rigel-a.primas.network/v3/content -d '{"type":"article","conte
 
 ### 7. Get account shares in a single group
 
-[GET] /accounts/{account_id}/groups/{group_dna}/shares
+[GET] /accounts/{account_id}/groups/{group_id}/shares
+
+### 8. Delete all shares of an account in a group
+
+[DELETE] /accounts/{account_id}/groups/{group_id}/shares
 
 ### 8. Get account likes 
 
