@@ -118,6 +118,47 @@ func Verify(data []byte, signature, public string) error {
 
 ### Sub Accounts
 
+Primas supports the integration with traditional centralized applications.
+Such applications could use APIs to connect to Primas Node(both self-hosted or public one)
+and gain full power of Primas in a second.
+
+Authentication in a decentralized system is done by digital signatures,
+which means in a simplest setup applications connecting to Primas needs to
+create a public/private keypair for each user, which makes the integration
+much harder(applications need to handle the private key properly, whether using
+a KMS infrastructure and taking the risk of losing all keys, or giving the keys to
+users and taking the complains about lost keys cannot be found.) while at the
+same time limits the customization of the economic model and tokens(PST incentives
+are calculated and distributed directly to end users).
+
+Primas provides the sub account system to make the integration process less painful
+and support more ways integration can be designed.
+
+In the sub account integration setup, only one public/private keypair needs to be created
+for the application. The keypair is attached to a "root account" representing the identity
+of the application. When posting content on behalf of a user in the application,
+the application signs the request using its root account private key and passes the user's id
+in the application as a parameter. Primas then creates a "sub account" for this user
+which is attached to the root account. Every time the application wants to do something on
+behalf of the same user, it must provide the same user's id parameter and signs it using the
+root account private key.
+
+In DTCP layer, however, the sub account and root account are both "account" object with only
+one difference that sub account has no public key attached. There's a "link" object between
+root and sub account establishing the relation between these 2 accounts. This gives the
+opportunity of "upgrading" the sub account to a root account or binding different accounts
+together in the future.
+
+All the tokens are locked on the root account. If a sub account posts an article, 2 PST will be
+locked on the root account. For large scale applications they must ensure enough token pre-lock
+on the root account. The incentives are calculated on the sub account level, which means application
+can get the daily incentives record for each application user. **But the PST incentives will be distributed
+to the root account**.
+
+Sub account system supports the isolation of PST and incentives model from the application's own.
+PST can be only visible to the application's root account while users of the application know nothing
+about it. Applications can build their own economic model and issue their own tokens on top of
+integration with Primas.
 
 ### RESTful API and Transfer Encoding
 
