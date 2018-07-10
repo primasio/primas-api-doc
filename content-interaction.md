@@ -65,6 +65,7 @@ page_id: start from 0
 #### Response
 | Name | Type | Optional | Description |
 | ------------ | ------------- | ------------ | ------------- |
+| share_id | string | n |  share id |
 | share_dna | string | n |  share dna |
 
 ### Delete share
@@ -154,6 +155,7 @@ page_id: start from 0
 #### Response
 | Name | Type | Optional | Description |
 | ------------ | ------------- | ------------ | ------------- |
+| like_id | string | n |  share like id |
 | like_dna | string | n |  share like dna |
 
 ### Delete like
@@ -271,6 +273,7 @@ type: 0=first level  1= second level 2= more than level
 #### Response
 | Name | Type | Optional | Description |
 | ------------ | ------------- | ------------ | ------------- |
+| comment_id | string | n |  share comment id |
 | comment_dna | string | n |  share comment dna |
 
 
