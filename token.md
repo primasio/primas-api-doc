@@ -2,25 +2,26 @@
 
 ## Token APIs
 
-### Get token balances
 
-[GET] /account/{account_id}/tokens
+### 1. Get token balances
+
+[GET] /accounts/{account_id}/tokens
 
 #### Response
-| Parameter | Type | Optional | Description |
+| Name | Type | Optional | Description |
 | ------------ | ------------- | ------------ | ------------- | 
 | total	 |float64	| n | total token balance |
 | available	 | float64	| n | available online token |
 | prelock	| float64 | n | pre-lock token|
 | residual	| float64	| n | residual income in node |
-| rmb_value	| float64	| y | total token value to transform RMB |
 
-### Get incentives list
 
-[GET] /account/{account_id}/tokens/incentives?page_id={page_id}
+### 2. Get incentives list
+
+[GET] /accounts/{account_id}/tokens/incentives?page_id={page_id}
 
 #### Response
-| Parameter | Type | Optional | Description |
+| Name | Type | Optional | Description |
 | ------------ | ------------- | ------------ | ------------- |
 | originate	| float64	| n	| originate incentive, example publish article |
 | alike	| float64	| n	| alike incentive |
@@ -46,7 +47,7 @@
 
 `creator` object:
 
-| Name                | type    | Optional | Description |
+| Name                | Type    | Optional | Description |
 | --------------      | ------- | -------- | ---------------------------------------- |
 | account_id          | string  | n        | Root account id. |
 | account_name        | string  | n        | Root account name. |
@@ -54,13 +55,13 @@
 | sub_account_name    | string  | y        | Sub account name. For fast creation of new sub accounts. |
 
 
-### Get incentives withdrawal list
+### 3. Get incentives withdrawal list
 
-[GET] /account/{account_id}/tokens/incentives/withdrawal?page_id={page_id}
+[GET] /accounts/{account_id}/tokens/incentives/withdrawal?page_id={page_id}
 page_id: start from 0 
 
 #### Response
-| Parameter | Type | Optional | Description |
+| Name | Type | Optional | Description |
 | ------------ | ------------- | ------------ | ------------- |
 | residual	| float64	| n | residual income in node |
 | locked	| float64	| n | locked income in node |
@@ -86,12 +87,12 @@ page_id: start from 0
 | node_fee	| float64	| n	| withdraw fee in node |
 
 
-### Withdraw incentives
+### 4. Withdraw incentives
 
-[POST] /account/{account_id}/tokens/incentives/withdrawal
+[POST] /accounts/{account_id}/tokens/incentives/withdrawal
 
 #### Request
-| Parameter | Type | Optional | Description |
+| Name | Type | Optional | Description |
 | ------------ | ------------- | ------------ | ------------- |
 | node_id | string	| Yes	| withdraw node id |
 | account_id  | string	| Yes	| Root account id. |
@@ -99,16 +100,17 @@ page_id: start from 0
 | signature	| string	| Yes	| [Metadata signature](./README.md#dtcp-metadata-signature). |
 
 #### Response
-| Parameter | Type | Optional | Description |
+| Name | Type | Optional | Description |
 | ------------ | ------------- | ------------ | ------------- |
 | dna | string | n |  withdraw dna |
 
-### Get token lock list
 
-[GET] /account/{account_id}/tokens/locks
+### 5. Get token lock list
+
+[GET] /accounts/{account_id}/tokens/locks
 
 #### Response
-| Parameter | Type | Optional | Description |
+| Name | Type | Optional | Description |
 | ------------ | ------------- | ------------ | ------------- |
 | records | []object | n | tokens lock history list |
 
@@ -128,12 +130,13 @@ page_id: start from 0
 | txstatus	| int	| n	| blockchain transaction status|
 | txhash	| string	| n	| blockchain TxHash |
 
-### Lock tokens
 
-[POST] /account/{account_id}/tokens/locks
+### 6. Lock tokens
+
+[POST] /accounts/{account_id}/tokens/locks
 
 #### Request
-| Parameter | Type | Optional | Description |
+| Name | Type | Optional | Description |
 | ------------ | ------------- | ------------ | ------------- |
 | node_id | string	| Yes	| predict lock node id |
 | account_id  | string	| Yes	| Root account id. |
@@ -141,16 +144,17 @@ page_id: start from 0
 | signature	| string	| Yes	| [Metadata signature](./README.md#dtcp-metadata-signature). |
 
 #### Response
-| Parameter | Type | Optional | Description |
+| Name | Type | Optional | Description |
 | ------------ | ------------- | ------------ | ------------- |
 | dna | string | n |  predict lock dna |
 
-### Unlock tokens
 
-[DELETE] /account/{account_id}/tokens/locks
+### 7. Unlock tokens
+
+[DELETE] /accounts/{account_id}/tokens/locks
 
 #### Request
-| Parameter | Type | Optional | Description |
+| Name | Type | Optional | Description |
 | ------------ | ------------- | ------------ | ------------- |
 | node_id | string	| Yes	| predict unlock node id |
 | account_id  | string	| Yes	| Root account id. |
@@ -158,6 +162,6 @@ page_id: start from 0
 | signature	| string	| Yes	| [Metadata signature](./README.md#dtcp-metadata-signature). |
 
 #### Response
-| Parameter | Type | Optional | Description |
+| Name | Type | Optional | Description |
 | ------------ | ------------- | ------------ | ------------- |
 | dna | string | n |  predict unlock dna |

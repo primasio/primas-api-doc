@@ -11,7 +11,7 @@
 
 #### Response
 
-| Name                | type    | Optional | Description |
+| Name                | Type    | Optional | Description |
 | --------------      | ------- | -------- | ---------------------------------------- |
 | id                  | string  | n        | Account id. |
 | address             | string  | n        | Account address. |
@@ -55,7 +55,7 @@ $ curl -x https://rigel-a.primas.network/v3/content -d '{"type":"article","conte
 
 #### Request
 
-| Name                | type    | Optional | Description |
+| Name                | Type    | Optional | Description |
 | --------------      | ------- | -------- | ---------------------------------------- |
 | name                | string  | n        | Name. |
 | abstract            | string  | y        | Description. |
@@ -80,7 +80,7 @@ $ curl -x https://rigel-a.primas.network/v3/content -d '{"type":"article","conte
 
 #### Response
 
-| Parameter | Type | Optional | Description |
+| Name | Type | Optional | Description |
 | ------------ | ------------- | ------------ | ------------- | 
 |  id  | string | n | The id of the account. |
 |  dna  | string | n | The DNA of the account. |
@@ -101,7 +101,7 @@ $ curl -x https://rigel-a.primas.network/v3/content -d '{"type":"article","conte
 
 #### Request
 
-| Name                | type    | Optional | Description |
+| Name                | Type    | Optional | Description |
 | --------------      | ------- | -------- | ---------------------------------------- |
 | name                | string  | y        | Name. |
 | abstract            | string  | y        | Description. |
@@ -125,7 +125,7 @@ $ curl -x https://rigel-a.primas.network/v3/content -d '{"type":"article","conte
 
 #### Response
 
-| Parameter | Type | Optional | Description |
+| Name | Type | Optional | Description |
 | ------------ | ------------- | ------------ | ------------- | 
 | dna | string | n | Updated DNA of the (sub) account. |
 

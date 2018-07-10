@@ -67,7 +67,7 @@ to set a price on the authorization of the content:
 
 #### Response
 
-| Name                | type    | Optional | Description |
+| Name                | Type    | Optional | Description |
 | --------------      | ------- | -------- | ---------------------------------------- |
 | id                  | string  | n        | Content id.|
 | type                | string  | n        | Content type. Currently "article", "image" are supported. |
@@ -87,7 +87,7 @@ to set a price on the authorization of the content:
 
 For image metadata, there're more fields:
 
-| name     | type    | must | comment              |
+| Name     | Type    | Optional | Description              |
 | -------- | ------- | ---- | -------------------- |
 | ext      | string  | n    | image format, such as 'png', 'jpg' |
 | width    | integer | n    | image width in pixels |
@@ -127,7 +127,7 @@ $ curl -x https://rigel-a.primas.network/v3/content/1GFYUNP815RUIFDNNRKLNU78RPCF
 
 #### Response
 
-| Parameter | Type | Optional | Description |
+| Name | Type | Optional | Description |
 | ------------ | ------------- | ------------ | ------------- | 
 |  content  | string | no | Base64 encoded raw content |
 
@@ -147,7 +147,7 @@ $ curl -x https://rigel-a.primas.network/v3/content/1GFYUNP815RUIFDNNRKLNU78RPCF
 
 #### Request
 
-| Name                | type    | Optional | Description |
+| Name                | Type    | Optional | Description |
 | --------------      | ------- | -------- | ---------------------------------------- |
 | type                | string  | n        | Content type. Currently "article", "image" are supported. |
 | title               | string  | n        | Content title. |
@@ -162,7 +162,7 @@ $ curl -x https://rigel-a.primas.network/v3/content/1GFYUNP815RUIFDNNRKLNU78RPCF
 
 `creator` object:
 
-| Name                | type    | Optional | Description |
+| Name                | Type    | Optional | Description |
 | --------------      | ------- | -------- | ---------------------------------------- |
 | dna                 | string  | n        | Person DNA. Root account DNA in the case of Sub account posting. |
 | sub_account_id      | string  | y        | Sub account id. Refer to [Sub account](./README.md#sub-accounts) for details. |
@@ -170,7 +170,7 @@ $ curl -x https://rigel-a.primas.network/v3/content/1GFYUNP815RUIFDNNRKLNU78RPCF
 
 #### Response
 
-| Parameter | Type | Optional | Description |
+| Name | Type | Optional | Description |
 | ------------ | ------------- | ------------ | ------------- | 
 |  id  | string | n | The id of the content. |
 |  dna  | string | n | The DNA of the content. |
@@ -191,7 +191,7 @@ $ curl -x https://rigel-a.primas.network/v3/content -d '{"type":"article","conte
 
 #### Request
 
-| Name                | type    | Optional | Description |
+| Name                | Type    | Optional | Description |
 | --------------      | ------- | -------- | ---------------------------------------- |
 | title               | string  | n        | Content title. |
 | abstract            | string  | n        | Content abstract. |
@@ -204,13 +204,13 @@ $ curl -x https://rigel-a.primas.network/v3/content -d '{"type":"article","conte
 
 `creator` object:
 
-| Name                | type    | Optional | Description |
+| Name                | Type    | Optional | Description |
 | --------------      | ------- | -------- | ---------------------------------------- |
 | sub_account_id      | string  | n        | Sub account id. Refer to [Sub account](./README.md#sub-accounts) for details. |
 
 #### Response
 
-| Parameter | Type | Optional | Description |
+| Name | Type | Optional | Description |
 | ------------ | ------------- | ------------ | ------------- | 
 |  dna  | string | n | The updated DNA of the content. |
 

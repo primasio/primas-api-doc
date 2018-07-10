@@ -8,7 +8,7 @@
 
 #### Response
 
-| Name                | type    | Optional | Description |
+| Name                | Type    | Optional | Description |
 | --------------      | ------- | -------- | ---------------------------------------- |
 | id                  | string  | n        | Group id. |
 | title               | string  | n        | Group title. |
@@ -25,7 +25,7 @@
 
 `creator` object:
 
-| Name                | type    | Optional | Description |
+| Name                | Type    | Optional | Description |
 | --------------      | ------- | -------- | ---------------------------------------- |
 | account_id          | string  | n        | Root account id. |
 | account_name        | string  | n        | Root account name. |
@@ -34,7 +34,7 @@
 
 `extra` object:
 
-| Name                | type    | Optional | Description |
+| Name                | Type    | Optional | Description |
 | --------------      | ------- | -------- | ---------------------------------------- |
 | allow_join          | string  | n        | Joining group control. "all" or "application". |
 | allow_post          | string  | n        | Posting control. "all", "none", "application". |
@@ -47,7 +47,7 @@
 
 #### Request
 
-| Name                | type    | Optional | Description |
+| Name                | Type    | Optional | Description |
 | --------------      | ------- | -------- | ---------------------------------------- |
 | title               | string  | n        | Group title. |
 | creator             | object  | n        | Creator. |
@@ -61,7 +61,7 @@
 
 `creator` object:
 
-| Name                | type    | Optional | Description |
+| Name                | Type    | Optional | Description |
 | --------------      | ------- | -------- | ---------------------------------------- |
 | id                  | string  | n        | Account id. Root account id in the case of Sub account posting. |
 | sub_account_id      | string  | y        | Sub account id. Refer to [Sub account](./README.md#sub-accounts) for details. |
@@ -69,7 +69,7 @@
 
 `extra` object:
 
-| Name                | type    | Optional | Description |
+| Name                | Type    | Optional | Description |
 | --------------      | ------- | -------- | ---------------------------------------- |
 | allow_join          | string  | n        | Joining group control. "all" or "application". |
 | allow_post          | string  | n        | Posting control. "all", "none", "application". |
@@ -77,7 +77,7 @@
 
 #### Response
 
-| Parameter | Type | Optional | Description |
+| Name | Type | Optional | Description |
 | ------------ | ------------- | ------------ | ------------- | 
 |  id  | string | n | The id of the group. |
 |  dna  | string | n | The DNA of the group. |
