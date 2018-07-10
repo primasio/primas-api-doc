@@ -9,12 +9,11 @@
 
 #### Response
 | Name | Type | Optional | Description |
-| ------------ | ------------- | ------------ | ------------- | 
-| total	 |float64	| n | total token balance |
-| available	 | float64	| n | available online token |
-| prelock	| float64 | n | pre-lock token|
-| residual	| float64	| n | residual income in node |
-
+| ----------------- | ----- | --- | ------------- | 
+| balance           | float | n   | token balance |
+| prelock_all       | float | n   | total pre-locked amount |
+| prelock_available | float | n   | remaining pre-locked amount | 
+| incentives        | float | n   | amount in the node's incentives pool |
 
 ### 2. Get incentives list
 
