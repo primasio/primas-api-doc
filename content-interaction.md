@@ -7,7 +7,7 @@ When interacting with content, the corresponding group DNA must be provided.
 
 ### Get content shares
 
-[GET] /shares/{share_dna}/shares?page_id={page_id}
+[GET] /shares/{share_id}/shares?page_id={page_id}
 page_id: start from 0 
 
 #### Response
@@ -21,6 +21,7 @@ page_id: start from 0
 | --------------      | ------- | -------- | ---------------------------------------- |
 | content_id | string  | n | Content id. |
 | group_id | string | n | Group id. |
+| share_id | string | n |  share id |
 | share_dna | string | n |  share dna |
 | created | string  | n | People creation time. Unix timestamp. |
 | creator | object  | n | Operator of the share like.  |
@@ -40,7 +41,7 @@ page_id: start from 0
 
 ### Share content
 
-[POST] /shares/{share_dna}/shares
+[POST] /shares/{share_id}/shares
 
 #### Request
 | Name | Type | Optional | Description |
@@ -68,7 +69,7 @@ page_id: start from 0
 
 ### Delete share
 
-[DELETE] /shares/{share_dna}/shares/{share_dna}
+[DELETE] /shares/{share_id}/shares
 
 #### Request
 | Name | Type | Optional | Description |
@@ -82,23 +83,23 @@ page_id: start from 0
 #### Response
 | Name | Type | Optional | Description |
 | ------------ | ------------- | ------------ | ------------- |
-| share_dna | string | n |  share dna |
+| share_id | string | n |  share id |
 
 
 ### Report shares
 
-[POST] /shares/{share_dna}/reports
+[POST] /shares/{share_id}/reports
 
 
 
 ### Get share reports
 
-[GET] /shares/{share_dna}/reports
+[GET] /shares/{share_id}/reports
 
 
 ### Get content likes
 
-[GET] /shares/{share_dna}/likes?page_id={page_id}
+[GET] /shares/{share_id}/likes?page_id={page_id}
 page_id: start from 0 
 
 #### Response
@@ -111,6 +112,7 @@ page_id: start from 0
 | Name                | Type    | Optional | Description |
 | --------------      | ------- | -------- | ---------------------------------------- |
 | content_id | string  | n | Content id. |
+| like_id | string | n |  share like id |
 | like_dna | string | n |  share like dna |
 | created | string  | n | People creation time. Unix timestamp. |
 | creator | object  | n | Operator of the share like.  |
@@ -131,7 +133,7 @@ page_id: start from 0
 
 ### Like content
 
-[POST] /shares/{share_dna}/likes
+[POST] /shares/{share_id}/likes
 
 #### Request
 | Name | Type | Optional | Description |
@@ -156,7 +158,7 @@ page_id: start from 0
 
 ### Delete like
 
-[DELETE] /shares/{share_dna}/likes/{like_dna}
+[DELETE] /shares/{share_id}/likes/{like_id}
 
 #### Request
 | Name | Type | Optional | Description |
@@ -176,11 +178,11 @@ page_id: start from 0
 #### Response
 | Name | Type | Optional | Description |
 | ------------ | ------------- | ------------ | ------------- |
-| like_dna | string | n |  share like dna |
+| like_id | string | n |  share like id |
 
 ### Get content comments
 
-[GET] /shares/{share_dna}/comments?page_id={page_id}&type={type}
+[GET] /shares/{share_id}/comments?page_id={page_id}&type={type}
 page_id: start from 0 
 type: 0=first level  1= second level 2= more than level
 
@@ -194,12 +196,14 @@ type: 0=first level  1= second level 2= more than level
 | Name                | Type    | Optional | Description |
 | --------------      | ------- | -------- | ---------------------------------------- |
 | content_id | string  | n | Content id. |
+| comment_id | string | n | share comment id |
 | comment_dna | string | n | share comment dna |
 | created | string  | n | People creation time. Unix timestamp. |
 | creator | object  | n | Operator of the share comment.  |
 | content | string  | n | content of the share comment.  |
 | content_hash | string  | n | Keccak256 hash of the raw share comment. |
 | to_people | object  | n | to comment people's comment |
+| parent_comment_id | string  | n | parent comment id |
 | parent_comment_dna | string  | n | parent comment dna |
 | type | int | n | comment type |
 | signature	| string | n | [Metadata signature](./README.md#dtcp-metadata-signature). |
@@ -230,7 +234,7 @@ type: 0=first level  1= second level 2= more than level
 
 ### Comment content
 
-[POST] /shares/{share_dna}/comments
+[POST] /shares/{share_id}/comments
 
 #### Request
 | Name | Type | Optional | Description |
@@ -241,7 +245,7 @@ type: 0=first level  1= second level 2= more than level
 | content | string  | n | content of the share comment.  |
 | content_hash | string  | n | Keccak256 hash of the raw share comment. |
 | to_people | object  | n | to comment people's comment |
-| parent_comment_dna | string  | y | parent comment dna |
+| parent_comment_id | string  | y | parent comment dna |
 | type | int | n | comment type |
 | signature	| string | n | [Metadata signature](./README.md#dtcp-metadata-signature). |
 
@@ -272,7 +276,7 @@ type: 0=first level  1= second level 2= more than level
 
 ### Delete comment
 
-[DELETE] /shares/{share_dna}/comments/{comment_dna}
+[DELETE] /shares/{share_id}/comments/{comment_id}
 
 #### Request
 | Name | Type | Optional | Description |
@@ -295,6 +299,6 @@ type: 0=first level  1= second level 2= more than level
 #### Response
 | Name | Type | Optional | Description |
 | ------------ | ------------- | ------------ | ------------- |
-| comment_dna | string | n |  share comment dna |
+| comment_id | string | n |  share comment id |
 
 
