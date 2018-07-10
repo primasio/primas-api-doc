@@ -112,6 +112,7 @@ $ curl -x https://rigel-a.primas.network/v3/content -d '{"type":"article","conte
 
 | Name         | Type        | Optional     | Description                                                |
 | ------------ | ----------- | ------------ | ---------------------------------------------------------- |
+| node_id      | string      | n            | Node id.
 | created      | string      | n            | Withdrawal creation time. Unix timestamp.                  |
 | amount       | big integer | n            | Withdraw amount value.                                     |
 | node_fee     | big integer | n            | Node charged withdrawal fee.                               |
