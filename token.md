@@ -3,87 +3,105 @@
 ## Token APIs
 
 
-### 1. Get token balances
+### 1. Get account tokens data
 
 [GET] /accounts/{account_id}/tokens
 
 #### Response
-| Name | Type | Optional | Description |
-| ----------------- | ----- | --- | ------------- | 
-| balance           | float | n   | token balance |
-| prelock_all       | float | n   | total pre-locked amount |
-| prelock_available | float | n   | remaining pre-locked amount | 
-| incentives        | float | n   | amount in the node's incentives pool |
+
+| Name                 | Type        | Optional | Description                           |
+| -------------------- | ----------- | -------- | ------------------------------------- | 
+| balance              | big integer | n        | Token balance.                        |
+| pre_lock_all         | big integer | n        | Total pre-locked amount.              |
+| pre_lock_available   | big integer | n        | Remaining pre-locked amount.          |
+| incentives_all       | big integer | n        | Total incentives.                     |
+| incentives_on_node   | big integer | n        | Amount in the node's incentives pool. |
+
+#### Example
+
+```bash
+$ curl -x https://rigel-a.primas.network/v3/content -d '{"type":"article","content":"...","signature":"..."}'
+
+{"result_code":0,"data":{"dna":"", ...}}
+
+```
+
 
 ### 2. Get incentives list
 
-[GET] /accounts/{account_id}/tokens/incentives?page_id={page_id}
+[GET] /accounts/{account_id}/tokens/incentives
+
+#### Query parameters
+
+| Name        | Type     | Optional | Description                       |
+| ----------- | -------- | -------- | --------------------------------- |
+| start_date  | integer  | y        | Query start date. Unix timestamp. |
+| end_date    | integer  | y        | Query end date. Unix timestamp.   |
+| page        | integer  | y        | Page number. Starts from 0.       |
+| page_size   | integer  | y        | Page size. Default to 20.         |
 
 #### Response
-| Name | Type | Optional | Description |
-| ------------ | ------------- | ------------ | ------------- |
-| originate	| float	| n	| originate incentive, example publish article |
-| alike	| float	| n	| alike incentive |
-| comment	| float	| n | comment incentive  |
-| share	| float	| n | share incentive |
-| manager	| float	| n	| manager group incentive |
-| yesterday	| float	| n	| yesterday incentive |
-| history_total	 | float	| n | history incentive total |
-| history_records | []object	| n | history incentive list |
 
-`history_records` object:
+Response `data` is an array whose element containing:
 
-| Name                | Type    | Optional | Description |
-| --------------      | ------- | -------- | ---------------------------------------- |
-| id | string | n |  incentive id |
-| dna | string | n |  operate dna |
-| content_id | string | n |  operate article content id |
-| type | string | n |  incentive type, originate, alike, comment, share, manager |
-| creator             | object  | n        | Creator. |
-| created | string  | n | operate creation time. Unix timestamp. |
-| incentive | float | n | incentive value |
-| signature           | string  | n        | [Metadata signature](./README.md#dtcp-metadata-signature). |
+| Name              | Type          | Optional | Description                           |
+| ----------------- | ------------- | -------- | ------------------------------------- |
+| date              | string        | n        | Incentives date. Unix timestamp.      |
+| total             | big integer   | n        | Total incentives get for today.       |
+| originals         | big integer   | n        | Incentives get from original.         |
+| likes             | big integer   | n        | Incentives get from likes.            |
+| comments          | big integer   | n        | Incentives get from comments.         |
+| shares            | big integer   | n        | Incentives get from shares.           |
+| groups            | big integer   | n        | Incentives get from group management. |
 
-`creator` object:
+#### Example
 
-| Name                | Type    | Optional | Description |
-| --------------      | ------- | -------- | ---------------------------------------- |
-| account_id          | string  | n        | Root account id. |
-| account_name        | string  | n        | Root account name. |
-| sub_account_id      | string  | y        | Sub account id. Refer to [Sub account](./README.md#sub-accounts) for details. |
-| sub_account_name    | string  | y        | Sub account name. For fast creation of new sub accounts. |
+```bash
+$ curl -x https://rigel-a.primas.network/v3/content -d '{"type":"article","content":"...","signature":"..."}'
+
+{"result_code":0,"data":{"dna":"", ...}}
+
+```
 
 
 ### 3. Get incentives withdrawal list
 
-[GET] /accounts/{account_id}/tokens/incentives/withdrawal?page_id={page_id}
-page_id: start from 0 
+[GET] /accounts/{account_id}/tokens/incentives/withdrawal
+
+#### Query parameters
+
+| Name        | Type     | Optional | Description                         |
+| ----------- | -------- | -------- | ----------------------------------- |
+| start_date  | integer  | y        | Query start date. Unix timestamp.   |
+| end_date    | integer  | y        | Query end date. Unix timestamp.     |
+| page        | integer  | y        | Page number. Starts from 0.         |
+| page_size   | integer  | y        | Page size. Default to 20.           |
+| status      | string   | y        | Status filter. "pending" or "done". |
 
 #### Response
-| Name | Type | Optional | Description |
-| ------------ | ------------- | ------------ | ------------- |
-| residual	| float	| n | residual income in node |
-| locked	| float	| n | locked income in node |
-| records | []object | n | withdraw audit and history list |
 
-`records` object:
+Response `data` is an array whose element containing:
 
-| Name                | Type    | Optional | Description |
-| --------------      | ------- | -------- | ---------------------------------------- |
-| account_id | string  | n  | Root account id. |
-| node_id	| string	| n	| withdraw from node id |
-| dna | string | n |  withdraw dna |
-| begin_time	| uint	| n | withdraw begin datetime |
-| check_time	| uint	| n | withdraw check datetime |
-| orderid	| string	| n	| withdraw orderid |
-| index	| uint	| n	| withdraw index |
-| amount | float	| n	| withdraw amount |
-| balance	| float	| n	| balance after withdraw |
-| status	| uint	| n	| withdraw status | 
-| isdelete	| uint	| n	| withdraw invalid |
-| txstatus	| int	| n	| blockchain transaction status |
-| txhash | string	| n | blockchain TxHash |
-| node_fee	| float	| n	| withdraw fee in node |
+| Name                | Type        | Optional | Description                                                   |
+| --------------      | ----------- | -------- | ------------------------------------------------------------- |
+| id                  | string      | n        | Withdrawal id.                                                |
+| created             | integer     | n        | Withdrawal created time. Unix timestamp.                      |
+| updated             | integer     | n        | Withdrawal updated time.                                      |
+| amount              | big integer | n        | Withdrawal amount.                                            |
+| balance_after       | big integer | n        | Balance after withdrawal.                                     |
+| node_fee            | big integer | n        | Node charged withdrawal fee.                                  |
+| status              | string      | n        | Withdrawal status. "pending", "done" or "cancelled".          |
+| transaction_hash    | string      | n        | Withdrawal transaction hash.                                  |
+| transaction_status  | string      | n        | Withdrawal transaction status. "pending", "done" or "failed". |
+
+#### Example
+
+```bash
+$ curl -x https://rigel-a.primas.network/v3/content -d '{"type":"article","content":"...","signature":"..."}'
+
+{"result_code":0,"data":{"dna":"", ...}}
+
+```
 
 
 ### 4. Withdraw incentives
@@ -91,81 +109,151 @@ page_id: start from 0
 [POST] /accounts/{account_id}/tokens/incentives/withdrawal
 
 #### Request
-| Name | Type | Optional | Description |
-| ------------ | ------------- | ------------ | ------------- |
-| node_id | string	| n	| withdraw node id |
-| account_id  | string	| n	| Root account id. |
-| created | string  | n | People creation time. Unix timestamp. |
-| amount	| float	| n	| withdraw amount value |
-| signature	| string	| n	| [Metadata signature](./README.md#dtcp-metadata-signature). |
+
+| Name         | Type        | Optional     | Description                                                |
+| ------------ | ----------- | ------------ | ---------------------------------------------------------- |
+| created      | string      | n            | Withdrawal creation time. Unix timestamp.                  |
+| amount       | big integer | n            | Withdraw amount value.                                     |
+| node_fee     | big integer | n            | Node charged withdrawal fee.                               |
+| signature    | string      | n            | [Metadata signature](./README.md#dtcp-metadata-signature). |
 
 #### Response
-| Name | Type | Optional | Description |
-| ------------ | ------------- | ------------ | ------------- |
-| dna | string | n |  withdraw dna |
+
+| Name | Type   | Optional | Description     |
+| ---- | ------ | -------- | --------------- |
+| id   | string | n        | Withdrawal id.  |
+
+#### Example
+
+```bash
+$ curl -x https://rigel-a.primas.network/v3/content -d '{"type":"article","content":"...","signature":"..."}'
+
+{"result_code":0,"data":{"dna":"", ...}}
+
+```
 
 
-### 5. Get token lock list
+### 5. Get token pre-lock list
 
-[GET] /accounts/{account_id}/tokens/locks?page_id={page_id}
-page_id: start from 0 
+[GET] /accounts/{account_id}/tokens/pre_locks
+
+#### Query parameters
+
+| Name        | Type     | Optional | Description                         |
+| ----------- | -------- | -------- | ----------------------------------- |
+| start_date  | integer  | y        | Query start date. Unix timestamp.   |
+| end_date    | integer  | y        | Query end date. Unix timestamp.     |
+| page        | integer  | y        | Page number. Starts from 0.         |
+| page_size   | integer  | y        | Page size. Default to 20.           |
+| type        | string   | y        | Type filter. "lock" or "unlock".    |
 
 #### Response
-| Name | Type | Optional | Description |
-| ------------ | ------------- | ------------ | ------------- |
-| records | []object | n | tokens lock history list |
 
-`records` object:
+| Name               | Type        | Optional | Description |
+| ------------------ | ----------- | -------- | ---------------------------------------- |
+| id                 | string      | n        | Lock id.        |
+| created            | string      | n        | Lock creation time. Unix timestamp. |
+| type               | string      | n        | Pre-lock type. "lock" or "unlock"   |
+| amount             | float       | n        | Pre-lock amount. |
+| signature          | string      | n        | [Metadata signature](./README.md#dtcp-metadata-signature). |
+| transaction_hash   | string      | n        | Transaction hash. |
+| transaction_status | string      | n        | Transaction status. "pending", "done" or "failed" |
 
-| Name                | Type    | Optional | Description |
-| --------------      | ------- | -------- | ---------------------------------------- |
-| node_id | string	| n	| predict lock node id |
-| account_id  | string	| n	| Root account id. |
-| dna | string | n |  predict lock dna |
-| created   | string  | n       | Content creation time. Unix timestamp. |
-| amount	| float	| n	| predict lock value |
-| signature	| string	| n	| [Metadata signature](./README.md#dtcp-metadata-signature). |
-| orderid	| string	| n	| predict lock orderid |
-| node_fee	| float	| n | node fee |
-| lock_type	| int	| n	| predict lock type |
-| txstatus	| int	| n	| blockchain transaction status|
-| txhash	| string	| n	| blockchain TxHash |
-| isdelete	| uint	| n	| record invalid |
+#### Example
+
+```bash
+$ curl -x https://rigel-a.primas.network/v3/content -d '{"type":"article","content":"...","signature":"..."}'
+
+{"result_code":0,"data":{"dna":"", ...}}
+
+```
 
 
-### 6. Lock tokens
+### 6. Pre-lock tokens
 
-[POST] /accounts/{account_id}/tokens/locks
+[POST] /accounts/{account_id}/tokens/pre_locks
 
 #### Request
-| Name | Type | Optional | Description |
-| ------------ | ------------- | ------------ | ------------- |
-| node_id | string	| n	| predict lock node id |
-| account_id  | string	| n	| Root account id. |
-| created | string  | n | People creation time. Unix timestamp. |
-| amount	| float	| n	| withdraw amount value |
-| signature	| string	| n	| [Metadata signature](./README.md#dtcp-metadata-signature). |
+
+| Name             | Type    | Optional | Description                            |
+| ---------------- | ------- | -------- | -------------------------------------- |
+| transaction      | string  | n        | Signed raw transaction to lock tokens. |
 
 #### Response
-| Name | Type | Optional | Description |
-| ------------ | ------------- | ------------ | ------------- |
-| dna | string | n |  predict lock dna |
+
+| Name    | Type   | Optional | Description  |
+| ------- | ------ | -------- | ------------ |
+| id      | string | n        | Pre-lock id. |
+
+#### Example
+
+```bash
+$ curl -x https://rigel-a.primas.network/v3/content -d '{"type":"article","content":"...","signature":"..."}'
+
+{"result_code":0,"data":{"dna":"", ...}}
+
+```
 
 
-### 7. Unlock tokens
+### 7. Unlock pre-locked tokens
 
-[DELETE] /accounts/{account_id}/tokens/locks
+[DELETE] /accounts/{account_id}/tokens/pre_locks
 
 #### Request
-| Name | Type | Optional | Description |
-| ------------ | ------------- | ------------ | ------------- |
-| node_id | string	| Yes	| predict unlock node id |
-| account_id  | string	| n	| Root account id. |
-| created | string  | n | People creation time. Unix timestamp. |
-| amount	| float	| n	| withdraw amount value |
-| signature	| string	| n	| [Metadata signature](./README.md#dtcp-metadata-signature). |
+
+| Name         | Type        | Optional | Description                                                |
+| ------------ | ----------- | -------- | ---------------------------------------------------------- |
+| node_id      | string      | n        | Primas Node id.                                            |
+| created      | string      | n        | People creation time. Unix timestamp.                      |
+| amount       | big integer | n        | Unlock amount.                                             |
+| signature    | string      | n        | [Metadata signature](./README.md#dtcp-metadata-signature). |
 
 #### Response
-| Name | Type | Optional | Description |
-| ------------ | ------------- | ------------ | ------------- |
-| dna | string | n |  predict unlock dna |
+
+| Name    | Type   | Optional | Description  |
+| ------- | ------ | -------- | ------------ |
+| id      | string | n        | Pre-lock id. |
+
+#### Example
+
+```bash
+$ curl -x https://rigel-a.primas.network/v3/content -d '{"type":"article","content":"...","signature":"..."}'
+
+{"result_code":0,"data":{"dna":"", ...}}
+
+```
+
+
+### 8. Get token lock list
+
+[GET] /accounts/{account_id}/tokens/locks
+
+#### Query parameters
+
+| Name        | Type     | Optional | Description                                     |
+| ----------- | -------- | -------- | ----------------------------------------------- |
+| start_date  | integer  | y        | Query start date. Unix timestamp.               |
+| end_date    | integer  | y        | Query end date. Unix timestamp.                 |
+| page        | integer  | y        | Page number. Starts from 0.                     |
+| page_size   | integer  | y        | Page size. Default to 20.                       |
+| type        | string   | y        | Type filter. "content", "group" or "report".    |
+
+#### Response
+
+| Name      | Type        | Optional | Description |
+| --------- | ----------- | -------- | -------------------------------------------------------- |
+| id        | string      | n       | Lock id.                                                  |
+| amount	| big integer | n	    | Lock amount.                                              |
+| expire    | integer     | n       | Lock expire time. Unix timestamp. 0 for non-expire locks. |
+| type      | string      | n       | Lock type. "content", "group" or "report".                |
+| object_id | string      | n       | Locked object(content, group, report) id.                 |
+| created   | string      | n       | Lock creation time. Unix timestamp.                       |
+
+#### Example
+
+```bash
+$ curl -x https://rigel-a.primas.network/v3/content -d '{"type":"article","content":"...","signature":"..."}'
+
+{"result_code":0,"data":{"dna":"", ...}}
+
+```
