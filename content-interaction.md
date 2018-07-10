@@ -48,6 +48,7 @@ page_id: start from 0
 | ------------ | ------------- | ------------ | ------------- |
 | content_id | string  | n | Content id. |
 | group_id | string | n | Group id. |
+| share_id | string | n | Share id. |
 | created | string  | n | People creation time. Unix timestamp. |
 | creator | object  | n | Creator of the share .  |
 | signature	| string | n | [Metadata signature](./README.md#dtcp-metadata-signature). |
@@ -77,6 +78,7 @@ page_id: start from 0
 | ------------ | ------------- | ------------ | ------------- |
 | content_id | string  | n | Content id. |
 | group_id | string | n | Group id. |
+| share_id | string | n | Share id. |
 | created | string  | n | People creation time. Unix timestamp. |
 | creator | object  | n | Creator of the share .  |
 | signature	| string | n | [Metadata signature](./README.md#dtcp-metadata-signature). |
@@ -113,6 +115,7 @@ page_id: start from 0
 | Name                | Type    | Optional | Description |
 | --------------      | ------- | -------- | ---------------------------------------- |
 | content_id | string  | n | Content id. |
+| share_id | string | n | Share id. |
 | like_id | string | n |  share like id |
 | like_dna | string | n |  share like dna |
 | created | string  | n | People creation time. Unix timestamp. |
@@ -140,6 +143,7 @@ page_id: start from 0
 | Name | Type | Optional | Description |
 | ------------ | ------------- | ------------ | ------------- |
 | content_id | string  | n | Content id. |
+| share_id | string | n | Share id. |
 | created | string  | n | People creation time. Unix timestamp. |
 | creator | object  | n | Creator of the share like.  |
 | signature	| string | n | [Metadata signature](./README.md#dtcp-metadata-signature). |
@@ -166,6 +170,7 @@ page_id: start from 0
 | Name | Type | Optional | Description |
 | ------------ | ------------- | ------------ | ------------- |
 | content_id | string  | n | Content id. |
+| share_id | string | n | Share id. |
 | created | string  | n | People creation time. Unix timestamp. |
 | creator | object  | n | Operator of the share like delete .  |
 | signature	| string | n | [Metadata signature](./README.md#dtcp-metadata-signature). |
@@ -198,6 +203,7 @@ type: 0=first level  1= second level 2= more than level
 | Name                | Type    | Optional | Description |
 | --------------      | ------- | -------- | ---------------------------------------- |
 | content_id | string  | n | Content id. |
+| share_id | string | n | Share id. |
 | comment_id | string | n | share comment id |
 | comment_dna | string | n | share comment dna |
 | created | string  | n | People creation time. Unix timestamp. |
@@ -242,6 +248,7 @@ type: 0=first level  1= second level 2= more than level
 | Name | Type | Optional | Description |
 | ------------ | ------------- | ------------ | ------------- |
 | content_id | string  | n | Content id. |
+| share_id | string | n | Share id. |
 | created | string  | n | People creation time. Unix timestamp. |
 | creator | object  | n | Operator of the share comment.  |
 | content | string  | n | content of the share comment.  |
@@ -285,6 +292,7 @@ type: 0=first level  1= second level 2= more than level
 | Name | Type | Optional | Description |
 | ------------ | ------------- | ------------ | ------------- |
 | content_id | string  | n | Content id. |
+| share_id | string | n | Share id. |
 | created | string  | n | People creation time. Unix timestamp. |
 | creator | object  | n | Operator of the share comment.  |
 | signature	| string | n | [Metadata signature](./README.md#dtcp-metadata-signature). |

@@ -63,7 +63,7 @@
 
 | Name                | Type    | Optional | Description |
 | --------------      | ------- | -------- | ---------------------------------------- |
-| id                  | string  | n        | Account id. Root account id in the case of Sub account posting. |
+| account_id          | string  | n        | Account id. Root account id in the case of Sub account posting. |
 | sub_account_id      | string  | y        | Sub account id. Refer to [Sub account](./README.md#sub-accounts) for details. |
 | sub_account_name    | string  | y        | Sub account name. For fast creation of new sub accounts. |
 
@@ -96,58 +96,428 @@ $ curl -x https://rigel-a.primas.network/v3/content -d '{"type":"article","conte
 
 [PUT] /groups/{group_id}
 
+#### Request
+
+| Name                | Type    | Optional | Description |
+| --------------      | ------- | -------- | ---------------------------------------- |
+| title               | string  | n        | Group title. |
+| creator             | object  | n        | Creator. |
+| avatar              | string  | n        | An image id used for avatar. |
+| abstract            | string  | n        | Group introduction. |
+| language            | string  | n        | Group language. [RFC4646](http://www.ietf.org/rfc/rfc4646.txt) defined locales such as "en-US" |
+| category            | string  | n        | Group categories. Comma separated words list. |
+| created             | string  | n        | Group update time. Unix timestamp. |
+| extra               | object  | n        | Extra metadata. |
+| signature           | string  | n        | [Metadata signature](./README.md#dtcp-metadata-signature). |
+
+`creator` object:
+
+| Name                | Type    | Optional | Description |
+| --------------      | ------- | -------- | ---------------------------------------- |
+| account_id          | string  | n        | Account id. Root account id in the case of Sub account posting. |
+| sub_account_id      | string  | y        | Sub account id. Refer to [Sub account](./README.md#sub-accounts) for details. |
+| sub_account_name    | string  | y        | Sub account name. For fast creation of new sub accounts. |
+
+`extra` object:
+
+| Name                | Type    | Optional | Description |
+| --------------      | ------- | -------- | ---------------------------------------- |
+| allow_join          | string  | n        | Joining group control. "all" or "application". |
+| allow_post          | string  | n        | Posting control. "all", "none", "application". |
+| allow_post_whitelist| array   | y        | An array containing `account_id`s that can always post in the group. |
+
+#### Response
+
+| Name | Type | Optional | Description |
+| ------------ | ------------- | ------------ | ------------- | 
+|  dna  | string | n | The DNA of the group. |
+
+
 ### Dismiss group
 
 [DELETE] /groups/{group_id}
+
+#### Request
+
+| Name                | Type    | Optional | Description |
+| --------------      | ------- | -------- | ---------------------------------------- |
+| creator             | object  | n        | Creator. |
+| created             | string  | n        | Group operate time. Unix timestamp. |
+| signature           | string  | n        | [Metadata signature](./README.md#dtcp-metadata-signature). |
+
+#### Response
+
+| Name | Type | Optional | Description |
+| ------------ | ------------- | ------------ | ------------- | 
+|  group_id  | string | n | The id of the group. |
 
 ### Get group members
 
 [GET] /groups/{group_id}/members
 
+#### Response
+
+| Name                | Type    | Optional | Description |
+| --------------      | ------- | -------- | ---------------------------------------- |
+| group_id            | string    | n        | Group id. |
+| members             | []object  | n        | Members. |
+
+
+`members` object:
+
+| Name                | Type    | Optional | Description |
+| --------------      | ------- | -------- | ---------------------------------------- |
+| account_id          | string  | n        | Root account id. |
+| account_name        | string  | n        | Root account name. |
+| sub_account_id      | string  | y        | Sub account id. Refer to [Sub account](./README.md#sub-accounts) for details. |
+| sub_account_name    | string  | y        | Sub account name. For fast creation of new sub accounts. |
+| created             | uint    | n        | Join group operate time. |
+| avatar              | string  | n        | member avatar |
+| height              | uint    | n        | member avatar height |
+| width               | uint    | n        | member avatar width |
+| extra               | uint    | n        | member avatar width |
+| isdetele            | uint    | n        | member invalid |
+
 ### Get group member applications
 
 [GET] /groups/{group_id}/members/applications
+
+#### Response
+
+| Name                | Type    | Optional | Description |
+| --------------      | ------- | -------- | ---------------------------------------- |
+| group_id            | string    | n        | Group id. |
+| applications        | []object  | n        | Members. |
+
+`applications` object:
+
+| Name                | Type    | Optional | Description |
+| --------------      | ------- | -------- | ---------------------------------------- |
+| application_id      | string  | n        | Root application id. |
+| application_dna     | string  | n        | Root application dna. |
+| account_id          | string  | n        | Root account id. |
+| account_name        | string  | n        | Root account name. |
+| sub_account_id      | string  | y        | Sub account id. Refer to [Sub account](./README.md#sub-accounts) for details. |
+| sub_account_name    | string  | y        | Sub account name. For fast creation of new sub accounts. |
+| created             | uint    | n        | Join group operate time. |
+| avatar              | string  | n        | member avatar |
+| height              | uint    | n        | member avatar height |
+| width               | uint    | n        | member avatar width |
+| extra               | uint    | n        | member avatar width |
+| application_result  | uint    | n        | Application result |
+| isdetele            | uint    | n        | member invalid |
+
 
 ### Apply to join group
 
 [POST] /groups/{group_id}/members/applications
 
+#### Request
+
+| Name                | Type    | Optional | Description |
+| --------------      | ------- | -------- | ---------------------------------------- |
+| group_id            | string  | n        | Group id. |
+| creator             | object  | n        | Creator. |
+| created             | string  | n        | Group update time. Unix timestamp. |
+| signature           | string  | n        | [Metadata signature](./README.md#dtcp-metadata-signature). |
+
+`creator` object:
+
+| Name                | Type    | Optional | Description |
+| --------------      | ------- | -------- | ---------------------------------------- |
+| account_id          | string  | n        | Account id. Root account id in the case of Sub account posting. |
+| sub_account_id      | string  | y        | Sub account id. Refer to [Sub account](./README.md#sub-accounts) for details. |
+| sub_account_name    | string  | y        | Sub account name. For fast creation of new sub accounts. |
+
+#### Response
+
+| Name | Type | Optional | Description |
+| ------------ | ------------- | ------------ | ------------- | 
+| application_id      | string  | n        | Root application id.  |
+| application_dna     | string  | n        | Root application dna. |
+
 ### Cancel member application
 
 [DELETE] /groups/{group_id}/members/applications/{account_id}
+
+#### Request
+
+| Name                | Type    | Optional | Description |
+| --------------      | ------- | -------- | ---------------------------------------- |
+| group_id            | string  | n        | Group id. |
+| creator             | object  | n        | Creator. |
+| created             | string  | n        | Group update time. Unix timestamp. |
+| signature           | string  | n        | [Metadata signature](./README.md#dtcp-metadata-signature). |
+
+`creator` object:
+
+| Name                | Type    | Optional | Description |
+| --------------      | ------- | -------- | ---------------------------------------- |
+| account_id          | string  | n        | Account id. Root account id in the case of Sub account posting. |
+| sub_account_id      | string  | y        | Sub account id. Refer to [Sub account](./README.md#sub-accounts) for details. |
+| sub_account_name    | string  | y        | Sub account name. For fast creation of new sub accounts. |
+
+#### Response
+
+| Name | Type | Optional | Description |
+| ------------ | ------------- | ------------ | ------------- | 
+| application_id      | string  | n        | Root application id.  |
+| application_dna     | string  | n        | Root application dna. |
 
 ### Approve or decline application
 
 [PUT] /groups/{group_id}/members/applications/{account_id}
 
+#### Request
+
+| Name                | Type    | Optional | Description |
+| --------------      | ------- | -------- | ---------------------------------------- |
+| application_id      | string  | n        | Root application id.  |
+| application_dna     | string  | n        | Root application dna. |
+| group_id            | string  | n        | Group id. |
+| creator             | object  | n        | Creator. |
+| created             | string  | n        | Group update time. Unix timestamp. |
+| signature           | string  | n        | [Metadata signature](./README.md#dtcp-metadata-signature). |
+
+`creator` object:
+
+| Name                | Type    | Optional | Description |
+| --------------      | ------- | -------- | ---------------------------------------- |
+| account_id          | string  | n        | Account id. Root account id in the case of Sub account posting. |
+| sub_account_id      | string  | y        | Sub account id. Refer to [Sub account](./README.md#sub-accounts) for details. |
+| sub_account_name    | string  | y        | Sub account name. For fast creation of new sub accounts. |
+
+#### Response
+
+| Name | Type | Optional | Description |
+| ------------ | ------------- | ------------ | ------------- | 
+| application_id      | string  | n        | Root application id.  |
+| application_dna     | string  | n        | Root application dna. |
+
 ### Join group
 
 [POST] /groups/{group_id}/members
+
+#### Request
+
+| Name                | Type    | Optional | Description |
+| --------------      | ------- | -------- | ---------------------------------------- |
+| group_id            | string  | n        | Group id. |
+| creator             | object  | n        | Creator. |
+| created             | string  | n        | Join group time. Unix timestamp. |
+| signature           | string  | n        | [Metadata signature](./README.md#dtcp-metadata-signature). |
+
+`creator` object:
+
+| Name                | Type    | Optional | Description |
+| --------------      | ------- | -------- | ---------------------------------------- |
+| account_id          | string  | n        | Account id. Root account id in the case of Sub account posting. |
+| sub_account_id      | string  | y        | Sub account id. Refer to [Sub account](./README.md#sub-accounts) for details. |
+| sub_account_name    | string  | y        | Sub account name. For fast creation of new sub accounts. |
+
+#### Response
+
+| Name | Type | Optional | Description |
+| ------------ | ------------- | ------------ | ------------- | 
+| group_join_id      | string  | n        | join group id.  |
+| group_join_dna     | string  | n        | join group dna. |
 
 ### Quit group
 
 [DELETE] /groups/{group_id}/members/{account_id}
 
+#### Request
+
+| Name                | Type    | Optional | Description |
+| --------------      | ------- | -------- | ---------------------------------------- |
+| group_id            | string  | n        | Group id. |
+| creator             | object  | n        | Creator. |
+| created             | string  | n        | Quit group time. Unix timestamp. |
+| signature           | string  | n        | [Metadata signature](./README.md#dtcp-metadata-signature). |
+
+`creator` object:
+
+| Name                | Type    | Optional | Description |
+| --------------      | ------- | -------- | ---------------------------------------- |
+| account_id          | string  | n        | Account id. Root account id in the case of Sub account posting. |
+| sub_account_id      | string  | y        | Sub account id. Refer to [Sub account](./README.md#sub-accounts) for details. |
+| sub_account_name    | string  | y        | Sub account name. For fast creation of new sub accounts. |
+
+#### Response
+
+| Name | Type | Optional | Description |
+| ------------ | ------------- | ------------ | ------------- | 
+| group_quit_id      | string  | n        | Quit group id.  |
+| group_quit_dna     | string  | n        | Quit group dna. |
+
 ### Get group shares
 
-[GET] /groups/{group_id}/shares
+[GET] /groups/{group_id}/shares?page_id={page_id}
+
+
+#### Response
+| Name | Type | Optional | Description |
+| ------------ | ------------- | ------------ | ------------- |
+| records      | []object      | n      | share history list |
+
+`records` object:
+
+| Name                | Type    | Optional | Description |
+| --------------      | ------- | -------- | ---------------------------------------- |
+| content_id          | string  | n        | Content id. |
+| group_id            | string  | n        | Group id. |
+| share_id            | string  | n        | Share id |
+| share_dna           | string  | n        | Share dna |
+| created             | string  | n        | People creation time. Unix timestamp. |
+| creator             | object  | n        | Operator of the share like.  |
+| signature	          | string  | n        | [Metadata signature](./README.md#dtcp-metadata-signature). |
+| txstatus	          | int	    | n	       | blockchain transaction status|
+| txhash	          | string	| n	       | blockchain TxHash |
+| isdelete	          | uint	| n	       | record invalid |
  
 ### Get group share applications
 
-[GET] /groups/{group_id}/shares/applications
+[GET] /groups/{group_id}/shares/applications?page_id={page_id}
+
+
+#### Response
+| Name | Type | Optional | Description |
+| ------------ | ------------- | ------------ | ------------- |
+| records      | []object      | n      | share history list |
+
+`records` object:
+
+| Name                  | Type    | Optional | Description |
+| --------------        | ------- | -------- | ---------------------------------------- |
+| content_id            | string  | n        | Content id. |
+| group_id              | string  | n        | Group id. |
+| share_id              | string  | n        | Share id |
+| share_dna             | string  | n        | Share dna |
+| share_application_id  | string  | n        | Share application id |
+| share_application_dna | string  | n        | Share application dna |
+| created               | string  | n        | People creation time. Unix timestamp. |
+| creator               | object  | n        | Operator of the share like.  |
+| signature	            | string  | n        | [Metadata signature](./README.md#dtcp-metadata-signature). |
+| txstatus	            | int	  | n	     | blockchain transaction status|
+| txhash	            | string  | n	     | blockchain TxHash |
+| application_result    | uint    | n        | Application result |
+| isdelete	            | uint	  | n	     | record invalid |
+
 
 ### Apply to share
 
 [POST] /groups/{group_id}/shares/applications
 
+#### Request
+
+| Name                | Type    | Optional | Description |
+| --------------      | ------- | -------- | ---------------------------------------- |
+| group_id            | string  | n        | Group id. |
+| creator             | object  | n        | Creator. |
+| created             | string  | n        | Share update time. Unix timestamp. |
+| signature           | string  | n        | [Metadata signature](./README.md#dtcp-metadata-signature). |
+
+`creator` object:
+
+| Name                | Type    | Optional | Description |
+| --------------      | ------- | -------- | ---------------------------------------- |
+| account_id          | string  | n        | Account id. Root account id in the case of Sub account posting. |
+| sub_account_id      | string  | y        | Sub account id. Refer to [Sub account](./README.md#sub-accounts) for details. |
+| sub_account_name    | string  | y        | Sub account name. For fast creation of new sub accounts. |
+
+#### Response
+
+| Name | Type | Optional | Description |
+| ------------ | ------------- | ------------ | ------------- | 
+| share_application_id      | string  | n        | Share application id.  |
+| share_application_dna     | string  | n        | Share application dna. |
+
 ### Approve or decline share application
 
 [PUT] /groups/{group_id}/shares/applications/{application_id}
  
+#### Request
+
+| Name                      | Type    | Optional | Description |
+| --------------            | ------- | -------- | ---------------------------------------- |
+| share_application_id      | string  | n        | Share application id.  |
+| share_application_dna     | string  | n        | Share application dna. |
+| group_id                  | string  | n        | Group id. |
+| creator                   | object  | n        | Creator. |
+| created                   | string  | n        | Share update time. Unix timestamp. |
+| signature                 | string  | n        | [Metadata signature](./README.md#dtcp-metadata-signature). |
+
+`creator` object:
+
+| Name                | Type    | Optional | Description |
+| --------------      | ------- | -------- | ---------------------------------------- |
+| account_id          | string  | n        | Account id. Root account id in the case of Sub account posting. |
+| sub_account_id      | string  | y        | Sub account id. Refer to [Sub account](./README.md#sub-accounts) for details. |
+| sub_account_name    | string  | y        | Sub account name. For fast creation of new sub accounts. |
+
+#### Response
+
+| Name | Type | Optional | Description |
+| ------------ | ------------- | ------------ | ------------- | 
+| share_application_id      | string  | n        | Share application id.  |
+| share_application_dna     | string  | n        | Share application dna. |
+
 ### Cancel share application
 
 [DELETE] /groups/{group_id}/shares/applications/{application_id}
- 
+
+#### Request
+
+| Name                      | Type    | Optional | Description |
+| --------------            | ------- | -------- | ---------------------------------------- |
+| share_application_id      | string  | n        | Share application id.  |
+| share_application_dna     | string  | n        | Share application dna. |
+| group_id                  | string  | n        | Group id. |
+| creator                   | object  | n        | Creator. |
+| created                   | string  | n        | Share update time. Unix timestamp. |
+| signature                 | string  | n        | [Metadata signature](./README.md#dtcp-metadata-signature). |
+
+`creator` object:
+
+| Name                | Type    | Optional | Description |
+| --------------      | ------- | -------- | ---------------------------------------- |
+| account_id          | string  | n        | Account id. Root account id in the case of Sub account posting. |
+| sub_account_id      | string  | y        | Sub account id. Refer to [Sub account](./README.md#sub-accounts) for details. |
+| sub_account_name    | string  | y        | Sub account name. For fast creation of new sub accounts. |
+
+#### Response
+
+| Name | Type | Optional | Description |
+| ------------ | ------------- | ------------ | ------------- | 
+| share_application_id      | string  | n        | Share application id.  |
+| share_application_dna     | string  | n        | Share application dna. |
+
 ### Delete group share
 
 [DELETE] /groups/{group_id}/shares/{share_id}
+
+#### Request
+
+| Name                      | Type    | Optional | Description |
+| --------------            | ------- | -------- | ---------------------------------------- |
+| content_id                | string  | n        | Content id. |
+| group_id                  | string  | n        | Group id. |
+| share_id                  | string  | n        | Share id. |
+| creator                   | object  | n        | Creator. |
+| created                   | string  | n        | Share update time. Unix timestamp. |
+| signature                 | string  | n        | [Metadata signature](./README.md#dtcp-metadata-signature). |
+
+`creator` object:
+
+| Name                | Type    | Optional | Description |
+| --------------      | ------- | -------- | ---------------------------------------- |
+| account_id          | string  | n        | Account id. Root account id in the case of Sub account posting. |
+| sub_account_id      | string  | y        | Sub account id. Refer to [Sub account](./README.md#sub-accounts) for details. |
+| sub_account_name    | string  | y        | Sub account name. For fast creation of new sub accounts. |
+
+#### Response
+
+| Name | Type | Optional | Description |
+| ------------ | ------------- | ------------ | ------------- | 
+| share_id      | string  | n        | Share application id.  |
+| share_dna     | string  | n        | Share application dna. |
