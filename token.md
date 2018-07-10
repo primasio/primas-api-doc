@@ -22,13 +22,13 @@
 #### Response
 | Name | Type | Optional | Description |
 | ------------ | ------------- | ------------ | ------------- |
-| originate	| float64	| n	| originate incentive, example publish article |
-| alike	| float64	| n	| alike incentive |
-| comment	| float64	| n | comment incentive  |
-| share	| float64	| n | share incentive |
-| manager	| float64	| n	| manager group incentive |
-| yesterday	| float64	| n	| yesterday incentive |
-| history_total	 | float64	| n | history incentive total |
+| originate	| float	| n	| originate incentive, example publish article |
+| alike	| float	| n	| alike incentive |
+| comment	| float	| n | comment incentive  |
+| share	| float	| n | share incentive |
+| manager	| float	| n	| manager group incentive |
+| yesterday	| float	| n	| yesterday incentive |
+| history_total	 | float	| n | history incentive total |
 | history_records | []object	| n | history incentive list |
 
 `history_records` object:
@@ -41,7 +41,7 @@
 | type | string | n |  incentive type, originate, alike, comment, share, manager |
 | creator             | object  | n        | Creator. |
 | created | string  | n | operate creation time. Unix timestamp. |
-| incentive | float64 | n | incentive value |
+| incentive | float | n | incentive value |
 | signature           | string  | n        | [Metadata signature](./README.md#dtcp-metadata-signature). |
 
 `creator` object:
@@ -62,8 +62,8 @@ page_id: start from 0
 #### Response
 | Name | Type | Optional | Description |
 | ------------ | ------------- | ------------ | ------------- |
-| residual	| float64	| n | residual income in node |
-| locked	| float64	| n | locked income in node |
+| residual	| float	| n | residual income in node |
+| locked	| float	| n | locked income in node |
 | records | []object | n | withdraw audit and history list |
 
 `records` object:
@@ -77,13 +77,13 @@ page_id: start from 0
 | check_time	| uint	| n | withdraw check datetime |
 | orderid	| string	| n	| withdraw orderid |
 | index	| uint	| n	| withdraw index |
-| amount | float64	| n	| withdraw amount |
-| balance	| float64	| n	| balance after withdraw |
+| amount | float	| n	| withdraw amount |
+| balance	| float	| n	| balance after withdraw |
 | status	| uint	| n	| withdraw status | 
 | isdelete	| uint	| n	| withdraw invalid |
 | txstatus	| int	| n	| blockchain transaction status |
 | txhash | string	| n | blockchain TxHash |
-| node_fee	| float64	| n	| withdraw fee in node |
+| node_fee	| float	| n	| withdraw fee in node |
 
 
 ### 4. Withdraw incentives
@@ -93,10 +93,11 @@ page_id: start from 0
 #### Request
 | Name | Type | Optional | Description |
 | ------------ | ------------- | ------------ | ------------- |
-| node_id | string	| Yes	| withdraw node id |
-| account_id  | string	| Yes	| Root account id. |
-| amount	| float64	| Yes	| withdraw amount value |
-| signature	| string	| Yes	| [Metadata signature](./README.md#dtcp-metadata-signature). |
+| node_id | string	| n	| withdraw node id |
+| account_id  | string	| n	| Root account id. |
+| created | string  | n | People creation time. Unix timestamp. |
+| amount	| float	| n	| withdraw amount value |
+| signature	| string	| n	| [Metadata signature](./README.md#dtcp-metadata-signature). |
 
 #### Response
 | Name | Type | Optional | Description |
@@ -106,7 +107,8 @@ page_id: start from 0
 
 ### 5. Get token lock list
 
-[GET] /accounts/{account_id}/tokens/locks
+[GET] /accounts/{account_id}/tokens/locks?page_id={page_id}
+page_id: start from 0 
 
 #### Response
 | Name | Type | Optional | Description |
@@ -121,13 +123,14 @@ page_id: start from 0
 | account_id  | string	| n	| Root account id. |
 | dna | string | n |  predict lock dna |
 | created   | string  | n       | Content creation time. Unix timestamp. |
-| amount	| float64	| n	| predict lock value |
+| amount	| float	| n	| predict lock value |
 | signature	| string	| n	| [Metadata signature](./README.md#dtcp-metadata-signature). |
 | orderid	| string	| n	| predict lock orderid |
-| node_fee	| float64	| n | node fee |
+| node_fee	| float	| n | node fee |
 | lock_type	| int	| n	| predict lock type |
 | txstatus	| int	| n	| blockchain transaction status|
 | txhash	| string	| n	| blockchain TxHash |
+| isdelete	| uint	| n	| record invalid |
 
 
 ### 6. Lock tokens
@@ -137,10 +140,11 @@ page_id: start from 0
 #### Request
 | Name | Type | Optional | Description |
 | ------------ | ------------- | ------------ | ------------- |
-| node_id | string	| Yes	| predict lock node id |
-| account_id  | string	| Yes	| Root account id. |
-| amount	| float64	| Yes	| withdraw amount value |
-| signature	| string	| Yes	| [Metadata signature](./README.md#dtcp-metadata-signature). |
+| node_id | string	| n	| predict lock node id |
+| account_id  | string	| n	| Root account id. |
+| created | string  | n | People creation time. Unix timestamp. |
+| amount	| float	| n	| withdraw amount value |
+| signature	| string	| n	| [Metadata signature](./README.md#dtcp-metadata-signature). |
 
 #### Response
 | Name | Type | Optional | Description |
@@ -156,9 +160,10 @@ page_id: start from 0
 | Name | Type | Optional | Description |
 | ------------ | ------------- | ------------ | ------------- |
 | node_id | string	| Yes	| predict unlock node id |
-| account_id  | string	| Yes	| Root account id. |
-| amount	| float64	| Yes	| withdraw amount value |
-| signature	| string	| Yes	| [Metadata signature](./README.md#dtcp-metadata-signature). |
+| account_id  | string	| n	| Root account id. |
+| created | string  | n | People creation time. Unix timestamp. |
+| amount	| float	| n	| withdraw amount value |
+| signature	| string	| n	| [Metadata signature](./README.md#dtcp-metadata-signature). |
 
 #### Response
 | Name | Type | Optional | Description |
