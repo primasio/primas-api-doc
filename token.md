@@ -113,7 +113,7 @@ $ curl -x https://rigel-a.primas.network/v3/content -d '{"type":"article","conte
 | Name         | Type        | Optional     | Description                                                |
 | ------------ | ----------- | ------------ | ---------------------------------------------------------- |
 | node_id      | string      | n            | Node id.
-| created      | string      | n            | Withdrawal creation time. Unix timestamp.                  |
+| created      | integer     | n            | Withdrawal creation time. Unix timestamp.                  |
 | amount       | big integer | n            | Withdraw amount value.                                     |
 | node_fee     | big integer | n            | Node charged withdrawal fee.                               |
 | signature    | string      | n            | [Metadata signature](./README.md#dtcp-metadata-signature). |
@@ -155,7 +155,7 @@ Response `data` is an array whose element containing:
 | Name               | Type        | Optional | Description |
 | ------------------ | ----------- | -------- | ---------------------------------------- |
 | id                 | string      | n        | Lock id.        |
-| created            | string      | n        | Lock creation time. Unix timestamp. |
+| created            | integer     | n        | Lock creation time. Unix timestamp. |
 | type               | string      | n        | Pre-lock type. "lock" or "unlock"   |
 | amount             | float       | n        | Pre-lock amount. |
 | signature          | string      | n        | [Metadata signature](./README.md#dtcp-metadata-signature). |
@@ -207,7 +207,7 @@ $ curl -x https://rigel-a.primas.network/v3/content -d '{"type":"article","conte
 | Name         | Type        | Optional | Description                                                |
 | ------------ | ----------- | -------- | ---------------------------------------------------------- |
 | node_id      | string      | n        | Primas Node id.                                            |
-| created      | string      | n        | People creation time. Unix timestamp.                      |
+| created      | integer     | n        | People creation time. Unix timestamp.                      |
 | amount       | big integer | n        | Unlock amount.                                             |
 | signature    | string      | n        | [Metadata signature](./README.md#dtcp-metadata-signature). |
 
@@ -252,7 +252,7 @@ Response `data` is an array whose element containing:
 | expire    | integer     | n       | Lock expire time. Unix timestamp. 0 for non-expire locks. |
 | type      | string      | n       | Lock type. "content", "group" or "report".                |
 | object_id | string      | n       | Locked object(content, group, report) id.                 |
-| created   | string      | n       | Lock creation time. Unix timestamp.                       |
+| created   | integer     | n       | Lock creation time. Unix timestamp.                       |
 
 #### Example
 
