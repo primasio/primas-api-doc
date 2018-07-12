@@ -220,14 +220,16 @@ $ curl -x https://rigel-a.primas.network/v3/content -d '{"type":"article","conte
 
 [GET] /groups/{group_id}/members/applications
 
+#### Query parameters
+
+| Name        | Type     | Optional | Description                       |
+| ----------- | -------- | -------- | --------------------------------- |
+| page        | integer  | y        | Page number. Starts from 0.       |
+| page_size   | integer  | y        | Page size. Default to 20.         |
+
 #### Response
 
-| Name                | Type    | Optional | Description |
-| --------------      | ------- | -------- | ---------------------------------------- |
-| group_id            | string    | n        | Group id. |
-| applications        | []object  | n        | Members. |
-
-`applications` object:
+Response `data` is an array of applications:
 
 | Name                | Type    | Optional | Description |
 | --------------      | ------- | -------- | ---------------------------------------- |
@@ -255,7 +257,7 @@ $ curl -x https://rigel-a.primas.network/v3/content -d '{"type":"article","conte
 ```
 
 
-### Apply to join group
+### 7. Apply to join group
 
 [POST] /groups/{group_id}/members/applications
 
@@ -263,7 +265,9 @@ $ curl -x https://rigel-a.primas.network/v3/content -d '{"type":"article","conte
 
 | Name                | Type    | Optional | Description |
 | --------------      | ------- | -------- | ---------------------------------------- |
-| group_id            | string  | n        | Group id. |
+| type                | string  | n        | Fixed to "group_application". |
+| src_id              | string  | n        | Account id. Root account id in the case of [Sub account](./README.md#sub-accounts). |
+| dest_id             | string  | n        | Group id. |
 | creator             | object  | n        | Creator. |
 | created             | string  | n        | Group update time. Unix timestamp. |
 | signature           | string  | n        | [Metadata signature](./README.md#dtcp-metadata-signature). |
@@ -280,8 +284,8 @@ $ curl -x https://rigel-a.primas.network/v3/content -d '{"type":"article","conte
 
 | Name | Type | Optional | Description |
 | ------------ | ------------- | ------------ | ------------- | 
-| application_id      | string  | n        | Root application id.  |
-| application_dna     | string  | n        | Root application dna. |
+| id      | string  | n        | Application id.  |
+| dna     | string  | n        | Application DNA. |
 
 ### Cancel member application
 
