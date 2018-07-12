@@ -17,8 +17,8 @@
 | abstract            | string  | n        | Group introduction. |
 | language            | string  | n        | Group language. [RFC4646](http://www.ietf.org/rfc/rfc4646.txt) defined locales such as "en-US" |
 | category            | string  | n        | Group categories. Comma separated words list. |
-| created             | string  | n        | Group creation time. Unix timestamp. |
-| updated             | string  | n        | Group last updating time. Unix timestamp. |
+| created             | integer | n        | Group creation time. Unix timestamp. |
+| updated             | integer | n        | Group last updating time. Unix timestamp. |
 | extra               | object  | n        | Extra metadata. |
 | signature           | string  | n        | [Metadata signature](./README.md#dtcp-metadata-signature). |
 | dna                 | string  | n        | Group DNA. |
@@ -49,13 +49,14 @@
 
 | Name                | Type    | Optional | Description |
 | --------------      | ------- | -------- | ---------------------------------------- |
+| type                | string  | n        | Fixed to "group". |
 | title               | string  | n        | Group title. |
 | creator             | object  | n        | Creator. |
 | avatar              | string  | n        | An image id used for avatar. |
 | abstract            | string  | n        | Group introduction. |
 | language            | string  | n        | Group language. [RFC4646](http://www.ietf.org/rfc/rfc4646.txt) defined locales such as "en-US" |
 | category            | string  | n        | Group categories. Comma separated words list. |
-| created             | string  | n        | Group creation time. Unix timestamp. |
+| created             | integer | n        | Group creation time. Unix timestamp. |
 | extra               | object  | n        | Extra metadata. |
 | signature           | string  | n        | [Metadata signature](./README.md#dtcp-metadata-signature). |
 
@@ -100,14 +101,16 @@ $ curl -x https://rigel-a.primas.network/v3/content -d '{"type":"article","conte
 
 | Name                | Type    | Optional | Description |
 | --------------      | ------- | -------- | ---------------------------------------- |
+| type                | string  | n        | Fixed to "group". |
 | title               | string  | n        | Group title. |
 | creator             | object  | n        | Creator. |
 | avatar              | string  | n        | An image id used for avatar. |
 | abstract            | string  | n        | Group introduction. |
 | language            | string  | n        | Group language. [RFC4646](http://www.ietf.org/rfc/rfc4646.txt) defined locales such as "en-US" |
 | category            | string  | n        | Group categories. Comma separated words list. |
-| created             | string  | n        | Group update time. Unix timestamp. |
+| updated             | integer | n        | Group update time. Unix timestamp. |
 | extra               | object  | n        | Extra metadata. |
+| parent_dna          | string  | n        | The latest DNA of the group. |
 | signature           | string  | n        | [Metadata signature](./README.md#dtcp-metadata-signature). |
 
 `creator` object:
@@ -129,56 +132,91 @@ $ curl -x https://rigel-a.primas.network/v3/content -d '{"type":"article","conte
 #### Response
 
 | Name | Type | Optional | Description |
-| ------------ | ------------- | ------------ | ------------- | 
-|  dna  | string | n | The DNA of the group. |
+| ------------ | ------------- | ------------ | ------------- |
+| id   | string | n | The id of the group. | 
+| dna  | string | n | The new DNA of the group. |
+
+#### Example
+
+```bash
+$ curl -x https://rigel-a.primas.network/v3/content -d '{"type":"article","content":"...","signature":"..."}'
+
+{"result_code":0,"data":{"dna":"", ...}}
+
+```
 
 
-### Dismiss group
+### 4. Dismiss group
 
 [DELETE] /groups/{group_id}
 
 #### Request
 
+**TODO: How to include delete op type in signature.** 
+
 | Name                | Type    | Optional | Description |
 | --------------      | ------- | -------- | ---------------------------------------- |
-| creator             | object  | n        | Creator. |
-| created             | string  | n        | Group operate time. Unix timestamp. |
+| updated             | string  | n        | Group operate time. Unix timestamp. |
+| parent_dna          | string  | n        | The latest DNA of the group. |
 | signature           | string  | n        | [Metadata signature](./README.md#dtcp-metadata-signature). |
 
 #### Response
 
 | Name | Type | Optional | Description |
 | ------------ | ------------- | ------------ | ------------- | 
-|  group_id  | string | n | The id of the group. |
+| id   | string | n | The id of the group. |
+| dna  | string | n | The latest DNA of the group. |
 
-### Get group members
+#### Example
+
+```bash
+$ curl -x https://rigel-a.primas.network/v3/content -d '{"type":"article","content":"...","signature":"..."}'
+
+{"result_code":0,"data":{"dna":"", ...}}
+
+```
+
+
+### 5. Get group members
 
 [GET] /groups/{group_id}/members
 
+#### Query parameters
+
+| Name        | Type     | Optional | Description                       |
+| ----------- | -------- | -------- | --------------------------------- |
+| page        | integer  | y        | Page number. Starts from 0.       |
+| page_size   | integer  | y        | Page size. Default to 20.         |
+
 #### Response
 
-| Name                | Type    | Optional | Description |
-| --------------      | ------- | -------- | ---------------------------------------- |
-| group_id            | string    | n        | Group id. |
-| members             | []object  | n        | Members. |
-
-
-`members` object:
+Response `data` is an array of accounts:
 
 | Name                | Type    | Optional | Description |
 | --------------      | ------- | -------- | ---------------------------------------- |
-| account_id          | string  | n        | Root account id. |
-| account_name        | string  | n        | Root account name. |
-| sub_account_id      | string  | y        | Sub account id. Refer to [Sub account](./README.md#sub-accounts) for details. |
-| sub_account_name    | string  | y        | Sub account name. For fast creation of new sub accounts. |
-| created             | uint    | n        | Join group operate time. |
-| avatar              | string  | n        | member avatar |
-| height              | uint    | n        | member avatar height |
-| width               | uint    | n        | member avatar width |
-| extra               | uint    | n        | member avatar width |
-| isdetele            | uint    | n        | member invalid |
+| id                  | string  | n        | Account id. |
+| address             | string  | n        | Account address. |
+| title               | string  | n        | Account name. |
+| abstract            | string  | y        | Description. |
+| avatar              | string  | y        | An image DNA used for avatar. |
+| creator             | object  | y        | Creator. Provided when this account is a [sub account](./README.md#sub-accounts). |
+| created             | string  | n        | Account creation time. Unix timestamp. |
+| updated             | string  | n        | Account last updating time. Unix timestamp. |
+| extra               | object  | y        | Extra metadata. |
+| signature           | string  | n        | [Metadata signature](./README.md#dtcp-metadata-signature). |
+| dna                 | string  | n        | DNA of the account. |
 
-### Get group member applications
+#### Example
+
+```bash
+$ curl -x https://rigel-a.primas.network/v3/content -d '{"type":"article","content":"...","signature":"..."}'
+
+{"result_code":0,"data":{"dna":"", ...}}
+
+```
+
+
+### 6. Get group member applications
 
 [GET] /groups/{group_id}/members/applications
 
@@ -206,6 +244,15 @@ $ curl -x https://rigel-a.primas.network/v3/content -d '{"type":"article","conte
 | extra               | uint    | n        | member avatar width |
 | application_result  | uint    | n        | Application result |
 | isdetele            | uint    | n        | member invalid |
+
+#### Example
+
+```bash
+$ curl -x https://rigel-a.primas.network/v3/content -d '{"type":"article","content":"...","signature":"..."}'
+
+{"result_code":0,"data":{"dna":"", ...}}
+
+```
 
 
 ### Apply to join group

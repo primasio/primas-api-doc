@@ -57,11 +57,12 @@ $ curl -x https://rigel-a.primas.network/v3/content -d '{"type":"article","conte
 
 | Name                | Type    | Optional | Description |
 | --------------      | ------- | -------- | ---------------------------------------- |
+| type                | string  | n        | Fixed to "account". |
 | name                | string  | n        | Name. |
 | abstract            | string  | y        | Description. |
 | avatar              | string  | y        | An image id used for avatar. |
 | creator             | object  | y        | Creator. Required when creating [sub account](./README.md#sub-accounts). |
-| created             | string  | n        | People creation time. Unix timestamp. |
+| created             | integer | n        | People creation time. Unix timestamp. |
 | extra               | object  | y        | Extra metadata. |
 | signature           | string  | n        | [Metadata signature](./README.md#dtcp-metadata-signature). |
 
@@ -103,12 +104,14 @@ $ curl -x https://rigel-a.primas.network/v3/content -d '{"type":"article","conte
 
 | Name                | Type    | Optional | Description |
 | --------------      | ------- | -------- | ---------------------------------------- |
+| type                | string  | n        | Fixed to "account". |
 | name                | string  | y        | Name. |
 | abstract            | string  | y        | Description. |
 | avatar              | string  | y        | An image DNA used for avatar. |
 | creator             | object  | y        | Creator. Required when updating [sub account](./README.md#sub-accounts). |
 | updated             | integer | y        | Updating time. Unix timestamp. |
 | extra               | object  | y        | Extra metadata. |
+| parent_dna          | string  | n        | The latest DNA of the account. |
 | signature           | string  | n        | [Metadata signature](./README.md#dtcp-metadata-signature). |
 
 `creator` object:

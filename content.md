@@ -76,8 +76,8 @@ to set a price on the authorization of the content:
 | abstract            | string  | n        | Content abstract. |
 | language            | string  | n        | Content language. [RFC4646](http://www.ietf.org/rfc/rfc4646.txt) defined locales such as "en-US" |
 | category            | string  | n        | Content categories. Comma separated words list. |
-| created             | string  | n        | Content creation time. Unix timestamp. |
-| updated             | string  | n        | Content last updating time. Unix timestamp. |
+| created             | integer | n        | Content creation time. Unix timestamp. |
+| updated             | integer | n        | Content last updating time. Unix timestamp. |
 | content             | string  | n        | Content URI. In the case of IPFS, a link starts with "ipfs://" |
 | content_hash        | string  | n        | Keccak256 hash of the raw content. |
 | license             | object  | y        | [Content authorization license](./content.md#content-licensing). |
@@ -155,7 +155,7 @@ $ curl -x https://rigel-a.primas.network/v3/content/1GFYUNP815RUIFDNNRKLNU78RPCF
 | abstract            | string  | n        | Content abstract. |
 | language            | string  | n        | Content language. [RFC4646](http://www.ietf.org/rfc/rfc4646.txt) defined locales such as "en-US" |
 | category            | string  | n        | Content categories. Comma separated words list. |
-| created             | string  | n        | Content creation time. Unix timestamp. |
+| created             | integer | n        | Content creation time. Unix timestamp. |
 | content             | string  | n        | Raw content in base64 encoded format. |
 | license             | object  | y        | [Content authorization license](./content.md#content-licensing). "none" is used if empty. |
 | signature           | string  | n        | [Metadata signature](./README.md#dtcp-metadata-signature). |
@@ -193,13 +193,15 @@ $ curl -x https://rigel-a.primas.network/v3/content -d '{"type":"article","conte
 
 | Name                | Type    | Optional | Description |
 | --------------      | ------- | -------- | ---------------------------------------- |
+| type                | string  | n        | Content type. Currently "article", "image" are supported. |
 | title               | string  | n        | Content title. |
 | abstract            | string  | n        | Content abstract. |
 | creator             | object  | n        | Creator. Required when updating from a sub account. |
 | category            | string  | n        | Content categories. Comma separated words list. |
-| updated             | string  | n        | Content updating time. Unix timestamp.|
+| updated             | integer | n        | Content updating time. Unix timestamp.|
 | content             | string  | n        | Raw content in base64 encoded format. |
 | license             | object  | y        | [Content authorization license](./content.md#content-licensing). "none" is used if empty. |
+| parent_dna          | string  | n        | Latest DNA of the content. |
 | signature           | string  | n        | [Metadata signature](./README.md#dtcp-metadata-signature). |
 
 `creator` object:
@@ -212,6 +214,7 @@ $ curl -x https://rigel-a.primas.network/v3/content -d '{"type":"article","conte
 
 | Name | Type | Optional | Description |
 | ------------ | ------------- | ------------ | ------------- | 
+|  id   | string | n | The id of the content. |
 |  dna  | string | n | The updated DNA of the content. |
 
 #### Example
