@@ -150,6 +150,8 @@ $ curl -x https://rigel-a.primas.network/v3/content -d '{"type":"article","conte
 
 #### Response
 
+Response `data` is an array whose element containing:
+
 | Name               | Type        | Optional | Description |
 | ------------------ | ----------- | -------- | ---------------------------------------- |
 | id                 | string      | n        | Lock id.        |
@@ -240,6 +242,8 @@ $ curl -x https://rigel-a.primas.network/v3/content -d '{"type":"article","conte
 | type        | string   | y        | Type filter. "content", "group" or "report".    |
 
 #### Response
+
+Response `data` is an array whose element containing:
 
 | Name      | Type        | Optional | Description |
 | --------- | ----------- | -------- | -------------------------------------------------------- |
