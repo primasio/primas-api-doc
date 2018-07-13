@@ -300,7 +300,8 @@ $ curl -x https://rigel-a.primas.network/v3/content -d '{"type":"article","conte
 | dest_id             | string  | n        | Group id. |
 | creator             | object  | n        | Creator. |
 | created             | integer | n        | Application creation time. Unix timestamp. |
-| status              | string  | n        | Fixed to "pending". |
+| status              | string  | n        | Fixed to "created". |
+| application_status  | string  | n        | Fixed to "pending". |
 | signature           | string  | n        | [Metadata signature](./README.md#dtcp-metadata-signature). |
 
 `creator` object:
@@ -342,7 +343,8 @@ $ curl -x https://rigel-a.primas.network/v3/content -d '{"type":"article","conte
 | dest_id             | string  | n        | Group id. |
 | creator             | object  | n        | Creator. |
 | updated             | integer | n        | Application updating time. Unix timestamp. |
-| status              | string  | n        | Fixed to "cancelled". |
+| status              | string  | n        | Fixed to "updated". |
+| application_status  | string  | n        | Fixed to "cancelled". |
 | parent_dna          | string  | n        | Latest application DNA. |
 | signature           | string  | n        | [Metadata signature](./README.md#dtcp-metadata-signature). |
 
@@ -383,7 +385,8 @@ $ curl -x https://rigel-a.primas.network/v3/content -d '{"type":"article","conte
 | dest_id             | string  | n        | Group id. |
 | creator             | object  | n        | Creator. |
 | updated             | integer | n        | Application updating time. Unix timestamp. |
-| status              | string  | n        | "approved" or "declined". |
+| status              | string  | n        | "updated". |
+| application_status  | string  | n        | "approved" or "declined". |
 | parent_dna          | string  | n        | Latest application DNA. |
 | signature           | string  | n        | [Metadata signature](./README.md#dtcp-metadata-signature). |
 
