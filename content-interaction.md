@@ -3,101 +3,161 @@
 ## Content Interaction APIs
 In Primas, content interactions(like, comment, share) can only happen
 in groups. And interactions in a given group are only visible to this group.
-When interacting with content, the corresponding group DNA must be provided.
+When interacting with content, the corresponding group id must be provided.
 
-### Get content shares
+### 1. Get shares of a group share
 
-[GET] /shares/{share_id}/shares?page_id={page_id}
-page_id: start from 0 
+[GET] /shares/{share_id}/shares
+
+#### Query parameters
+
+| Name               | Type     | Optional | Description                                         |
+| ------------------ | -------- | -------- | --------------------------------------------------- |
+| page               | integer  | y        | Page number. Starts from 0.                         |
+| page_size          | integer  | y        | Page size. Default to 20.                           |
 
 #### Response
-| Name | Type | Optional | Description |
-| ------------ | ------------- | ------------ | ------------- |
-| records | []object | n | share history list |
 
-`records` object:
+`data` is an array of shares:
 
 | Name                | Type    | Optional | Description |
 | --------------      | ------- | -------- | ---------------------------------------- |
-| content_id | string  | n | Content id. |
-| group_id | string | n | Group id. |
-| share_id | string | n |  share id |
-| share_dna | string | n |  share dna |
-| created | string  | n | People creation time. Unix timestamp. |
-| creator | object  | n | Operator of the share like.  |
-| signature	| string | n | [Metadata signature](./README.md#dtcp-metadata-signature). |
-| txstatus	| int	| n	| blockchain transaction status|
-| txhash	| string	| n	| blockchain TxHash |
-| isdelete	| uint	| n	| record invalid |
+| id                  | string  | n        | Share id. |
+| src_id              | string  | n        | Content id. |
+| dest_id             | string  | n        | Group id. |
+| creator             | object  | n        | Creator. |
+| created             | integer | n        | Share created time. Unix timestamp. |
+| updated             | integer | n        | Share updated time. Unix timestamp. |
+| status              | string  | n        | Fixed to "created". |
+| extra               | object  | y        | Extra metadata. |
+| signature           | string  | n        | [Metadata signature](./README.md#dtcp-metadata-signature). |
+| dna                 | string  | n        | Latest share DNA. |
 
 `creator` object:
 
 | Name                | Type    | Optional | Description |
 | --------------      | ------- | -------- | ---------------------------------------- |
-| account_id          | string  | n        | Root account id. |
-| account_name          | string  | n        | Root account name. |
-| sub_account_id      | string  | y        | Sub account id. This id is provided by the third-party application. Usually the id in the application system is used directly. |
-| sub_account_name      | string  | y        | Sub account name. This id is provided by the third-party application. Usually the id in the application system is used directly. |
+| account_id          | string  | n        | Account id. Root account id in the case of Sub account posting. |
+| account_name        | string  | n        | Account name. |
+| sub_account_id      | string  | y        | Sub account id. Refer to [Sub account](./README.md#sub-accounts) for details. |
+| sub_account_name    | string  | y        | Sub account name. |
 
-### Share content
+`extra` object:
 
-[POST] /shares/{share_id}/shares
+| Name           | Type    | Optional | Description |
+| -------------- | ------- | -------- | ----------------------------------------------- |
+| share_id       | string  | n        | Parent share id. |
 
-#### Request
-| Name | Type | Optional | Description |
-| ------------ | ------------- | ------------ | ------------- |
-| content_id | string  | n | Content id. |
-| group_id | string | n | Group id. |
-| share_id | string | n | Share id. |
-| created | string  | n | People creation time. Unix timestamp. |
-| creator | object  | n | Creator of the share .  |
-| signature	| string | n | [Metadata signature](./README.md#dtcp-metadata-signature). |
+#### Example
+
+```bash
+$ curl -x https://rigel-a.primas.network/v3/content -d '{"type":"article","content":"...","signature":"..."}'
+
+{"result_code":0,"data":{"dna":"", ...}}
+
+```
+
+
+### 2. Get share reports
+
+[GET] /shares/{share_id}/reports
+
+#### Query parameters
+
+| Name               | Type     | Optional | Description                                         |
+| ------------------ | -------- | -------- | --------------------------------------------------- |
+| page               | integer  | y        | Page number. Starts from 0.                         |
+| page_size          | integer  | y        | Page size. Default to 20.                           |
+| report_status      | string   | y        | Status filter. "pending", "approved" or "declined". |
+
+#### Response
+
+`data` is an array of reports:
+
+| Name                | Type    | Optional | Description |
+| --------------      | ------- | -------- | ---------------------------------------- |
+| id                  | string  | n        | Report id. |
+| src_id              | string  | n        | Account id. |
+| dest_id             | string  | n        | Share id. |
+| creator             | object  | n        | Creator. |
+| created             | integer | n        | Report created time. Unix timestamp. |
+| updated             | integer | n        | Report updated time. Unix timestamp. |
+| extra               | object  | n        | Extra metadata. |
+| dna                 | string  | n        | Latest report DNA. |
+| signature           | string  | n        | [Metadata signature](./README.md#dtcp-metadata-signature). |
 
 `creator` object:
 
 | Name                | Type    | Optional | Description |
 | --------------      | ------- | -------- | ---------------------------------------- |
-| account_id          | string  | n        | Root account id. |
-| account_name          | string  | n        | Root account name. |
-| sub_account_id      | string  | y        | Sub account id. This id is provided by the third-party application. Usually the id in the application system is used directly. |
-| sub_account_name      | string  | y        | Sub account name. This id is provided by the third-party application. Usually the id in the application system is used directly. |
+| account_id          | string  | n        | Account id. Root account id in the case of Sub account posting. |
+| sub_account_id      | string  | y        | Sub account id. Refer to [Sub account](./README.md#sub-accounts) for details. |
+
+`extra` object:
+
+| Name          | Type    | Optional | Description |
+| ------------- | ------- | -------- | ------------------------------------------------ |
+| content       | string  | n        | base64 encoded report [content](./content.md#content-format). |
+| report_status | string  | n        | "pending", "approved" or "declined". |
+
+#### Example
+
+```bash
+$ curl -x https://rigel-a.primas.network/v3/content -d '{"type":"article","content":"...","signature":"..."}'
+
+{"result_code":0,"data":{"dna":"", ...}}
+
+```
 
 
-#### Response
-| Name | Type | Optional | Description |
-| ------------ | ------------- | ------------ | ------------- |
-| share_id | string | n |  share id |
-| share_dna | string | n |  share dna |
-
-### Delete share
-
-[DELETE] /shares/{share_id}/shares
-
-#### Request
-| Name | Type | Optional | Description |
-| ------------ | ------------- | ------------ | ------------- |
-| content_id | string  | n | Content id. |
-| group_id | string | n | Group id. |
-| share_id | string | n | Share id. |
-| created | string  | n | People creation time. Unix timestamp. |
-| creator | object  | n | Creator of the share .  |
-| signature	| string | n | [Metadata signature](./README.md#dtcp-metadata-signature). |
-
-#### Response
-| Name | Type | Optional | Description |
-| ------------ | ------------- | ------------ | ------------- |
-| share_id | string | n |  share id |
-
-
-### Report shares
+### 3. Report shares
 
 [POST] /shares/{share_id}/reports
 
+#### Request
 
+| Name                | Type    | Optional | Description |
+| --------------      | ------- | -------- | ---------------------------------------- |
+| type                | string  | n        | Fixed to "relation". |
+| tag                 | string  | n        | Fixed to "share_report". |
+| src_id              | string  | n        | Account id. |
+| dest_id             | string  | n        | Share id. |
+| creator             | object  | n        | Creator. |
+| created             | integer | n        | Report created time. Unix timestamp. |
+| updated             | integer | n        | Report created time. Unix timestamp. |
+| status              | string  | n        | Fixed to "created". |
+| extra               | object  | n        | Extra metadata. |
+| signature           | string  | n        | [Metadata signature](./README.md#dtcp-metadata-signature). |
 
-### Get share reports
+`creator` object:
 
-[GET] /shares/{share_id}/reports
+| Name                | Type    | Optional | Description |
+| --------------      | ------- | -------- | ---------------------------------------- |
+| account_id          | string  | n        | Account id. Root account id in the case of Sub account posting. |
+| sub_account_id      | string  | y        | Sub account id. Refer to [Sub account](./README.md#sub-accounts) for details. |
+
+`extra` object:
+
+| Name          | Type    | Optional | Description |
+| ------------- | ------- | -------- | ------------------------------------------------ |
+| content       | string  | n        | base64 encoded report [content](./content.md#content-format). |
+| report_status | string  | n        | Fixed to "pending". |
+
+#### Response
+
+| Name | Type | Optional | Description |
+| ------------ | ------------- | ------------ | ------------- |
+| id      | string  | n        | Report id. |
+| dna     | string  | n        | Report DNA. |
+
+#### Example
+
+```bash
+$ curl -x https://rigel-a.primas.network/v3/content -d '{"type":"article","content":"...","signature":"..."}'
+
+{"result_code":0,"data":{"dna":"", ...}}
+
+```
 
 
 ### Get content likes

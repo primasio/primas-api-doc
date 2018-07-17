@@ -61,6 +61,8 @@ to set a price on the authorization of the content:
 }
 ``` 
 
+#### Content Format
+
 ### 1. Get content metadata
 
 [GET] /content/{content_id}
@@ -158,7 +160,7 @@ $ curl -x https://rigel-a.primas.network/v3/content/1GFYUNP815RUIFDNNRKLNU78RPCF
 | category            | string  | n        | Content categories. Comma separated words list. |
 | created             | integer | n        | Content creation time. Unix timestamp. |
 | updated             | integer | n        | Content creation time. Unix timestamp. |
-| content             | string  | n        | Raw content in base64 encoded format. |
+| content             | string  | n        | Raw [content](./content.md#content-format) in base64 encoded format. |
 | license             | object  | y        | [Content authorization license](./content.md#content-licensing). "none" is used if empty. |
 | signature           | string  | n        | [Metadata signature](./README.md#dtcp-metadata-signature). |
 
