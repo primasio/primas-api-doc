@@ -58,6 +58,7 @@
 | language            | string  | n        | Group language. [RFC4646](http://www.ietf.org/rfc/rfc4646.txt) defined locales such as "en-US" |
 | category            | string  | n        | Group categories. Comma separated words list. |
 | created             | integer | n        | Group creation time. Unix timestamp. |
+| updated             | integer | n        | Group creation time. Unix timestamp. |
 | extra               | object  | n        | Extra metadata. |
 | status              | string  | n        | Fixed to "created". |
 | signature           | string  | n        | [Metadata signature](./README.md#dtcp-metadata-signature). |
@@ -111,6 +112,7 @@ $ curl -x https://rigel-a.primas.network/v3/content -d '{"type":"article","conte
 | abstract            | string  | n        | Group introduction. |
 | language            | string  | n        | Group language. [RFC4646](http://www.ietf.org/rfc/rfc4646.txt) defined locales such as "en-US" |
 | category            | string  | n        | Group categories. Comma separated words list. |
+| created             | integer | n        | Group creation time. Unix timestamp. |
 | updated             | integer | n        | Group update time. Unix timestamp. |
 | extra               | object  | n        | Extra metadata. |
 | parent_dna          | string  | n        | The latest DNA of the group. |
@@ -157,16 +159,41 @@ $ curl -x https://rigel-a.primas.network/v3/content -d '{"type":"article","conte
 
 | Name                | Type    | Optional | Description |
 | --------------      | ------- | -------- | ---------------------------------------- |
-| updated             | string  | n        | Group updating time. Unix timestamp. |
-| status              | string  | n        | Fixed to "deleted". |
+| type                | string  | n        | Fixed to "object". |
+| tag                 | string  | n        | Fixed to "group". |
+| title               | string  | n        | Group title. |
+| creator             | object  | n        | Creator. |
+| avatar              | string  | n        | An image id used for avatar. |
+| abstract            | string  | n        | Group introduction. |
+| language            | string  | n        | Group language. [RFC4646](http://www.ietf.org/rfc/rfc4646.txt) defined locales such as "en-US" |
+| category            | string  | n        | Group categories. Comma separated words list. |
+| created             | integer | n        | Group creation time. Unix timestamp. |
+| updated             | integer | n        | Group updating time. Unix timestamp. |
+| extra               | object  | n        | Extra metadata. |
 | parent_dna          | string  | n        | The latest DNA of the group. |
+| status              | string  | n        | Fixed to "deleted". |
 | signature           | string  | n        | [Metadata signature](./README.md#dtcp-metadata-signature). |
+
+`creator` object:
+
+| Name                | Type    | Optional | Description |
+| --------------      | ------- | -------- | ---------------------------------------- |
+| account_id          | string  | n        | Account id. Root account id in the case of Sub account posting. |
+| sub_account_id      | string  | y        | Sub account id. Refer to [Sub account](./README.md#sub-accounts) for details. |
+
+`extra` object:
+
+| Name                | Type    | Optional | Description |
+| --------------      | ------- | -------- | ---------------------------------------- |
+| allow_join          | string  | n        | Joining group control. "all" or "application". |
+| allow_post          | string  | n        | Posting control. "all", "none", "application". |
+| allow_post_whitelist| array   | y        | An array containing `account_id`s that can always post in the group. |
 
 #### Response
 
-| Name | Type | Optional | Description |
-| ------------ | ------------- | ------------ | ------------- | 
-| dna  | string | n | Group DNA. |
+| Name | Type   | Optional | Description |
+| ---- | ------ | -------- | ----------- | 
+| dna  | string | n        | Group DNA.  |
 
 #### Example
 
@@ -184,10 +211,11 @@ $ curl -x https://rigel-a.primas.network/v3/content -d '{"type":"article","conte
 
 #### Query parameters
 
-| Name        | Type     | Optional | Description                       |
-| ----------- | -------- | -------- | --------------------------------- |
-| page        | integer  | y        | Page number. Starts from 0.       |
-| page_size   | integer  | y        | Page size. Default to 20.         |
+| Name               | Type     | Optional | Description                                         |
+| ------------------ | -------- | -------- | --------------------------------------------------- |
+| page               | integer  | y        | Page number. Starts from 0.                         |
+| page_size          | integer  | y        | Page size. Default to 20.                           |
+| application_status | string   | y        | Status filter. "pending", "approved" or "declined". |
 
 #### Response
 
@@ -195,14 +223,31 @@ Response `data` is an array whose elements contain:
 
 | Name                | Type    | Optional | Description |
 | ------------------- | ------- | -------- | ----------- |
+| id                  | string  | n        | Group member id. |
 | src_id              | string  | n        | Account id. Root account id in the case of [Sub account](./README.md#sub-accounts). |
 | dest_id             | string  | n        | Group id. |
 | creator             | object  | n        | Creator. |
 | created             | integer | n        | Member joining time. Unix timestamp. |
-| status              | string  | n        | "created". |
+| updated             | integer | n        | Member updating time. Unix timestamp. |
+| extra               | object  | y        | Extra metadata. |
 | signature           | string  | n        | [Metadata signature](./README.md#dtcp-metadata-signature). |
 | dna                 | string  | n        | Group member DNA. |
 | account             | object  | n        | Related member account. |
+
+`creator` object:
+
+| Name                | Type    | Optional | Description |
+| --------------      | ------- | -------- | ---------------------------------------- |
+| account_id          | string  | n        | Account id. Root account id in the case of Sub account posting. |
+| account_name        | string  | n        | Account name. |
+| sub_account_id      | string  | y        | Sub account id. Refer to [Sub account](./README.md#sub-accounts) for details. |
+| sub_account_name    | string  | y        | Sub account name. For fast creation of new sub accounts. |
+
+`extra` object:
+
+| Name                | Type    | Optional | Description |
+| --------------      | ------- | -------- | ----------------------------------------------- |
+| application_status  | string  | n        | "pending", "approved" or "declined". |
 
 `account` object:
 
@@ -220,15 +265,6 @@ Response `data` is an array whose elements contain:
 | signature           | string  | n        | [Metadata signature](./README.md#dtcp-metadata-signature). |
 | dna                 | string  | n        | DNA of the account. |
 
-`creator` object:
-
-| Name                | Type    | Optional | Description |
-| --------------      | ------- | -------- | ---------------------------------------- |
-| account_id          | string  | n        | Account id. Root account id in the case of Sub account posting. |
-| account_name        | string  | n        | Account name. |
-| sub_account_id      | string  | y        | Sub account id. Refer to [Sub account](./README.md#sub-accounts) for details. |
-| sub_account_name    | string  | y        | Sub account name. For fast creation of new sub accounts. |
-
 #### Example
 
 ```bash
@@ -239,181 +275,7 @@ $ curl -x https://rigel-a.primas.network/v3/content -d '{"type":"article","conte
 ```
 
 
-### 6. Get group member applications
-
-[GET] /groups/{group_id}/members/applications
-
-#### Query parameters
-
-| Name               | Type     | Optional | Description                                         |
-| ------------------ | -------- | -------- | --------------------------------------------------- |
-| page               | integer  | y        | Page number. Starts from 0.                         |
-| page_size          | integer  | y        | Page size. Default to 20.                           |
-| application_status | string   | y        | Status filter. "pending", "cancelled", "approved" or "declined". |
-
-#### Response
-
-Response `data` is an array of applications:
-
-| Name                | Type    | Optional | Description |
-| --------------      | ------- | -------- | ---------------------------------------- |
-| id                  | string  | n        | Application id. |
-| src_id              | string  | n        | Account id. Root account id in the case of [Sub account](./README.md#sub-accounts). |
-| dest_id             | string  | n        | Group id. |
-| creator             | object  | n        | Creator. |
-| created             | integer | n        | Application creation time. Unix timestamp. |
-| updated             | integer | n        | Application updating time. Unix timestamp. |
-| application_status  | string  | n        | "pending", "cancelled", "approved" or "declined". |
-| signature           | string  | n        | [Metadata signature](./README.md#dtcp-metadata-signature). |
-| dna                 | string  | n        | Application DNA. |
-
-`creator` object:
-
-| Name                | Type    | Optional | Description |
-| --------------      | ------- | -------- | ---------------------------------------- |
-| account_id          | string  | n        | Account id. Root account id in the case of Sub account posting. |
-| account_name        | string  | n        | Account name. |
-| sub_account_id      | string  | y        | Sub account id. Refer to [Sub account](./README.md#sub-accounts) for details. |
-| sub_account_name    | string  | y        | Sub account name. For fast creation of new sub accounts. |
-
-#### Example
-
-```bash
-$ curl -x https://rigel-a.primas.network/v3/content -d '{"type":"article","content":"...","signature":"..."}'
-
-{"result_code":0,"data":{"dna":"", ...}}
-
-```
-
-
-### 7. Apply to join group
-
-[POST] /groups/{group_id}/members/applications
-
-#### Request
-
-| Name                | Type    | Optional | Description |
-| --------------      | ------- | -------- | ---------------------------------------- |
-| type                | string  | n        | Fixed to "relation". |
-| tag                 | string  | n        | Fixed to "group_application". |
-| src_id              | string  | n        | Account id. Root account id in the case of [Sub account](./README.md#sub-accounts). |
-| dest_id             | string  | n        | Group id. |
-| creator             | object  | n        | Creator. |
-| created             | integer | n        | Application creation time. Unix timestamp. |
-| status              | string  | n        | Fixed to "created". |
-| application_status  | string  | n        | Fixed to "pending". |
-| signature           | string  | n        | [Metadata signature](./README.md#dtcp-metadata-signature). |
-
-`creator` object:
-
-| Name                | Type    | Optional | Description |
-| --------------      | ------- | -------- | ---------------------------------------- |
-| account_id          | string  | n        | Account id. Root account id in the case of Sub account posting. |
-| sub_account_id      | string  | y        | Sub account id. Refer to [Sub account](./README.md#sub-accounts) for details. |
-| sub_account_name    | string  | y        | Sub account name. For fast creation of new sub accounts. |
-
-#### Response
-
-| Name | Type | Optional | Description |
-| ------------ | ------------- | ------------ | ------------- | 
-| id      | string  | n        | Application id.  |
-| dna     | string  | n        | Application DNA. |
-
-#### Example
-
-```bash
-$ curl -x https://rigel-a.primas.network/v3/content -d '{"type":"article","content":"...","signature":"..."}'
-
-{"result_code":0,"data":{"dna":"", ...}}
-
-```
-
-
-### 8. Cancel member application
-
-[DELETE] /groups/{group_id}/members/applications/{application_id}
-
-#### Request
-
-| Name                | Type    | Optional | Description |
-| --------------      | ------- | -------- | ---------------------------------------- |
-| type                | string  | n        | Fixed to "relation". |
-| tag                 | string  | n        | Fixed to "group_application". |
-| src_id              | string  | n        | Account id. Root account id in the case of [Sub account](./README.md#sub-accounts). |
-| dest_id             | string  | n        | Group id. |
-| creator             | object  | n        | Creator. |
-| updated             | integer | n        | Application updating time. Unix timestamp. |
-| status              | string  | n        | Fixed to "updated". |
-| application_status  | string  | n        | Fixed to "cancelled". |
-| parent_dna          | string  | n        | Latest application DNA. |
-| signature           | string  | n        | [Metadata signature](./README.md#dtcp-metadata-signature). |
-
-`creator` object:
-
-| Name                | Type    | Optional | Description |
-| --------------      | ------- | -------- | ---------------------------------------- |
-| account_id          | string  | n        | Account id. Root account id in the case of Sub account posting. |
-| sub_account_id      | string  | y        | Sub account id. Refer to [Sub account](./README.md#sub-accounts) for details. |
-
-#### Response
-
-| Name | Type | Optional | Description |
-| ------------ | ------------- | ------------ | ------------- | 
-| dna     | string  | n        | Application DNA. |
-
-#### Example
-
-```bash
-$ curl -x https://rigel-a.primas.network/v3/content -d '{"type":"article","content":"...","signature":"..."}'
-
-{"result_code":0,"data":{"dna":"", ...}}
-
-```
-
-
-### 9. Approve or decline application
-
-[PUT] /groups/{group_id}/members/applications/{application_id}
-
-#### Request
-
-| Name                | Type    | Optional | Description |
-| --------------      | ------- | -------- | ---------------------------------------- |
-| type                | string  | n        | Fixed to "relation". |
-| tag                 | string  | n        | Fixed to "group_application". |
-| src_id              | string  | n        | Account id. Root account id in the case of [Sub account](./README.md#sub-accounts). |
-| dest_id             | string  | n        | Group id. |
-| creator             | object  | n        | Creator. |
-| updated             | integer | n        | Application updating time. Unix timestamp. |
-| status              | string  | n        | "updated". |
-| application_status  | string  | n        | "approved" or "declined". |
-| parent_dna          | string  | n        | Latest application DNA. |
-| signature           | string  | n        | [Metadata signature](./README.md#dtcp-metadata-signature). |
-
-`creator` object:
-
-| Name                | Type    | Optional | Description |
-| --------------      | ------- | -------- | ---------------------------------------- |
-| account_id          | string  | n        | Account id. Root account id in the case of Sub account posting. |
-| sub_account_id      | string  | y        | Sub account id. Refer to [Sub account](./README.md#sub-accounts) for details. |
-
-#### Response
-
-| Name | Type | Optional | Description |
-| ------------ | ------------- | ------------ | ------------- | 
-| dna     | string  | n        | Application dna. |
-
-#### Example
-
-```bash
-$ curl -x https://rigel-a.primas.network/v3/content -d '{"type":"article","content":"...","signature":"..."}'
-
-{"result_code":0,"data":{"dna":"", ...}}
-
-```
-
-
-### 10. Join group
+### 6. Join group
 
 [POST] /groups/{group_id}/members
 
@@ -427,7 +289,9 @@ $ curl -x https://rigel-a.primas.network/v3/content -d '{"type":"article","conte
 | dest_id             | string  | n        | Group id. |
 | creator             | object  | n        | Creator. |
 | created             | integer | n        | Member joining time. Unix timestamp. |
-| status              | string  | n        | "created". |
+| updated             | integer | n        | Member joining time. Unix timestamp. |
+| status              | string  | n        | Fixed to "created". |
+| extra               | object  | y        | Extra metadata. |
 | signature           | string  | n        | [Metadata signature](./README.md#dtcp-metadata-signature). |
 
 `creator` object:
@@ -438,10 +302,17 @@ $ curl -x https://rigel-a.primas.network/v3/content -d '{"type":"article","conte
 | sub_account_id      | string  | y        | Sub account id. Refer to [Sub account](./README.md#sub-accounts) for details. |
 | sub_account_name    | string  | y        | Sub account name. For fast creation of new sub accounts. |
 
+`extra` object:
+
+| Name                | Type    | Optional | Description |
+| --------------      | ------- | -------- | ----------------------------------------------- |
+| application_status  | string  | n        | For group requiring application. Fill "pending". |
+
 #### Response
 
 | Name | Type | Optional | Description |
-| ------------ | ------------- | ------------ | ------------- | 
+| ------------ | ------------- | ------------ | ------------- |
+| id  | string  | n        | Group member id. |
 | dna | string  | n        | Group member DNA. |
 
 #### Example
@@ -454,9 +325,9 @@ $ curl -x https://rigel-a.primas.network/v3/content -d '{"type":"article","conte
 ```
 
 
-### 11. Quit group
+### 7. Approve or decline member application
 
-[DELETE] /groups/{group_id}/members/{account_id}
+[PUT] /groups/{group_id}/members/{group_member_id}
 
 #### Request
 
@@ -467,8 +338,10 @@ $ curl -x https://rigel-a.primas.network/v3/content -d '{"type":"article","conte
 | src_id              | string  | n        | Account id. Root account id in the case of [Sub account](./README.md#sub-accounts). |
 | dest_id             | string  | n        | Group id. |
 | creator             | object  | n        | Creator. |
-| updated             | integer | n        | Member quiting time. Unix timestamp. |
-| status              | string  | n        | "deleted". |
+| created             | integer | n        | Member joining time. Unix timestamp. |
+| updated             | integer | n        | Member updating time. Unix timestamp. |
+| status              | string  | n        | Fixed to "updated". |
+| extra               | object  | n        | Extra metadata. |
 | parent_dna          | string  | n        | Latest group member DNA. |
 | signature           | string  | n        | [Metadata signature](./README.md#dtcp-metadata-signature). |
 
@@ -478,6 +351,12 @@ $ curl -x https://rigel-a.primas.network/v3/content -d '{"type":"article","conte
 | --------------      | ------- | -------- | ---------------------------------------- |
 | account_id          | string  | n        | Account id. Root account id in the case of Sub account posting. |
 | sub_account_id      | string  | y        | Sub account id. Refer to [Sub account](./README.md#sub-accounts) for details. |
+
+`extra` object:
+
+| Name                | Type    | Optional | Description |
+| --------------      | ------- | -------- | ----------------------------------------------- |
+| application_status  | string  | n        | "approved" or "declined".  |
 
 #### Response
 
@@ -495,71 +374,132 @@ $ curl -x https://rigel-a.primas.network/v3/content -d '{"type":"article","conte
 ```
 
 
-### Get group shares
+### 8. Quit group or kick member out
 
-[GET] /groups/{group_id}/shares?page_id={page_id}
+[DELETE] /groups/{group_id}/members/{group_member_id}
 
-
-#### Response
-| Name | Type | Optional | Description |
-| ------------ | ------------- | ------------ | ------------- |
-| records      | []object      | n      | share history list |
-
-`records` object:
-
-| Name                | Type    | Optional | Description |
-| --------------      | ------- | -------- | ---------------------------------------- |
-| content_id          | string  | n        | Content id. |
-| group_id            | string  | n        | Group id. |
-| share_id            | string  | n        | Share id |
-| share_dna           | string  | n        | Share dna |
-| created             | string  | n        | People creation time. Unix timestamp. |
-| creator             | object  | n        | Operator of the share like.  |
-| signature	          | string  | n        | [Metadata signature](./README.md#dtcp-metadata-signature). |
-| txstatus	          | int	    | n	       | blockchain transaction status|
-| txhash	          | string	| n	       | blockchain TxHash |
-| isdelete	          | uint	| n	       | record invalid |
- 
-### Get group share applications
-
-[GET] /groups/{group_id}/shares/applications?page_id={page_id}
-
-
-#### Response
-| Name | Type | Optional | Description |
-| ------------ | ------------- | ------------ | ------------- |
-| records      | []object      | n      | share history list |
-
-`records` object:
-
-| Name                  | Type    | Optional | Description |
-| --------------        | ------- | -------- | ---------------------------------------- |
-| content_id            | string  | n        | Content id. |
-| group_id              | string  | n        | Group id. |
-| share_id              | string  | n        | Share id |
-| share_dna             | string  | n        | Share dna |
-| share_application_id  | string  | n        | Share application id |
-| share_application_dna | string  | n        | Share application dna |
-| created               | string  | n        | People creation time. Unix timestamp. |
-| creator               | object  | n        | Operator of the share like.  |
-| signature	            | string  | n        | [Metadata signature](./README.md#dtcp-metadata-signature). |
-| txstatus	            | int	  | n	     | blockchain transaction status|
-| txhash	            | string  | n	     | blockchain TxHash |
-| application_result    | uint    | n        | Application result |
-| isdelete	            | uint	  | n	     | record invalid |
-
-
-### Apply to share
-
-[POST] /groups/{group_id}/shares/applications
+This API can be used for both quiting group and kicking member out of the group. Use the member's
+info in the `creator` and `signature` field to quit group and use group owner's info otherwise. 
 
 #### Request
 
 | Name                | Type    | Optional | Description |
 | --------------      | ------- | -------- | ---------------------------------------- |
-| group_id            | string  | n        | Group id. |
+| type                | string  | n        | Fixed to "relation". |
+| tag                 | string  | n        | Fixed to "group_member". |
+| src_id              | string  | n        | Account id. Root account id in the case of [Sub account](./README.md#sub-accounts). |
+| dest_id             | string  | n        | Group id. |
 | creator             | object  | n        | Creator. |
-| created             | string  | n        | Share update time. Unix timestamp. |
+| created             | integer | n        | Member joining time. Unix timestamp. |
+| updated             | integer | n        | Member quiting time. Unix timestamp. |
+| status              | string  | n        | "deleted". |
+| parent_dna          | string  | n        | Latest group member DNA. |
+| extra               | object  | y        | Extra metadata. |
+| signature           | string  | n        | [Metadata signature](./README.md#dtcp-metadata-signature). |
+
+`creator` object:
+
+| Name                | Type    | Optional | Description |
+| --------------      | ------- | -------- | ---------------------------------------- |
+| account_id          | string  | n        | Account id. Root account id in the case of Sub account posting. |
+| sub_account_id      | string  | y        | Sub account id. Refer to [Sub account](./README.md#sub-accounts) for details. |
+
+`extra` object:
+
+| Name                | Type    | Optional | Description |
+| --------------      | ------- | -------- | ----------------------------------------------- |
+| application_status  | string  | n        | "pending" or "approved".  |
+
+#### Response
+
+| Name | Type | Optional | Description |
+| ------------ | ------------- | ------------ | ------------- | 
+| dna     | string  | n        | Group member DNA. |
+
+#### Example
+
+```bash
+$ curl -x https://rigel-a.primas.network/v3/content -d '{"type":"article","content":"...","signature":"..."}'
+
+{"result_code":0,"data":{"dna":"", ...}}
+
+```
+
+
+### 9. Get group shares
+
+[GET] /groups/{group_id}/shares
+
+#### Query parameters
+
+| Name               | Type     | Optional | Description                                         |
+| ------------------ | -------- | -------- | --------------------------------------------------- |
+| page               | integer  | y        | Page number. Starts from 0.                         |
+| page_size          | integer  | y        | Page size. Default to 20.                           |
+| application_status | string   | y        | Status filter. "pending", "approved" or "declined". |
+
+#### Response
+
+`data` is an array of shares:
+
+| Name                | Type    | Optional | Description |
+| --------------      | ------- | -------- | ---------------------------------------- |
+| id                  | string  | n        | Share id. |
+| src_id              | string  | n        | Content id. |
+| dest_id             | string  | n        | Group id. |
+| creator             | object  | n        | Creator. |
+| created             | integer | n        | Share created time. Unix timestamp. |
+| updated             | integer | n        | Share updated time. Unix timestamp. |
+| status              | string  | n        | Fixed to "created". |
+| extra               | object  | y        | Extra metadata. |
+| signature           | string  | n        | [Metadata signature](./README.md#dtcp-metadata-signature). |
+| dna                 | string  | n        | Latest share DNA. |
+| content             | object  | n        | Share related content. |
+
+`creator` object:
+
+| Name                | Type    | Optional | Description |
+| --------------      | ------- | -------- | ---------------------------------------- |
+| account_id          | string  | n        | Account id. Root account id in the case of Sub account posting. |
+| account_name        | string  | n        | Account name. |
+| sub_account_id      | string  | y        | Sub account id. Refer to [Sub account](./README.md#sub-accounts) for details. |
+| sub_account_name    | string  | y        | Sub account name. |
+
+`extra` object:
+
+| Name           | Type    | Optional | Description |
+| -------------- | ------- | -------- | ----------------------------------------------- |
+| share_id       | string  | n        | Parent share id. |
+ 
+ `content` object contains the related [content metadata](./content.md#1.-get-content-metadata):
+ 
+ #### Example
+ 
+ ```bash
+ $ curl -x https://rigel-a.primas.network/v3/content -d '{"type":"article","content":"...","signature":"..."}'
+ 
+ {"result_code":0,"data":{"dna":"", ...}}
+ 
+ ```
+
+
+### 10. Share to a group
+
+[POST] /groups/{group_id}/shares
+
+#### Request
+
+| Name                | Type    | Optional | Description |
+| --------------      | ------- | -------- | ---------------------------------------- |
+| type                | string  | n        | Fixed to "relation". |
+| tag                 | string  | n        | Fixed to "group_share". |
+| src_id              | string  | n        | Content id. |
+| dest_id             | string  | n        | Group id. |
+| creator             | object  | n        | Creator. |
+| created             | integer | n        | Share created time. Unix timestamp. |
+| updated             | integer | n        | Share created time. Unix timestamp. |
+| status              | string  | n        | Fixed to "created". |
+| extra               | object  | y        | Extra metadata. |
 | signature           | string  | n        | [Metadata signature](./README.md#dtcp-metadata-signature). |
 
 `creator` object:
@@ -570,27 +510,49 @@ $ curl -x https://rigel-a.primas.network/v3/content -d '{"type":"article","conte
 | sub_account_id      | string  | y        | Sub account id. Refer to [Sub account](./README.md#sub-accounts) for details. |
 | sub_account_name    | string  | y        | Sub account name. For fast creation of new sub accounts. |
 
+`extra` object:
+
+| Name               | Type    | Optional | Description |
+| ------------------ | ------- | -------- | ------------------------------------------------ |
+| share_id           | string  | y        | Parent share id.                                 |
+| application_status | string  | y        | For group requiring application. Fill "pending". |
+
 #### Response
 
-| Name | Type | Optional | Description |
-| ------------ | ------------- | ------------ | ------------- | 
-| share_application_id      | string  | n        | Share application id.  |
-| share_application_dna     | string  | n        | Share application dna. |
+| Name    | Type    | Optional | Description |
+| ------- | ------- | -------- | ------------- |
+| id      | string  | n        | Share id. |
+| dna     | string  | n        | Share DNA. |
 
-### Approve or decline share application
+#### Example
 
-[PUT] /groups/{group_id}/shares/applications/{application_id}
+```bash
+$ curl -x https://rigel-a.primas.network/v3/content -d '{"type":"article","content":"...","signature":"..."}'
+
+{"result_code":0,"data":{"dna":"", ...}}
+
+```
+
+
+### 15. Approve or decline share application
+
+[PUT] /shares/{share_id}
  
 #### Request
 
-| Name                      | Type    | Optional | Description |
-| --------------            | ------- | -------- | ---------------------------------------- |
-| share_application_id      | string  | n        | Share application id.  |
-| share_application_dna     | string  | n        | Share application dna. |
-| group_id                  | string  | n        | Group id. |
-| creator                   | object  | n        | Creator. |
-| created                   | string  | n        | Share update time. Unix timestamp. |
-| signature                 | string  | n        | [Metadata signature](./README.md#dtcp-metadata-signature). |
+| Name                | Type    | Optional | Description |
+| --------------      | ------- | -------- | ---------------------------------------- |
+| type                | string  | n        | Fixed to "relation". |
+| tag                 | string  | n        | Fixed to "group_share". |
+| src_id              | string  | n        | Content id. |
+| dest_id             | string  | n        | Group id. |
+| creator             | object  | n        | Creator. |
+| created             | integer | n        | Share created time. Unix timestamp. |
+| updated             | integer | n        | Share updated time. Unix timestamp. |
+| status              | string  | n        | Fixed to "updated". |
+| extra               | object  | y        | Extra metadata. |
+| parent_dna          | string  | n        | Latest share DNA. |
+| signature           | string  | n        | [Metadata signature](./README.md#dtcp-metadata-signature). |
 
 `creator` object:
 
@@ -598,29 +560,51 @@ $ curl -x https://rigel-a.primas.network/v3/content -d '{"type":"article","conte
 | --------------      | ------- | -------- | ---------------------------------------- |
 | account_id          | string  | n        | Account id. Root account id in the case of Sub account posting. |
 | sub_account_id      | string  | y        | Sub account id. Refer to [Sub account](./README.md#sub-accounts) for details. |
-| sub_account_name    | string  | y        | Sub account name. For fast creation of new sub accounts. |
+
+`extra` object:
+
+| Name               | Type    | Optional | Description |
+| ------------------ | ------- | -------- | ------------------------------------------------ |
+| share_id           | string  | y        | Parent share id.                                 |
+| application_status | string  | y        | "approved" or "declined". |
 
 #### Response
 
-| Name | Type | Optional | Description |
-| ------------ | ------------- | ------------ | ------------- | 
-| share_application_id      | string  | n        | Share application id.  |
-| share_application_dna     | string  | n        | Share application dna. |
+| Name    | Type    | Optional | Description |
+| ------- | ------- | -------- | ----------- | 
+| dna     | string  | n        | Share DNA.  |
 
-### Cancel share application
+#### Example
 
-[DELETE] /groups/{group_id}/shares/applications/{application_id}
+```bash
+$ curl -x https://rigel-a.primas.network/v3/content -d '{"type":"article","content":"...","signature":"..."}'
+
+{"result_code":0,"data":{"dna":"", ...}}
+
+```
+
+
+### 17. Delete group share
+
+[DELETE] /shares/{share_id}
+
+This API can be called both by group owner or share creator with corresponding creator info and its signature.
 
 #### Request
 
-| Name                      | Type    | Optional | Description |
-| --------------            | ------- | -------- | ---------------------------------------- |
-| share_application_id      | string  | n        | Share application id.  |
-| share_application_dna     | string  | n        | Share application dna. |
-| group_id                  | string  | n        | Group id. |
-| creator                   | object  | n        | Creator. |
-| created                   | string  | n        | Share update time. Unix timestamp. |
-| signature                 | string  | n        | [Metadata signature](./README.md#dtcp-metadata-signature). |
+| Name                | Type    | Optional | Description |
+| --------------      | ------- | -------- | ---------------------------------------- |
+| type                | string  | n        | Fixed to "relation". |
+| tag                 | string  | n        | Fixed to "group_share". |
+| src_id              | string  | n        | Content id. |
+| dest_id             | string  | n        | Group id. |
+| creator             | object  | n        | Creator. |
+| created             | integer | n        | Share created time. Unix timestamp. |
+| updated             | integer | n        | Share updated time. Unix timestamp. |
+| status              | string  | n        | Fixed to "deleted". |
+| extra               | object  | y        | Extra metadata. |
+| parent_dna          | string  | n        | Latest share DNA. |
+| signature           | string  | n        | [Metadata signature](./README.md#dtcp-metadata-signature). |
 
 `creator` object:
 
@@ -628,41 +612,25 @@ $ curl -x https://rigel-a.primas.network/v3/content -d '{"type":"article","conte
 | --------------      | ------- | -------- | ---------------------------------------- |
 | account_id          | string  | n        | Account id. Root account id in the case of Sub account posting. |
 | sub_account_id      | string  | y        | Sub account id. Refer to [Sub account](./README.md#sub-accounts) for details. |
-| sub_account_name    | string  | y        | Sub account name. For fast creation of new sub accounts. |
+
+`extra` object:
+
+| Name               | Type    | Optional | Description |
+| ------------------ | ------- | -------- | ------------------------------------------------ |
+| share_id           | string  | y        | Parent share id.                                 |
+| application_status | string  | y        | "pending" or "approved". |
 
 #### Response
 
 | Name | Type | Optional | Description |
 | ------------ | ------------- | ------------ | ------------- | 
-| share_application_id      | string  | n        | Share application id.  |
-| share_application_dna     | string  | n        | Share application dna. |
+| dna     | string  | n        | Share DNA. |
 
-### Delete group share
+#### Example
 
-[DELETE] /groups/{group_id}/shares/{share_id}
+```bash
+$ curl -x https://rigel-a.primas.network/v3/content -d '{"type":"article","content":"...","signature":"..."}'
 
-#### Request
+{"result_code":0,"data":{"dna":"", ...}}
 
-| Name                      | Type    | Optional | Description |
-| --------------            | ------- | -------- | ---------------------------------------- |
-| content_id                | string  | n        | Content id. |
-| group_id                  | string  | n        | Group id. |
-| share_id                  | string  | n        | Share id. |
-| creator                   | object  | n        | Creator. |
-| created                   | string  | n        | Share update time. Unix timestamp. |
-| signature                 | string  | n        | [Metadata signature](./README.md#dtcp-metadata-signature). |
-
-`creator` object:
-
-| Name                | Type    | Optional | Description |
-| --------------      | ------- | -------- | ---------------------------------------- |
-| account_id          | string  | n        | Account id. Root account id in the case of Sub account posting. |
-| sub_account_id      | string  | y        | Sub account id. Refer to [Sub account](./README.md#sub-accounts) for details. |
-| sub_account_name    | string  | y        | Sub account name. For fast creation of new sub accounts. |
-
-#### Response
-
-| Name | Type | Optional | Description |
-| ------------ | ------------- | ------------ | ------------- | 
-| share_id      | string  | n        | Share application id.  |
-| share_dna     | string  | n        | Share application dna. |
+```
