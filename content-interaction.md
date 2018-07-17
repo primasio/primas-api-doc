@@ -5,7 +5,7 @@ In Primas, content interactions(like, comment, share) can only happen
 in groups. And interactions in a given group are only visible to this group.
 When interacting with content, the corresponding group id must be provided.
 
-### 1. Get shares of a group share
+### 1. Get the shares of a group share
 
 [GET] /shares/{share_id}/shares
 
@@ -91,13 +91,15 @@ $ curl -x https://rigel-a.primas.network/v3/content -d '{"type":"article","conte
 | Name                | Type    | Optional | Description |
 | --------------      | ------- | -------- | ---------------------------------------- |
 | account_id          | string  | n        | Account id. Root account id in the case of Sub account posting. |
+| account_name        | string  | n        | Account name. |
 | sub_account_id      | string  | y        | Sub account id. Refer to [Sub account](./README.md#sub-accounts) for details. |
+| sub_account_name    | string  | y        | Sub account name. |
 
 `extra` object:
 
 | Name          | Type    | Optional | Description |
 | ------------- | ------- | -------- | ------------------------------------------------ |
-| content       | string  | n        | base64 encoded report [content](./content.md#content-format). |
+| content       | string  | n        | Content URI. In the case of IPFS, a link starts with "ipfs://" |
 | report_status | string  | n        | "pending", "approved" or "declined". |
 
 #### Example
@@ -110,7 +112,7 @@ $ curl -x https://rigel-a.primas.network/v3/content -d '{"type":"article","conte
 ```
 
 
-### 3. Report shares
+### 3. Report share
 
 [POST] /shares/{share_id}/reports
 
@@ -135,6 +137,7 @@ $ curl -x https://rigel-a.primas.network/v3/content -d '{"type":"article","conte
 | --------------      | ------- | -------- | ---------------------------------------- |
 | account_id          | string  | n        | Account id. Root account id in the case of Sub account posting. |
 | sub_account_id      | string  | y        | Sub account id. Refer to [Sub account](./README.md#sub-accounts) for details. |
+| sub_account_name    | string  | y        | Sub account name. For fast creation of new sub accounts. |
 
 `extra` object:
 
@@ -160,216 +163,314 @@ $ curl -x https://rigel-a.primas.network/v3/content -d '{"type":"article","conte
 ```
 
 
-### Get content likes
+### 4. Get the likes of a group share
 
-[GET] /shares/{share_id}/likes?page_id={page_id}
-page_id: start from 0 
+[GET] /shares/{share_id}/likes
+
+#### Query parameters
+
+| Name               | Type     | Optional | Description                                         |
+| ------------------ | -------- | -------- | --------------------------------------------------- |
+| page               | integer  | y        | Page number. Starts from 0.                         |
+| page_size          | integer  | y        | Page size. Default to 20.                           |
 
 #### Response
-| Name | Type | Optional | Description |
-| ------------ | ------------- | ------------ | ------------- |
-| records | []object | n | share like history list |
 
-`records` object:
+`data` is an array of likes:
 
 | Name                | Type    | Optional | Description |
 | --------------      | ------- | -------- | ---------------------------------------- |
-| content_id | string  | n | Content id. |
-| share_id | string | n | Share id. |
-| like_id | string | n |  share like id |
-| like_dna | string | n |  share like dna |
-| created | string  | n | People creation time. Unix timestamp. |
-| creator | object  | n | Operator of the share like.  |
-| signature	| string | n | [Metadata signature](./README.md#dtcp-metadata-signature). |
-| txstatus	| int	| n	| blockchain transaction status|
-| txhash	| string	| n	| blockchain TxHash |
-| isdelete	| uint	| n	| record invalid |
+| id                  | string  | n        | Like id. |
+| src_id              | string  | n        | Account id. |
+| dest_id             | string  | n        | Share id. |
+| creator             | object  | n        | Creator. |
+| created             | integer | n        | Like created time. Unix timestamp. |
+| updated             | integer | n        | Like updated time. Unix timestamp. |
+| status              | string  | n        | Fixed to "created". |
+| dna                 | string  | n        | Like DNA. |
+| signature           | string  | n        | [Metadata signature](./README.md#dtcp-metadata-signature). |
 
 `creator` object:
 
 | Name                | Type    | Optional | Description |
 | --------------      | ------- | -------- | ---------------------------------------- |
-| account_id          | string  | n        | Root account id. |
-| account_name          | string  | n        | Root account name. |
-| sub_account_id      | string  | y        | Sub account id. This id is provided by the third-party application. Usually the id in the application system is used directly. |
-| sub_account_name      | string  | y        | Sub account name. This id is provided by the third-party application. Usually the id in the application system is used directly. |
+| account_id          | string  | n        | Account id. Root account id in the case of Sub account posting. |
+| account_name        | string  | n        | Account name. |
+| sub_account_id      | string  | y        | Sub account id. Refer to [Sub account](./README.md#sub-accounts) for details. |
+| sub_account_name    | string  | y        | Sub account name. |
+
+#### Example
+
+```bash
+$ curl -x https://rigel-a.primas.network/v3/content -d '{"type":"article","content":"...","signature":"..."}'
+
+{"result_code":0,"data":{"dna":"", ...}}
+
+```
 
 
-### Like content
+### 5. Like a group share
 
 [POST] /shares/{share_id}/likes
 
 #### Request
-| Name | Type | Optional | Description |
-| ------------ | ------------- | ------------ | ------------- |
-| content_id | string  | n | Content id. |
-| share_id | string | n | Share id. |
-| created | string  | n | People creation time. Unix timestamp. |
-| creator | object  | n | Creator of the share like.  |
-| signature	| string | n | [Metadata signature](./README.md#dtcp-metadata-signature). |
+
+| Name                | Type    | Optional | Description |
+| --------------      | ------- | -------- | ---------------------------------------- |
+| type                | string  | n        | Fixed to "relation". |
+| tag                 | string  | n        | Fixed to "share_like". |
+| src_id              | string  | n        | Account id. |
+| dest_id             | string  | n        | Share id. |
+| creator             | object  | n        | Creator. |
+| created             | integer | n        | Like created time. Unix timestamp. |
+| updated             | integer | n        | Like created time. Unix timestamp. |
+| status              | string  | n        | Fixed to "created". |
+| signature           | string  | n        | [Metadata signature](./README.md#dtcp-metadata-signature). |
 
 `creator` object:
 
 | Name                | Type    | Optional | Description |
 | --------------      | ------- | -------- | ---------------------------------------- |
-| account_id          | string  | n        | Root account id. |
-| sub_account_id      | string  | y        | Sub account id. This id is provided by the third-party application. Usually the id in the application system is used directly. |
-
+| account_id          | string  | n        | Account id. Root account id in the case of Sub account posting. |
+| sub_account_id      | string  | y        | Sub account id. Refer to [Sub account](./README.md#sub-accounts) for details. |
+| sub_account_name    | string  | y        | Sub account name. For fast creation of new sub accounts. |
 
 #### Response
-| Name | Type | Optional | Description |
-| ------------ | ------------- | ------------ | ------------- |
-| like_id | string | n |  share like id |
-| like_dna | string | n |  share like dna |
 
-### Delete like
+| Name   | Type   | Optional | Description   |
+| ------ | ------ | -------- | ------------- |
+| id     | string | n        |  Like id.     |
+| dna    | string | n        |  Like dna.    |
+
+#### Example
+
+```bash
+$ curl -x https://rigel-a.primas.network/v3/content -d '{"type":"article","content":"...","signature":"..."}'
+
+{"result_code":0,"data":{"dna":"", ...}}
+
+```
+
+
+### 6. Cancel the like of a group share
 
 [DELETE] /shares/{share_id}/likes/{like_id}
 
 #### Request
-| Name | Type | Optional | Description |
-| ------------ | ------------- | ------------ | ------------- |
-| content_id | string  | n | Content id. |
-| share_id | string | n | Share id. |
-| created | string  | n | People creation time. Unix timestamp. |
-| creator | object  | n | Operator of the share like delete .  |
-| signature	| string | n | [Metadata signature](./README.md#dtcp-metadata-signature). |
+
+| Name                | Type    | Optional | Description |
+| --------------      | ------- | -------- | ---------------------------------------- |
+| type                | string  | n        | Fixed to "relation". |
+| tag                 | string  | n        | Fixed to "share_like". |
+| src_id              | string  | n        | Account id. |
+| dest_id             | string  | n        | Share id. |
+| creator             | object  | n        | Creator. |
+| created             | integer | n        | Like created time. Unix timestamp. |
+| updated             | integer | n        | Like updated time. Unix timestamp. |
+| status              | string  | n        | Fixed to "deleted". |
+| parent_dna          | string  | n        | Latest DNA of the like. |
+| signature           | string  | n        | [Metadata signature](./README.md#dtcp-metadata-signature). |
 
 `creator` object:
 
 | Name                | Type    | Optional | Description |
 | --------------      | ------- | -------- | ---------------------------------------- |
-| account_id          | string  | n        | Root account id. |
-| sub_account_id      | string  | y        | Sub account id. This id is provided by the third-party application. Usually the id in the application system is used directly. |
+| account_id          | string  | n        | Account id. Root account id in the case of Sub account posting. |
+| sub_account_id      | string  | y        | Sub account id. Refer to [Sub account](./README.md#sub-accounts) for details. |
 
 #### Response
-| Name | Type | Optional | Description |
-| ------------ | ------------- | ------------ | ------------- |
-| like_id | string | n |  share like id |
 
-### Get content comments
+| Name   | Type   | Optional | Description   |
+| ------ | ------ | -------- | ------------- |
+| dna    | string | n        |  Like dna.    |
 
-[GET] /shares/{share_id}/comments?page_id={page_id}&type={type}
-page_id: start from 0 
-type: 0=first level  1= second level 2= more than level
+#### Example
+
+```bash
+$ curl -x https://rigel-a.primas.network/v3/content -d '{"type":"article","content":"...","signature":"..."}'
+
+{"result_code":0,"data":{"dna":"", ...}}
+
+```
+
+
+### 7. Get the comments of a group share
+
+[GET] /shares/{share_id}/comments
+
+#### Query parameters
+
+| Name               | Type     | Optional | Description                                         |
+| ------------------ | -------- | -------- | --------------------------------------------------- |
+| page               | integer  | y        | Page number. Starts from 0.                         |
+| page_size          | integer  | y        | Page size. Default to 20.                           |
 
 #### Response
-| Name | Type | Optional | Description |
-| ------------ | ------------- | ------------ | ------------- |
-| records | []object | n | share comment history list |
 
-`records` object:
+`data` is an array of comments:
 
 | Name                | Type    | Optional | Description |
 | --------------      | ------- | -------- | ---------------------------------------- |
-| content_id | string  | n | Content id. |
-| share_id | string | n | Share id. |
-| comment_id | string | n | share comment id |
-| comment_dna | string | n | share comment dna |
-| created | string  | n | People creation time. Unix timestamp. |
-| creator | object  | n | Operator of the share comment.  |
-| content | string  | n | content of the share comment.  |
-| content_hash | string  | n | Keccak256 hash of the raw share comment. |
-| to_people | object  | n | to comment people's comment |
-| parent_comment_id | string  | n | parent comment id |
-| parent_comment_dna | string  | n | parent comment dna |
-| type | int | n | comment type |
-| signature	| string | n | [Metadata signature](./README.md#dtcp-metadata-signature). |
-| txstatus	| int	| n	| blockchain transaction status|
-| txhash	| string	| n	| blockchain TxHash |
-| isdelete	| uint	| n	| record invalid |
-| sub_comment_num | int | y | Sub comment number |
-| sub_comment_list | records | y | Sub comment list |
+| id                  | string  | n        | Comment id. |
+| src_id              | string  | n        | Account id. |
+| dest_id             | string  | n        | Share id. |
+| creator             | object  | n        | Creator. |
+| created             | integer | n        | Comment created time. Unix timestamp. |
+| updated             | integer | n        | Comment created time. Unix timestamp. |
+| status              | string  | n        | Fixed to "created". |
+| extra               | object  | n        | Extra metadata. |
+| signature           | string  | n        | [Metadata signature](./README.md#dtcp-metadata-signature). |
 
 `creator` object:
 
 | Name                | Type    | Optional | Description |
 | --------------      | ------- | -------- | ---------------------------------------- |
-| account_id          | string  | n        | Root account id. |
-| account_name          | string  | n        | Root account name. |
-| sub_account_id      | string  | y        | Sub account id. This id is provided by the third-party application. Usually the id in the application system is used directly. |
-| sub_account_name      | string  | y        | Sub account name. This id is provided by the third-party application. Usually the id in the application system is used directly. |
+| account_id          | string  | n        | Account id. Root account id in the case of Sub account posting. |
+| account_name        | string  | n        | Account name. |
+| sub_account_id      | string  | y        | Sub account id. Refer to [Sub account](./README.md#sub-accounts) for details. |
+| sub_account_name    | string  | y        | Sub account name. |
 
-`to_people` object:
+`extra` object:
 
-| Name                | Type    | Optional | Description |
-| --------------      | ------- | -------- | ---------------------------------------- |
-| account_id          | string  | n        | Root account id. |
-| account_name          | string  | n        | Root account name. |
-| sub_account_id      | string  | y        | Sub account id. This id is provided by the third-party application. Usually the id in the application system is used directly. |
-| sub_account_name      | string  | y        | Sub account name. This id is provided by the third-party application. Usually the id in the application system is used directly. |
+| Name          | Type    | Optional | Description |
+| ------------- | ------- | -------- | ------------------------------------------------ |
+| content       | string  | n        | Content URI. In the case of IPFS, a link starts with "ipfs://" |
 
 
-### Comment content
+### 8. Comment a group share
 
 [POST] /shares/{share_id}/comments
 
 #### Request
-| Name | Type | Optional | Description |
-| ------------ | ------------- | ------------ | ------------- |
-| content_id | string  | n | Content id. |
-| share_id | string | n | Share id. |
-| created | string  | n | People creation time. Unix timestamp. |
-| creator | object  | n | Operator of the share comment.  |
-| content | string  | n | content of the share comment.  |
-| content_hash | string  | n | Keccak256 hash of the raw share comment. |
-| to_people | object  | n | to comment people's comment |
-| parent_comment_id | string  | y | parent comment dna |
-| type | int | n | comment type |
-| signature	| string | n | [Metadata signature](./README.md#dtcp-metadata-signature). |
+
+| Name                | Type    | Optional | Description |
+| --------------      | ------- | -------- | ---------------------------------------- |
+| type                | string  | n        | Fixed to "relation". |
+| tag                 | string  | n        | Fixed to "share_comment". |
+| src_id              | string  | n        | Account id. |
+| dest_id             | string  | n        | Share id. |
+| creator             | object  | n        | Creator. |
+| created             | integer | n        | Comment created time. Unix timestamp. |
+| updated             | integer | n        | Comment created time. Unix timestamp. |
+| status              | string  | n        | Fixed to "created". |
+| extra               | object  | n        | Extra metadata. |
+| signature           | string  | n        | [Metadata signature](./README.md#dtcp-metadata-signature). |
 
 `creator` object:
 
 | Name                | Type    | Optional | Description |
 | --------------      | ------- | -------- | ---------------------------------------- |
-| account_id          | string  | n        | Root account id. |
-| account_name          | string  | n        | Root account name. |
-| sub_account_id      | string  | y        | Sub account id. This id is provided by the third-party application. Usually the id in the application system is used directly. |
-| sub_account_name      | string  | y        | Sub account name. This id is provided by the third-party application. Usually the id in the application system is used directly. |
+| account_id          | string  | n        | Account id. Root account id in the case of Sub account posting. |
+| sub_account_id      | string  | y        | Sub account id. Refer to [Sub account](./README.md#sub-accounts) for details. |
+| sub_account_name    | string  | y        | Sub account name. For fast creation of new sub accounts. |
 
-`to_people` object:
+`extra` object:
+
+| Name          | Type    | Optional | Description |
+| ------------- | ------- | -------- | ------------------------------------------------ |
+| content       | string  | n        | base64 encoded comment [content](./content.md#content-format). |
+
+#### Response
+
+| Name   | Type   | Optional | Description   |
+| ------ | ------ | -------- | ------------- |
+| id     | string | n        |  Comment id.     |
+| dna    | string | n        |  Comment dna.    |
+
+#### Example
+
+```bash
+$ curl -x https://rigel-a.primas.network/v3/content -d '{"type":"article","content":"...","signature":"..."}'
+
+{"result_code":0,"data":{"dna":"", ...}}
+
+```
+
+### 9. Update the comment of a group share
+
+[PUT] /shares/{share_id}/comments/{comment_id}
+
+#### Request
 
 | Name                | Type    | Optional | Description |
 | --------------      | ------- | -------- | ---------------------------------------- |
-| account_id          | string  | n        | Root account id. |
-| account_name          | string  | n        | Root account name. |
-| sub_account_id      | string  | y        | Sub account id. This id is provided by the third-party application. Usually the id in the application system is used directly. |
-| sub_account_name      | string  | y        | Sub account name. This id is provided by the third-party application. Usually the id in the application system is used directly. |
+| type                | string  | n        | Fixed to "relation". |
+| tag                 | string  | n        | Fixed to "share_comment". |
+| src_id              | string  | n        | Account id. |
+| dest_id             | string  | n        | Share id. |
+| creator             | object  | n        | Creator. |
+| created             | integer | n        | Comment created time. Unix timestamp. |
+| updated             | integer | n        | Comment updated time. Unix timestamp. |
+| status              | string  | n        | Fixed to "updated". |
+| extra               | object  | n        | Extra metadata. |
+| parent_dna          | string  | n        | Latest comment DNA. |
+| signature           | string  | n        | [Metadata signature](./README.md#dtcp-metadata-signature). |
 
+`creator` object:
+
+| Name                | Type    | Optional | Description |
+| --------------      | ------- | -------- | ---------------------------------------- |
+| account_id          | string  | n        | Account id. Root account id in the case of Sub account posting. |
+| sub_account_id      | string  | y        | Sub account id. Refer to [Sub account](./README.md#sub-accounts) for details. |
+
+`extra` object:
+
+| Name          | Type    | Optional | Description |
+| ------------- | ------- | -------- | ------------------------------------------------ |
+| content       | string  | n        | base64 encoded comment [content](./content.md#content-format). Leave empty if content is not changed. |
 
 #### Response
-| Name | Type | Optional | Description |
-| ------------ | ------------- | ------------ | ------------- |
-| comment_id | string | n |  share comment id |
-| comment_dna | string | n |  share comment dna |
 
+| Name   | Type   | Optional | Description   |
+| ------ | ------ | -------- | ------------- |
+| dna    | string | n        |  Comment dna.    |
 
-### Delete comment
+#### Example
+
+```bash
+$ curl -x https://rigel-a.primas.network/v3/content -d '{"type":"article","content":"...","signature":"..."}'
+
+{"result_code":0,"data":{"dna":"", ...}}
+
+```
+
+### 10. Delete the comment of a group share
 
 [DELETE] /shares/{share_id}/comments/{comment_id}
 
 #### Request
-| Name | Type | Optional | Description |
-| ------------ | ------------- | ------------ | ------------- |
-| content_id | string  | n | Content id. |
-| share_id | string | n | Share id. |
-| created | string  | n | People creation time. Unix timestamp. |
-| creator | object  | n | Operator of the share comment.  |
-| signature	| string | n | [Metadata signature](./README.md#dtcp-metadata-signature). |
+
+| Name                | Type    | Optional | Description |
+| --------------      | ------- | -------- | ---------------------------------------- |
+| type                | string  | n        | Fixed to "relation". |
+| tag                 | string  | n        | Fixed to "share_comment". |
+| src_id              | string  | n        | Account id. |
+| dest_id             | string  | n        | Share id. |
+| creator             | object  | n        | Creator. |
+| created             | integer | n        | Comment created time. Unix timestamp. |
+| updated             | integer | n        | Comment updated time. Unix timestamp. |
+| status              | string  | n        | Fixed to "deleted". |
+| parent_dna          | string  | n        | Latest comment DNA. |
+| signature           | string  | n        | [Metadata signature](./README.md#dtcp-metadata-signature). |
 
 `creator` object:
 
 | Name                | Type    | Optional | Description |
 | --------------      | ------- | -------- | ---------------------------------------- |
-| account_id          | string  | n        | Root account id. |
-| account_name          | string  | n        | Root account name. |
-| sub_account_id      | string  | y        | Sub account id. This id is provided by the third-party application. Usually the id in the application system is used directly. |
-| sub_account_name      | string  | y        | Sub account name. This id is provided by the third-party application. Usually the id in the application system is used directly. |
-
+| account_id          | string  | n        | Account id. Root account id in the case of Sub account posting. |
+| sub_account_id      | string  | y        | Sub account id. Refer to [Sub account](./README.md#sub-accounts) for details. |
 
 #### Response
-| Name | Type | Optional | Description |
-| ------------ | ------------- | ------------ | ------------- |
-| comment_id | string | n |  share comment id |
 
+| Name   | Type   | Optional | Description   |
+| ------ | ------ | -------- | ------------- |
+| dna    | string | n        |  Comment dna.    |
 
+#### Example
+
+```bash
+$ curl -x https://rigel-a.primas.network/v3/content -d '{"type":"article","content":"...","signature":"..."}'
+
+{"result_code":0,"data":{"dna":"", ...}}
+
+```
