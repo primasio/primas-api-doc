@@ -534,7 +534,7 @@ $ curl -x https://rigel-a.primas.network/v3/content -d '{"type":"article","conte
 ```
 
 
-### 15. Approve or decline share application
+### 11. Approve or decline share application
 
 [PUT] /shares/{share_id}
  
@@ -584,7 +584,7 @@ $ curl -x https://rigel-a.primas.network/v3/content -d '{"type":"article","conte
 ```
 
 
-### 17. Delete group share
+### 12. Delete group share
 
 [DELETE] /shares/{share_id}
 
