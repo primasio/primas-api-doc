@@ -24,13 +24,47 @@
 | signature           | string  | n        | [Metadata signature](./README.md#dtcp-metadata-signature). |
 | dna                 | string  | n        | DNA of the account. |
 
+`extra` object:
+
+| Name                | Type    | Optional | Description |
+| --------------      | ------- | -------- | ---------------------------------------- |
+| hash                | string  | y        | In the case of proof of existence of secret data. The hash can be filled in this field. |
+
+#### Example
+
+```bash
+$ curl -x https://rigel-a.primas.network/v3/content -d '{"type":"article","content":"...","signature":"..."}'
+
+{"result_code":0,"data":{"dna":"", ...}}
+
+```
+
+
+### 2. Get sub account metadata
+
+[GET] /accounts/{account_id}/{sub_account_id}
+
+#### Response
+
+| Name                | Type    | Optional | Description |
+| --------------      | ------- | -------- | ---------------------------------------- |
+| address             | string  | n        | Account address. |
+| title               | string  | n        | Account name. |
+| abstract            | string  | y        | Description. |
+| avatar              | string  | y        | An image DNA used for avatar. |
+| creator             | object  | n        | Creator of the [sub account](./README.md#sub-accounts). |
+| created             | string  | n        | Account creation time. Unix timestamp. |
+| updated             | string  | n        | Account last updating time. Unix timestamp. |
+| extra               | object  | y        | Extra metadata. |
+| signature           | string  | n        | [Metadata signature](./README.md#dtcp-metadata-signature). |
+| dna                 | string  | n        | DNA of the account. |
+
 `creator` object:
 
 | Name                | Type    | Optional | Description |
 | --------------      | ------- | -------- | ---------------------------------------- |
 | account_id          | string  | n        | Root account id. |
 | account_name        | string  | n        | Root account name. |
-| sub_account_id      | string  | n        | Sub account id. This id is provided by the third-party application. Usually the id in the application system is used directly. |
 
 `extra` object:
 
@@ -48,7 +82,7 @@ $ curl -x https://rigel-a.primas.network/v3/content -d '{"type":"article","conte
 ```
 
 
-### 2. Create account
+### 3. Create account
 
 [POST] /accounts
 
@@ -96,7 +130,7 @@ $ curl -x https://rigel-a.primas.network/v3/content -d '{"type":"article","conte
 ```
 
 
-### 3. Update account metadata
+### 4. Update account metadata
 
 [PUT] /accounts/{account_id}
 
