@@ -18,7 +18,6 @@
 | title               | string  | n        | Account name. |
 | abstract            | string  | y        | Description. |
 | avatar              | string  | y        | An image DNA used for avatar. |
-| creator             | object  | y        | Creator. Provided when this account is a [sub account](./README.md#sub-accounts). |
 | created             | string  | n        | Account creation time. Unix timestamp. |
 | updated             | string  | n        | Account last updating time. Unix timestamp. |
 | extra               | object  | y        | Extra metadata. |
@@ -82,10 +81,10 @@ $ curl -x https://rigel-a.primas.network/v3/content -d '{"type":"article","conte
 
 #### Response
 
-| Name | Type | Optional | Description |
-| ------------ | ------------- | ------------ | ------------- | 
-|  id  | string | n | The id of the account. |
-|  dna  | string | n | The DNA of the account. |
+| Name  | Type   | Optional | Description                                                |
+| ----- | ------ | -------- | ---------------------------------------------------------- | 
+|  id   | string | y        | The id of the account. No id is returned for sub accounts. |
+|  dna  | string | n        | The DNA of the account.                                    |
 
 #### Example
 
@@ -120,6 +119,7 @@ $ curl -x https://rigel-a.primas.network/v3/content -d '{"type":"article","conte
 
 | Name                | Type    | Optional | Description |
 | --------------      | ------- | -------- | ---------------------------------------- |
+| account_id          | string  | n        | Root account id. |
 | sub_account_id      | string  | n        | Sub account id. |
 
 `extra` object:
