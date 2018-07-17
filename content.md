@@ -70,7 +70,7 @@ to set a price on the authorization of the content:
 | Name                | Type    | Optional | Description |
 | --------------      | ------- | -------- | ---------------------------------------- |
 | id                  | string  | n        | Content id.|
-| type                | string  | n        | Content type. Currently "article", "image" are supported. |
+| tag                 | string  | n        | Content tag. Currently "article", "image" are supported. |
 | title               | string  | n        | Content title. |
 | creator             | object  | n        | Creator of the content. |
 | abstract            | string  | n        | Content abstract. |
@@ -98,8 +98,8 @@ For image metadata, there're more fields:
 
 | Name                | Type    | Optional | Description |
 | --------------      | ------- | -------- | ---------------------------------------- |
-| id                  | string  | n        | Account id. Root account id in the case of Sub account posting. |
-| name                | string  | n        | Account name. Root account name in the case of Sub account posting. |
+| account_id          | string  | n        | Account id. Root account id in the case of Sub account posting. |
+| account_name        | string  | n        | Account name. Root account name in the case of Sub account posting. |
 | sub_account_id      | string  | y        | Sub account id. Refer to [Sub account](./README.md#sub-accounts) for details. |
 | sub_account_name    | string  | y        | Sub account name. |
 
@@ -149,13 +149,15 @@ $ curl -x https://rigel-a.primas.network/v3/content/1GFYUNP815RUIFDNNRKLNU78RPCF
 
 | Name                | Type    | Optional | Description |
 | --------------      | ------- | -------- | ---------------------------------------- |
-| type                | string  | n        | Content type. Currently "article", "image" are supported. |
+| type                | string  | n        | Fixed to "object". |
+| tag                 | string  | n        | Content type. Currently "article", "image" are supported. |
 | title               | string  | n        | Content title. |
 | creator             | object  | n        | Creator. |
 | abstract            | string  | n        | Content abstract. |
 | language            | string  | n        | Content language. [RFC4646](http://www.ietf.org/rfc/rfc4646.txt) defined locales such as "en-US" |
 | category            | string  | n        | Content categories. Comma separated words list. |
 | created             | integer | n        | Content creation time. Unix timestamp. |
+| updated             | integer | n        | Content creation time. Unix timestamp. |
 | content             | string  | n        | Raw content in base64 encoded format. |
 | license             | object  | y        | [Content authorization license](./content.md#content-licensing). "none" is used if empty. |
 | signature           | string  | n        | [Metadata signature](./README.md#dtcp-metadata-signature). |
@@ -164,7 +166,7 @@ $ curl -x https://rigel-a.primas.network/v3/content/1GFYUNP815RUIFDNNRKLNU78RPCF
 
 | Name                | Type    | Optional | Description |
 | --------------      | ------- | -------- | ---------------------------------------- |
-| dna                 | string  | n        | Person DNA. Root account DNA in the case of Sub account posting. |
+| account_id          | string  | n        | Account id. Root account id in the case of Sub account posting. |
 | sub_account_id      | string  | y        | Sub account id. Refer to [Sub account](./README.md#sub-accounts) for details. |
 | sub_account_name    | string  | y        | Sub account name. For fast creation of new sub accounts. |
 
@@ -193,13 +195,15 @@ $ curl -x https://rigel-a.primas.network/v3/content -d '{"type":"article","conte
 
 | Name                | Type    | Optional | Description |
 | --------------      | ------- | -------- | ---------------------------------------- |
-| type                | string  | n        | Content type. Currently "article", "image" are supported. |
+| type                | string  | n        | Fixed to "object". |
+| tag                 | string  | n        | Content type. Currently "article", "image" are supported. |
 | title               | string  | n        | Content title. |
 | abstract            | string  | n        | Content abstract. |
-| creator             | object  | n        | Creator. Required when updating from a sub account. |
+| creator             | object  | n        | Creator. |
 | category            | string  | n        | Content categories. Comma separated words list. |
+| created             | integer | n        | Content creation time. Unix timestamp.|
 | updated             | integer | n        | Content updating time. Unix timestamp.|
-| content             | string  | n        | Raw content in base64 encoded format. |
+| content             | string  | n        | Raw content in base64 encoded format. Leave empty if content is not changed. |
 | license             | object  | y        | [Content authorization license](./content.md#content-licensing). "none" is used if empty. |
 | parent_dna          | string  | n        | Latest DNA of the content. |
 | signature           | string  | n        | [Metadata signature](./README.md#dtcp-metadata-signature). |
@@ -208,13 +212,13 @@ $ curl -x https://rigel-a.primas.network/v3/content -d '{"type":"article","conte
 
 | Name                | Type    | Optional | Description |
 | --------------      | ------- | -------- | ---------------------------------------- |
-| sub_account_id      | string  | n        | Sub account id. Refer to [Sub account](./README.md#sub-accounts) for details. |
+| account_id          | string  | n        | Account id. Root account id in the case of Sub account posting. |
+| sub_account_id      | string  | y        | Sub account id. Refer to [Sub account](./README.md#sub-accounts) for details. |
 
 #### Response
 
 | Name | Type | Optional | Description |
 | ------------ | ------------- | ------------ | ------------- | 
-|  id   | string | n | The id of the content. |
 |  dna  | string | n | The updated DNA of the content. |
 
 #### Example
