@@ -194,10 +194,6 @@ $ curl -x https://rigel-a.primas.network/v3/content -d '{"type":"article","conte
 
 [GET] /accounts/{account_id}/groups/{group_id}/shares
 
-### 8. Delete all shares of an account in a group
-
-[DELETE] /accounts/{account_id}/groups/{group_id}/shares
-
 ### 8. Get account likes 
 
 [GET] /accounts/{account_id}/likes
