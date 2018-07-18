@@ -1,6 +1,6 @@
 # Primas Node API Documentation
 
-## Dencentralized Trusted Content Protocol
+## Decentralized Trusted Content Protocol
 
 ### Metadata
 
