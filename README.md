@@ -38,7 +38,7 @@ Primas is built upon DCTP, which contains a standard for metadata of content and
 For compatibility the metadata used in Primas is the same as DCTP,
 which including metadata for content(articles, images, and in the future videos and audios),
 groups and links. Like is a link between content and a person. Sharing is a link between content
-and a group. Comment is a new article and a link between this article and the original one.
+and a group.
 
 For all the metadata related APIs such as person registration, article posting, group creation and article sharing,
 the metadata in DTCP standard is post in request body. And the metadata is saved
