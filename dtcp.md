@@ -153,6 +153,16 @@ func Verify(data []byte, signature, public string) error {
 	return rsa.VerifyPKCS1v15(pub, crypto.SHA256, hashed[:], signatureDecode)
 }
 ```
+### Metadata on Blockchain
+
+A key feature of DTCP is the tamper-proof property of metadata. All the metadata are recorded
+on the Blockchain. To reduce the overload on Blockchain, only the merkle root of metatdata is
+actually recorded on the Blockchain. There's a field `transaction_id` in every group of metadata
+recording the transaction including the merkle root of the metadata.
+
+To verify the metadata, one needs to find all the metadata that shares the same `transaction_id`
+, sort all the DNAs in alphabetic order, calculate the merkle root and check if it is the same
+as recorded in the transaction.
 
 ### Metadata Posting
 
