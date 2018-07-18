@@ -4,9 +4,88 @@
 
 ### Metadata
 
-DTCP models the digital worlds as a set of digital objects and links between them.
-In DTCP, all the digital objects are described with a collection of metadata. For example, "article" is
-described with "title", "abstract", "content", "author". 
+DTCP models the digital world as a set of digital objects and the links between them. On the top level there're
+only 2 types of data, "object" and "link". links connect different objects together and forms a network. For example,
+"article" is a digital object, "account" is also a digital object, "comment", however, is a link between an "article"
+ and an "account".
+
+In DTCP, both objects and links are described with a collection of metadata. For example, "article" is
+described with "title", "abstract", "content", "author". "comment" is described with "src_id" which points
+to an account and "dest_id" with points to an account, and there's another field "content" contains the
+comment content.
+
+DTCP is all about a series of standards of how metadata is defined for different kinds of objects and links.
+
+### Metadata DNA and Metadata ID
+
+After metadata is created and saved, we need a URI, or Uniform Resource Identifier, to find the metadata when needed.
+DNA, beyond all the other purposes, serves as the URI of the metadata. DNA can be generated using a set of given
+metadata and is unique to these metadata.
+
+The metadata cannot be modified or deleted after creation since it is recorded on the Blockchain. To implement
+object modification and deletion functions, DTCP adds a `status` field to record the modification status and
+`parent_dna` to build modification history chain for a digital object. Metadata ID is used to track the single object
+in its metadata chain of modification.
+
+For example, when creating an article, a set of metadata is created:
+
+``` json
+
+{
+    "id": "2Z2B3212",
+    "dna": "1Q279A8D",
+    "type": "object",
+    "tag": "article",
+    "title": "This is an article",
+    "content": "This is the article content",
+    "created": "1531897155",
+    "status": "created"
+}
+
+```
+
+Then the article needs to be modified, instead of modifying the existing metadata, we create a new set of metadata:
+
+``` json
+
+{
+    "dna": "2785C422",
+    "parent_dna": "1Q279A8D",
+    "content": "This is the article content",
+    "updated": "1532097155",
+    "status": "updated"
+}
+
+```
+
+Note that in the updating metadata, `parent_dna` points to the previous metadata dna. And only the modified part
+needs to be provided.
+
+Metadata ID is only created when creating an object. It does not appear in the updating or deleting metadata. It is
+used to provide a consistent way of identifying an object to the applications. One can always find the same object
+with latest updated data using the same ID.
+
+Then the article is deleted. Another set of metadata is created:
+
+``` json
+
+{
+    "dna": "3696TRDF",
+    "parent_dna": "2785C422",
+    "updated": "1533097155",
+    "status": "deleted"
+}
+
+```
+
+In this way, there're 2 dimensions in the network DTCP builds. The first dimension is about objects and connections
+between them using links. The other dimension is about the modification history of each object and links.
+To identify objects and links, Metadata ID is used. To track the modification history or find a dedicated version
+of a single object, Metadata DNA is used.
+
+DTCP standard metadata is only good for storage. It is painful if we want to provide traditional index
+functions to mobile apps using metadata directly. So in Primas Node, DTCP metadata is scanned at the first time
+to build a traditional index-friendly database, or cache, internally to speed up the access of APIs.
 
 ### Metadata Signature
 
