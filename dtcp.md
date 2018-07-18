@@ -90,19 +90,25 @@ to build a traditional index-friendly database, or cache, internally to speed up
 ### Metadata Signature
 
 There's a field `signature` in the metadata standard to proof the integrity and ownership of the data.
-The signature in Primas is also calculated using the same method, both the hash function and
-the asymmetric cryptography as the DTCP specifies, which is also the same with Ethereum.
+The signature in DTCP is also calculated using the same method, both the hash function and
+the asymmetric cryptography, which is also the same with Ethereum.
 
-SHA3 and Keccak256
+**SHA3 and Keccak256**
 
-Primas uses Keccak256 as the hasing function. In most cases SHA3 and Keccak256 are the same function.
+DTCP uses Keccak256 as the hasing function. In most cases SHA3 and Keccak256 are the same function.
 However in Ethereum SHA3, which is Keccak256 is slightly different than the standard NIST-SHA3.
 To be compatible with Ethereum. Primas uses Keccak256 in both DTCP and Primas network.
 
-Asymmetric Cryptography
+**Asymmetric Cryptography**
 
 Primas uses ECDSA-SECP256K1 to calculate the signature which is also the same with DTCP and Ethereum.
 The private key is a 32-byte big number. And the address is a portion of the public key.
+
+**Signature String**
+
+Signature string is the JSON encoded string of the metadata. Before encoding the keys of the JSON object
+must be sorted in alphabetic order. And the sorting must be performed recursively on the sub objects and
+object elements in the arrays.
 
 ##### Example of signature calculation and verification in Golang
 
