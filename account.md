@@ -68,7 +68,6 @@ $ curl -x https://rigel-a.primas.network/v3/content -d '{"type":"article","conte
 | avatar              | string  | y        | An image id used for avatar. |
 | creator             | object  | y        | Creator. Required when creating [sub account](./README.md#sub-accounts). |
 | created             | integer | n        | Account creation time. Unix timestamp. |
-| updated             | integer | n        | Account creation time. Unix timestamp. |
 | extra               | object  | y        | Extra metadata. |
 | signature           | string  | n        | [Metadata signature](./README.md#dtcp-metadata-signature). |
 
@@ -106,20 +105,21 @@ $ curl -x https://rigel-a.primas.network/v3/content -d '{"type":"article","conte
 
 [PUT] /accounts/{account_id}
 
+For updating, only the changed metadata need to be provided.
+
 #### Request
 
 | Name                | Type    | Optional | Description |
 | --------------      | ------- | -------- | ---------------------------------------- |
 | type                | string  | n        | Fixed to "object". |
 | tag                 | string  | n        | Fixed to "account". |
+| parent_dna          | string  | n        | The latest DNA of the account. |
+| updated             | integer | n        | Updating time. Unix timestamp. |
 | name                | string  | y        | Name. |
 | abstract            | string  | y        | Description. |
 | avatar              | string  | y        | An image DNA used for avatar. |
 | creator             | object  | y        | Creator. Required when updating [sub account](./README.md#sub-accounts). |
-| created             | integer | n        | Account creation time. Unix timestamp. |
-| updated             | integer | n        | Updating time. Unix timestamp. |
 | extra               | object  | y        | Extra metadata. |
-| parent_dna          | string  | n        | The latest DNA of the account. |
 | signature           | string  | n        | [Metadata signature](./README.md#dtcp-metadata-signature). |
 
 `creator` object:
@@ -133,7 +133,7 @@ $ curl -x https://rigel-a.primas.network/v3/content -d '{"type":"article","conte
 
 | Name                | Type    | Optional | Description |
 | --------------      | ------- | -------- | ---------------------------------------- |
-| hash                | string  | y        | In the case of proof of existence of secret data. The hash can be filled in this field. |
+| hash                | string  | n        | In the case of proof of existence of secret data. The hash can be filled in this field. |
 
 #### Response
 

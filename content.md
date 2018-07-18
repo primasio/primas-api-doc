@@ -159,7 +159,6 @@ $ curl -x https://rigel-a.primas.network/v3/content/1GFYUNP815RUIFDNNRKLNU78RPCF
 | language            | string  | n        | Content language. [RFC4646](http://www.ietf.org/rfc/rfc4646.txt) defined locales such as "en-US" |
 | category            | string  | n        | Content categories. Comma separated words list. |
 | created             | integer | n        | Content creation time. Unix timestamp. |
-| updated             | integer | n        | Content creation time. Unix timestamp. |
 | content             | string  | n        | Raw [content](./content.md#content-format) in base64 encoded format. |
 | license             | object  | y        | [Content authorization license](./content.md#content-licensing). "none" is used if empty. |
 | signature           | string  | n        | [Metadata signature](./README.md#dtcp-metadata-signature). |
@@ -193,29 +192,22 @@ $ curl -x https://rigel-a.primas.network/v3/content -d '{"type":"article","conte
 
 [PUT] /content/{content_id}
 
+For updating, only the changed metadata need to be provided.
+
 #### Request
 
 | Name                | Type    | Optional | Description |
 | --------------      | ------- | -------- | ---------------------------------------- |
 | type                | string  | n        | Fixed to "object". |
 | tag                 | string  | n        | Content type. Currently "article", "image" are supported. |
-| title               | string  | n        | Content title. |
-| abstract            | string  | n        | Content abstract. |
-| creator             | object  | n        | Creator. |
-| category            | string  | n        | Content categories. Comma separated words list. |
-| created             | integer | n        | Content creation time. Unix timestamp.|
-| updated             | integer | n        | Content updating time. Unix timestamp.|
-| content             | string  | n        | Raw content in base64 encoded format. Leave empty if content is not changed. |
-| license             | object  | y        | [Content authorization license](./content.md#content-licensing). "none" is used if empty. |
 | parent_dna          | string  | n        | Latest DNA of the content. |
+| updated             | integer | n        | Content updating time. Unix timestamp.|
+| title               | string  | y        | Content title. |
+| abstract            | string  | y        | Content abstract. |
+| category            | string  | y        | Content categories. Comma separated words list. |
+| content             | string  | y        | Raw content in base64 encoded format. |
+| license             | object  | y        | [Content authorization license](./content.md#content-licensing). "none" is used if empty. |
 | signature           | string  | n        | [Metadata signature](./README.md#dtcp-metadata-signature). |
-
-`creator` object:
-
-| Name                | Type    | Optional | Description |
-| --------------      | ------- | -------- | ---------------------------------------- |
-| account_id          | string  | n        | Account id. Root account id in the case of Sub account posting. |
-| sub_account_id      | string  | y        | Sub account id. Refer to [Sub account](./README.md#sub-accounts) for details. |
 
 #### Response
 

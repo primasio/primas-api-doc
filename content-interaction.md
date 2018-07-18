@@ -126,7 +126,6 @@ $ curl -x https://rigel-a.primas.network/v3/content -d '{"type":"article","conte
 | dest_id             | string  | n        | Share id. |
 | creator             | object  | n        | Creator. |
 | created             | integer | n        | Report created time. Unix timestamp. |
-| updated             | integer | n        | Report created time. Unix timestamp. |
 | status              | string  | n        | Fixed to "created". |
 | extra               | object  | n        | Extra metadata. |
 | signature           | string  | n        | [Metadata signature](./README.md#dtcp-metadata-signature). |
@@ -223,7 +222,6 @@ $ curl -x https://rigel-a.primas.network/v3/content -d '{"type":"article","conte
 | dest_id             | string  | n        | Share id. |
 | creator             | object  | n        | Creator. |
 | created             | integer | n        | Like created time. Unix timestamp. |
-| updated             | integer | n        | Like created time. Unix timestamp. |
 | status              | string  | n        | Fixed to "created". |
 | signature           | string  | n        | [Metadata signature](./README.md#dtcp-metadata-signature). |
 
@@ -262,21 +260,10 @@ $ curl -x https://rigel-a.primas.network/v3/content -d '{"type":"article","conte
 | --------------      | ------- | -------- | ---------------------------------------- |
 | type                | string  | n        | Fixed to "relation". |
 | tag                 | string  | n        | Fixed to "share_like". |
-| src_id              | string  | n        | Account id. |
-| dest_id             | string  | n        | Share id. |
-| creator             | object  | n        | Creator. |
-| created             | integer | n        | Like created time. Unix timestamp. |
+| parent_dna          | string  | n        | Latest DNA of the like. |
 | updated             | integer | n        | Like updated time. Unix timestamp. |
 | status              | string  | n        | Fixed to "deleted". |
-| parent_dna          | string  | n        | Latest DNA of the like. |
 | signature           | string  | n        | [Metadata signature](./README.md#dtcp-metadata-signature). |
-
-`creator` object:
-
-| Name                | Type    | Optional | Description |
-| --------------      | ------- | -------- | ---------------------------------------- |
-| account_id          | string  | n        | Account id. Root account id in the case of Sub account posting. |
-| sub_account_id      | string  | y        | Sub account id. Refer to [Sub account](./README.md#sub-accounts) for details. |
 
 #### Response
 
@@ -351,7 +338,6 @@ $ curl -x https://rigel-a.primas.network/v3/content -d '{"type":"article","conte
 | dest_id             | string  | n        | Share id. |
 | creator             | object  | n        | Creator. |
 | created             | integer | n        | Comment created time. Unix timestamp. |
-| updated             | integer | n        | Comment created time. Unix timestamp. |
 | status              | string  | n        | Fixed to "created". |
 | extra               | object  | n        | Extra metadata. |
 | signature           | string  | n        | [Metadata signature](./README.md#dtcp-metadata-signature). |
@@ -396,14 +382,10 @@ $ curl -x https://rigel-a.primas.network/v3/content -d '{"type":"article","conte
 | --------------      | ------- | -------- | ---------------------------------------- |
 | type                | string  | n        | Fixed to "relation". |
 | tag                 | string  | n        | Fixed to "share_comment". |
-| src_id              | string  | n        | Account id. |
-| dest_id             | string  | n        | Share id. |
-| creator             | object  | n        | Creator. |
-| created             | integer | n        | Comment created time. Unix timestamp. |
+| parent_dna          | string  | n        | Latest comment DNA. |
 | updated             | integer | n        | Comment updated time. Unix timestamp. |
 | status              | string  | n        | Fixed to "updated". |
 | extra               | object  | n        | Extra metadata. |
-| parent_dna          | string  | n        | Latest comment DNA. |
 | signature           | string  | n        | [Metadata signature](./README.md#dtcp-metadata-signature). |
 
 `creator` object:
@@ -417,7 +399,7 @@ $ curl -x https://rigel-a.primas.network/v3/content -d '{"type":"article","conte
 
 | Name          | Type    | Optional | Description |
 | ------------- | ------- | -------- | ------------------------------------------------ |
-| content       | string  | n        | base64 encoded comment [content](./content.md#content-format). Leave empty if content is not changed. |
+| content       | string  | n        | base64 encoded comment [content](./content.md#content-format). |
 
 #### Response
 
@@ -438,19 +420,21 @@ $ curl -x https://rigel-a.primas.network/v3/content -d '{"type":"article","conte
 
 [DELETE] /shares/{share_id}/comments/{comment_id}
 
+This API can be used by both the comment creator or the group owner.
+
+When delete comment by the group owner, the group owner's info must be
+filled in the `creator` field and group owner's account is used to generate signature.
+
 #### Request
 
 | Name                | Type    | Optional | Description |
 | --------------      | ------- | -------- | ---------------------------------------- |
 | type                | string  | n        | Fixed to "relation". |
 | tag                 | string  | n        | Fixed to "share_comment". |
-| src_id              | string  | n        | Account id. |
-| dest_id             | string  | n        | Share id. |
-| creator             | object  | n        | Creator. |
-| created             | integer | n        | Comment created time. Unix timestamp. |
-| updated             | integer | n        | Comment updated time. Unix timestamp. |
-| status              | string  | n        | Fixed to "deleted". |
 | parent_dna          | string  | n        | Latest comment DNA. |
+| status              | string  | n        | Fixed to "deleted". |
+| updated             | integer | n        | Comment updated time. Unix timestamp. |
+| creator             | object  | y        | Creator. |
 | signature           | string  | n        | [Metadata signature](./README.md#dtcp-metadata-signature). |
 
 `creator` object:
