@@ -51,7 +51,7 @@ Then the article needs to be modified, instead of modifying the existing metadat
 {
     "dna": "2785C422",
     "parent_dna": "1Q279A8D",
-    "content": "This is the article content",
+    "content": "This is the updated article content",
     "updated": "1532097155",
     "status": "updated"
 }
@@ -79,7 +79,7 @@ Then the article is deleted. Another set of metadata is created:
 ```
 
 In this way, there're 2 dimensions in the network DTCP builds. The first dimension is about objects and connections
-between them using links. The other dimension is about the modification history of each object and links.
+between them using links. The other dimension is about the modification history of each object and link.
 To identify objects and links, Metadata ID is used. To track the modification history or find a dedicated version
 of a single object, Metadata DNA is used.
 
