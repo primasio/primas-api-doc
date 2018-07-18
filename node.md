@@ -28,6 +28,7 @@
 | address_hot         | string  | n        | Node hot address. |
 | address_cold        | string  | n        | Node cold address. |
 | signature           | string  | n        | [Metadata signature](./dtcp.md#metadata-signature). |
+| transaction_id      | string  | n        | Latest transaction id. |
 
 #### Example
 

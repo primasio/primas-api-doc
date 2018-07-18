@@ -32,6 +32,7 @@ When interacting with content, the corresponding group id must be provided.
 | extra               | object  | y        | Extra metadata. |
 | signature           | string  | n        | [Metadata signature](./dtcp.md#metadata-signature). |
 | dna                 | string  | n        | Latest share DNA. |
+| transaction_id      | string  | n        | Latest transaction id. |
 
 `creator` object:
 
@@ -85,6 +86,7 @@ $ curl -x https://rigel-a.primas.network/v3/content -d '{"type":"article","conte
 | extra               | object  | n        | Extra metadata. |
 | dna                 | string  | n        | Latest report DNA. |
 | signature           | string  | n        | [Metadata signature](./dtcp.md#metadata-signature). |
+| transaction_id      | string  | n        | Latest transaction id. |
 
 `creator` object:
 
@@ -189,6 +191,7 @@ $ curl -x https://rigel-a.primas.network/v3/content -d '{"type":"article","conte
 | status              | string  | n        | Fixed to "created". |
 | dna                 | string  | n        | Like DNA. |
 | signature           | string  | n        | [Metadata signature](./dtcp.md#metadata-signature). |
+| transaction_id      | string  | n        | Latest transaction id. |
 
 `creator` object:
 
@@ -310,6 +313,7 @@ $ curl -x https://rigel-a.primas.network/v3/content -d '{"type":"article","conte
 | status              | string  | n        | Fixed to "created". |
 | extra               | object  | n        | Extra metadata. |
 | signature           | string  | n        | [Metadata signature](./dtcp.md#metadata-signature). |
+| transaction_id      | string  | n        | Latest transaction id. |
 
 `creator` object:
 

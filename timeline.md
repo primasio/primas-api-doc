@@ -33,6 +33,7 @@ in several adjacent shares, only the first one will show.**
 | extra               | object  | y        | Extra metadata. |
 | signature           | string  | n        | [Metadata signature](./dtcp.md#metadata-signature). |
 | dna                 | string  | n        | Latest share DNA. |
+| transaction_id      | string  | n        | Latest transaction id. |
 | content             | object  | n        | Share related content. |
 
 `creator` object:

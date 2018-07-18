@@ -29,6 +29,7 @@
 | hp_total            | integer | n        | Total HP. |
 | hp_current          | integer | n        | Current HP. |
 | credits             | integer | n        | Current credits. |
+| transaction_id      | string  | n        | Latest transaction id. |
 
 `creator` object:
 

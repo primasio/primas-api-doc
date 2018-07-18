@@ -22,6 +22,7 @@
 | extra               | object  | n        | Extra metadata. |
 | signature           | string  | n        | [Metadata signature](./dtcp.md#metadata-signature). |
 | dna                 | string  | n        | Group DNA. |
+| transaction_id      | string  | n        | Latest transaction id. |
 
 `creator` object:
 
@@ -203,6 +204,7 @@ Response `data` is an array whose elements contain:
 | extra               | object  | y        | Extra metadata. |
 | signature           | string  | n        | [Metadata signature](./dtcp.md#metadata-signature). |
 | dna                 | string  | n        | Group member DNA. |
+| transaction_id      | string  | n        | Latest transaction id. |
 | account             | object  | n        | Related member account. |
 
 `creator` object:
@@ -415,6 +417,7 @@ $ curl -x https://rigel-a.primas.network/v3/content -d '{"type":"article","conte
 | extra               | object  | y        | Extra metadata. |
 | signature           | string  | n        | [Metadata signature](./dtcp.md#metadata-signature). |
 | dna                 | string  | n        | Latest share DNA. |
+| transaction_id      | string  | n        | Latest transaction id. |
 | content             | object  | n        | Share related content. |
 
 `creator` object:

@@ -86,6 +86,7 @@ to set a price on the authorization of the content:
 | signature           | string  | n        | [Metadata signature](./dtcp.md#metadata-signature). |
 | dna                 | string  | n        | Content DNA. |
 | extra               | object  | n        | Extra content metadata. |
+| transaction_id      | string  | n        | Latest transaction id. |
 
 For image metadata, there're more fields:
 
@@ -104,14 +105,6 @@ For image metadata, there're more fields:
 | account_name        | string  | n        | Account name. Root account name in the case of Sub account posting. |
 | sub_account_id      | string  | y        | Sub account id. Refer to [Sub account](./dtcp.md#sub-accounts) for details. |
 | sub_account_name    | string  | y        | Sub account name. |
-
-
-`extra` object:
-
-| Name                | Type    | Optional | Description |
-| --------------      | ------- | -------- | ---------------------------------------- |
-| block_hash          | string  | n        | Block hash used to generate DNA. |
-| transaction_id      | string  | n        | Transaction that includes this content. |
 
 #### Example
 
