@@ -158,7 +158,20 @@ func Verify(data []byte, signature, public string) error {
 A key feature of DTCP is the tamper-proof property of metadata. All the metadata are recorded
 on the Blockchain. To reduce the overload on Blockchain, only the merkle root of metatdata is
 actually recorded on the Blockchain. There's a field `transaction_id` in every group of metadata
-recording the transaction including the merkle root of the metadata.
+which records the transaction that contains the merkle root of the metadata.
+
+As an example, the workflow of creating an article is as following:
+
+1. The author, using Primas DApp, creates the article metadata, and signs it with his private key.
+`transaction_id`, `dna` and `id` are not included in this signature. Note that `dna` and `id` can
+be deterministically calculated from the metadata without `transaction_id`. the signed metadata
+is sent to Primas Node.
+2. Primas Node receives the metadata, validates it, generates `dna` and `id`, saves them in the metadata, and 
+returns them to the Primas DApp immediately while drop the updated metadata in a queue at the same time.
+3. After a predefined period, Primas Node collects the DNAs for all the metadata in the queue,
+calculates the merkle root, sent the merkle root to Ethereum in a transaction.
+4. Primas Node updates all the metadata in the queue with the `transaction_id`, sends them to
+the decentralized storage, and removes them from the queue.
 
 To verify the metadata, one needs to find all the metadata that shares the same `transaction_id`
 , sort all the DNAs in alphabetic order, calculate the merkle root and check if it is the same
