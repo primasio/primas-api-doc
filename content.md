@@ -161,6 +161,7 @@ $ curl -x https://rigel-a.primas.network/v3/content/1GFYUNP815RUIFDNNRKLNU78RPCF
 | created             | integer | n        | Content creation time. Unix timestamp. |
 | content             | string  | n        | Raw [content](./content.md#content-format) in base64 encoded format. |
 | license             | object  | y        | [Content authorization license](./content.md#content-licensing). "none" is used if empty. |
+| status              | string  | n        | Fixed to "created". |
 | signature           | string  | n        | [Metadata signature](./README.md#dtcp-metadata-signature). |
 
 `creator` object:
@@ -201,6 +202,7 @@ For updating, only the changed metadata need to be provided.
 | type                | string  | n        | Fixed to "object". |
 | tag                 | string  | n        | Content type. Currently "article", "image" are supported. |
 | parent_dna          | string  | n        | Latest DNA of the content. |
+| status              | string  | n        | Fixed to "updated". |
 | updated             | integer | n        | Content updating time. Unix timestamp.|
 | title               | string  | y        | Content title. |
 | abstract            | string  | y        | Content abstract. |
