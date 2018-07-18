@@ -83,7 +83,7 @@ to set a price on the authorization of the content:
 | content             | string  | n        | Content URI. In the case of IPFS, a link starts with "ipfs://" |
 | content_hash        | string  | n        | Keccak256 hash of the raw content. |
 | license             | object  | y        | [Content authorization license](./content.md#content-licensing). |
-| signature           | string  | n        | [Metadata signature](./README.md#dtcp-metadata-signature). |
+| signature           | string  | n        | [Metadata signature](./dtcp.md#metadata-signature). |
 | dna                 | string  | n        | Content DNA. |
 | extra               | object  | n        | Extra content metadata. |
 
@@ -102,7 +102,7 @@ For image metadata, there're more fields:
 | --------------      | ------- | -------- | ---------------------------------------- |
 | account_id          | string  | n        | Account id. Root account id in the case of Sub account posting. |
 | account_name        | string  | n        | Account name. Root account name in the case of Sub account posting. |
-| sub_account_id      | string  | y        | Sub account id. Refer to [Sub account](./README.md#sub-accounts) for details. |
+| sub_account_id      | string  | y        | Sub account id. Refer to [Sub account](./dtcp.md#sub-accounts) for details. |
 | sub_account_name    | string  | y        | Sub account name. |
 
 
@@ -163,14 +163,14 @@ $ curl -x https://rigel-a.primas.network/v3/content/1GFYUNP815RUIFDNNRKLNU78RPCF
 | content             | string  | n        | Raw [content](./content.md#content-format) in base64 encoded format. |
 | license             | object  | y        | [Content authorization license](./content.md#content-licensing). "none" is used if empty. |
 | status              | string  | n        | Fixed to "created". |
-| signature           | string  | n        | [Metadata signature](./README.md#dtcp-metadata-signature). |
+| signature           | string  | n        | [Metadata signature](./dtcp.md#metadata-signature). |
 
 `creator` object:
 
 | Name                | Type    | Optional | Description |
 | --------------      | ------- | -------- | ---------------------------------------- |
 | account_id          | string  | n        | Account id. Root account id in the case of Sub account posting. |
-| sub_account_id      | string  | y        | Sub account id. Refer to [Sub account](./README.md#sub-accounts) for details. |
+| sub_account_id      | string  | y        | Sub account id. Refer to [Sub account](./dtcp.md#sub-accounts) for details. |
 | sub_account_name    | string  | y        | Sub account name. For fast creation of new sub accounts. |
 
 #### Response
@@ -211,7 +211,7 @@ For updating, only the changed metadata need to be provided.
 | category            | string  | y        | Content categories. Comma separated words list. |
 | content             | string  | y        | Raw content in base64 encoded format. |
 | license             | object  | y        | [Content authorization license](./content.md#content-licensing). "none" is used if empty. |
-| signature           | string  | n        | [Metadata signature](./README.md#dtcp-metadata-signature). |
+| signature           | string  | n        | [Metadata signature](./dtcp.md#metadata-signature). |
 
 #### Response
 

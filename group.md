@@ -20,7 +20,7 @@
 | created             | integer | n        | Group creation time. Unix timestamp. |
 | updated             | integer | n        | Group last updating time. Unix timestamp. |
 | extra               | object  | n        | Extra metadata. |
-| signature           | string  | n        | [Metadata signature](./README.md#dtcp-metadata-signature). |
+| signature           | string  | n        | [Metadata signature](./dtcp.md#metadata-signature). |
 | dna                 | string  | n        | Group DNA. |
 
 `creator` object:
@@ -29,7 +29,7 @@
 | --------------      | ------- | -------- | ---------------------------------------- |
 | account_id          | string  | n        | Root account id. |
 | account_name        | string  | n        | Root account name. |
-| sub_account_id      | string  | y        | Sub account id. Refer to [Sub account](./README.md#sub-accounts) for details. |
+| sub_account_id      | string  | y        | Sub account id. Refer to [Sub account](./dtcp.md#sub-accounts) for details. |
 | sub_account_name    | string  | y        | Sub account name. |
 
 `extra` object:
@@ -61,14 +61,14 @@
 | created             | integer | n        | Group creation time. Unix timestamp. |
 | extra               | object  | n        | Extra metadata. |
 | status              | string  | n        | Fixed to "created". |
-| signature           | string  | n        | [Metadata signature](./README.md#dtcp-metadata-signature). |
+| signature           | string  | n        | [Metadata signature](./dtcp.md#metadata-signature). |
 
 `creator` object:
 
 | Name                | Type    | Optional | Description |
 | --------------      | ------- | -------- | ---------------------------------------- |
 | account_id          | string  | n        | Account id. Root account id in the case of Sub account posting. |
-| sub_account_id      | string  | y        | Sub account id. Refer to [Sub account](./README.md#sub-accounts) for details. |
+| sub_account_id      | string  | y        | Sub account id. Refer to [Sub account](./dtcp.md#sub-accounts) for details. |
 | sub_account_name    | string  | y        | Sub account name. For fast creation of new sub accounts. |
 
 `extra` object:
@@ -118,7 +118,7 @@ For updating, only the changed metadata need to be provided.
 | language            | string  | y        | Group language. [RFC4646](http://www.ietf.org/rfc/rfc4646.txt) defined locales such as "en-US" |
 | category            | string  | y        | Group categories. Comma separated words list. |
 | extra               | object  | y        | Extra metadata. |
-| signature           | string  | n        | [Metadata signature](./README.md#dtcp-metadata-signature). |
+| signature           | string  | n        | [Metadata signature](./dtcp.md#metadata-signature). |
 
 `extra` object:
 
@@ -158,7 +158,7 @@ $ curl -x https://rigel-a.primas.network/v3/content -d '{"type":"article","conte
 | parent_dna          | string  | n        | The latest DNA of the group. |
 | status              | string  | n        | Fixed to "deleted". |
 | updated             | integer | n        | Group updating time. Unix timestamp. |
-| signature           | string  | n        | [Metadata signature](./README.md#dtcp-metadata-signature). |
+| signature           | string  | n        | [Metadata signature](./dtcp.md#metadata-signature). |
 
 #### Response
 
@@ -195,13 +195,13 @@ Response `data` is an array whose elements contain:
 | Name                | Type    | Optional | Description |
 | ------------------- | ------- | -------- | ----------- |
 | id                  | string  | n        | Group member id. |
-| src_id              | string  | n        | Account id. Root account id in the case of [Sub account](./README.md#sub-accounts). |
+| src_id              | string  | n        | Account id. Root account id in the case of [Sub account](./dtcp.md#sub-accounts). |
 | dest_id             | string  | n        | Group id. |
 | creator             | object  | n        | Creator. |
 | created             | integer | n        | Member joining time. Unix timestamp. |
 | updated             | integer | n        | Member updating time. Unix timestamp. |
 | extra               | object  | y        | Extra metadata. |
-| signature           | string  | n        | [Metadata signature](./README.md#dtcp-metadata-signature). |
+| signature           | string  | n        | [Metadata signature](./dtcp.md#metadata-signature). |
 | dna                 | string  | n        | Group member DNA. |
 | account             | object  | n        | Related member account. |
 
@@ -211,7 +211,7 @@ Response `data` is an array whose elements contain:
 | --------------      | ------- | -------- | ---------------------------------------- |
 | account_id          | string  | n        | Account id. Root account id in the case of Sub account posting. |
 | account_name        | string  | n        | Account name. |
-| sub_account_id      | string  | y        | Sub account id. Refer to [Sub account](./README.md#sub-accounts) for details. |
+| sub_account_id      | string  | y        | Sub account id. Refer to [Sub account](./dtcp.md#sub-accounts) for details. |
 | sub_account_name    | string  | y        | Sub account name. For fast creation of new sub accounts. |
 
 `extra` object:
@@ -229,11 +229,11 @@ Response `data` is an array whose elements contain:
 | title               | string  | n        | Account name. |
 | abstract            | string  | y        | Description. |
 | avatar              | string  | y        | An image DNA used for avatar. |
-| creator             | object  | y        | Creator. Provided when this account is a [sub account](./README.md#sub-accounts). |
+| creator             | object  | y        | Creator. Provided when this account is a [sub account](./dtcp.md#sub-accounts). |
 | created             | string  | n        | Account creation time. Unix timestamp. |
 | updated             | string  | n        | Account last updating time. Unix timestamp. |
 | extra               | object  | y        | Extra metadata. |
-| signature           | string  | n        | [Metadata signature](./README.md#dtcp-metadata-signature). |
+| signature           | string  | n        | [Metadata signature](./dtcp.md#metadata-signature). |
 | dna                 | string  | n        | DNA of the account. |
 
 #### Example
@@ -257,20 +257,20 @@ $ curl -x https://rigel-a.primas.network/v3/content -d '{"type":"article","conte
 | version             | string  | n        | DTCP version. Fixed to "1.0". |
 | type                | string  | n        | Fixed to "relation". |
 | tag                 | string  | n        | Fixed to "group_member". |
-| src_id              | string  | n        | Account id. Root account id in the case of [Sub account](./README.md#sub-accounts). |
+| src_id              | string  | n        | Account id. Root account id in the case of [Sub account](./dtcp.md#sub-accounts). |
 | dest_id             | string  | n        | Group id. |
 | creator             | object  | n        | Creator. |
 | created             | integer | n        | Member joining time. Unix timestamp. |
 | status              | string  | n        | Fixed to "created". |
 | extra               | object  | y        | Extra metadata. |
-| signature           | string  | n        | [Metadata signature](./README.md#dtcp-metadata-signature). |
+| signature           | string  | n        | [Metadata signature](./dtcp.md#metadata-signature). |
 
 `creator` object:
 
 | Name                | Type    | Optional | Description |
 | --------------      | ------- | -------- | ---------------------------------------- |
 | account_id          | string  | n        | Account id. Root account id in the case of Sub account posting. |
-| sub_account_id      | string  | y        | Sub account id. Refer to [Sub account](./README.md#sub-accounts) for details. |
+| sub_account_id      | string  | y        | Sub account id. Refer to [Sub account](./dtcp.md#sub-accounts) for details. |
 | sub_account_name    | string  | y        | Sub account name. For fast creation of new sub accounts. |
 
 `extra` object:
@@ -312,14 +312,14 @@ $ curl -x https://rigel-a.primas.network/v3/content -d '{"type":"article","conte
 | updated             | integer | n        | Member updating time. Unix timestamp. |
 | creator             | object  | n        | Creator. Group owner. |
 | extra               | object  | n        | Extra metadata. |
-| signature           | string  | n        | [Metadata signature](./README.md#dtcp-metadata-signature). |
+| signature           | string  | n        | [Metadata signature](./dtcp.md#metadata-signature). |
 
 `creator` object:
 
 | Name                | Type    | Optional | Description |
 | --------------      | ------- | -------- | ---------------------------------------- |
 | account_id          | string  | n        | Account id. Root account id in the case of Sub account posting. |
-| sub_account_id      | string  | y        | Sub account id. Refer to [Sub account](./README.md#sub-accounts) for details. |
+| sub_account_id      | string  | y        | Sub account id. Refer to [Sub account](./dtcp.md#sub-accounts) for details. |
 
 `extra` object:
 
@@ -362,14 +362,14 @@ to kick member out.
 | status              | string  | n        | "deleted". |
 | updated             | integer | n        | Member quiting time. Unix timestamp. |
 | creator             | object  | y        | Creator. |
-| signature           | string  | n        | [Metadata signature](./README.md#dtcp-metadata-signature). |
+| signature           | string  | n        | [Metadata signature](./dtcp.md#metadata-signature). |
 
 `creator` object:
 
 | Name                | Type    | Optional | Description |
 | --------------      | ------- | -------- | ---------------------------------------- |
 | account_id          | string  | n        | Account id. Root account id in the case of Sub account posting. |
-| sub_account_id      | string  | y        | Sub account id. Refer to [Sub account](./README.md#sub-accounts) for details. |
+| sub_account_id      | string  | y        | Sub account id. Refer to [Sub account](./dtcp.md#sub-accounts) for details. |
 
 #### Response
 
@@ -413,7 +413,7 @@ $ curl -x https://rigel-a.primas.network/v3/content -d '{"type":"article","conte
 | updated             | integer | n        | Share updated time. Unix timestamp. |
 | status              | string  | n        | Fixed to "created". |
 | extra               | object  | y        | Extra metadata. |
-| signature           | string  | n        | [Metadata signature](./README.md#dtcp-metadata-signature). |
+| signature           | string  | n        | [Metadata signature](./dtcp.md#metadata-signature). |
 | dna                 | string  | n        | Latest share DNA. |
 | content             | object  | n        | Share related content. |
 
@@ -423,7 +423,7 @@ $ curl -x https://rigel-a.primas.network/v3/content -d '{"type":"article","conte
 | --------------      | ------- | -------- | ---------------------------------------- |
 | account_id          | string  | n        | Account id. Root account id in the case of Sub account posting. |
 | account_name        | string  | n        | Account name. |
-| sub_account_id      | string  | y        | Sub account id. Refer to [Sub account](./README.md#sub-accounts) for details. |
+| sub_account_id      | string  | y        | Sub account id. Refer to [Sub account](./dtcp.md#sub-accounts) for details. |
 | sub_account_name    | string  | y        | Sub account name. |
 
 `extra` object:
@@ -461,14 +461,14 @@ $ curl -x https://rigel-a.primas.network/v3/content -d '{"type":"article","conte
 | created             | integer | n        | Share created time. Unix timestamp. |
 | status              | string  | n        | Fixed to "created". |
 | extra               | object  | y        | Extra metadata. |
-| signature           | string  | n        | [Metadata signature](./README.md#dtcp-metadata-signature). |
+| signature           | string  | n        | [Metadata signature](./dtcp.md#metadata-signature). |
 
 `creator` object:
 
 | Name                | Type    | Optional | Description |
 | --------------      | ------- | -------- | ---------------------------------------- |
 | account_id          | string  | n        | Account id. Root account id in the case of Sub account posting. |
-| sub_account_id      | string  | y        | Sub account id. Refer to [Sub account](./README.md#sub-accounts) for details. |
+| sub_account_id      | string  | y        | Sub account id. Refer to [Sub account](./dtcp.md#sub-accounts) for details. |
 | sub_account_name    | string  | y        | Sub account name. For fast creation of new sub accounts. |
 
 `extra` object:
@@ -511,14 +511,14 @@ $ curl -x https://rigel-a.primas.network/v3/content -d '{"type":"article","conte
 | updated             | integer | n        | Share updated time. Unix timestamp. |
 | creator             | object  | n        | Creator. Group owner |
 | extra               | object  | n        | Extra metadata. |
-| signature           | string  | n        | [Metadata signature](./README.md#dtcp-metadata-signature). |
+| signature           | string  | n        | [Metadata signature](./dtcp.md#metadata-signature). |
 
 `creator` object:
 
 | Name                | Type    | Optional | Description |
 | --------------      | ------- | -------- | ---------------------------------------- |
 | account_id          | string  | n        | Account id. Root account id in the case of Sub account posting. |
-| sub_account_id      | string  | y        | Sub account id. Refer to [Sub account](./README.md#sub-accounts) for details. |
+| sub_account_id      | string  | y        | Sub account id. Refer to [Sub account](./dtcp.md#sub-accounts) for details. |
 
 `extra` object:
 
@@ -559,14 +559,14 @@ This API can be called both by group owner or share creator with corresponding c
 | status              | string  | n        | Fixed to "deleted". |
 | updated             | integer | n        | Share updated time. Unix timestamp. |
 | creator             | object  | y        | Creator. Group owner. |
-| signature           | string  | n        | [Metadata signature](./README.md#dtcp-metadata-signature). |
+| signature           | string  | n        | [Metadata signature](./dtcp.md#metadata-signature). |
 
 `creator` object:
 
 | Name                | Type    | Optional | Description |
 | --------------      | ------- | -------- | ---------------------------------------- |
 | account_id          | string  | n        | Account id. Root account id in the case of Sub account posting. |
-| sub_account_id      | string  | y        | Sub account id. Refer to [Sub account](./README.md#sub-accounts) for details. |
+| sub_account_id      | string  | y        | Sub account id. Refer to [Sub account](./dtcp.md#sub-accounts) for details. |
 
 #### Response
 

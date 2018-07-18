@@ -27,7 +27,7 @@
 | withdrawal_fee      | big integer | n    | Withdrawal fee charged by node. |
 | address_hot         | string  | n        | Node hot address. |
 | address_cold        | string  | n        | Node cold address. |
-| signature           | string  | n        | [Metadata signature](./README.md#dtcp-metadata-signature). |
+| signature           | string  | n        | [Metadata signature](./dtcp.md#metadata-signature). |
 
 #### Example
 

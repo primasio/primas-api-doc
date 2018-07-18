@@ -30,7 +30,7 @@ When interacting with content, the corresponding group id must be provided.
 | updated             | integer | n        | Share updated time. Unix timestamp. |
 | status              | string  | n        | Fixed to "created". |
 | extra               | object  | y        | Extra metadata. |
-| signature           | string  | n        | [Metadata signature](./README.md#dtcp-metadata-signature). |
+| signature           | string  | n        | [Metadata signature](./dtcp.md#metadata-signature). |
 | dna                 | string  | n        | Latest share DNA. |
 
 `creator` object:
@@ -39,7 +39,7 @@ When interacting with content, the corresponding group id must be provided.
 | --------------      | ------- | -------- | ---------------------------------------- |
 | account_id          | string  | n        | Account id. Root account id in the case of Sub account posting. |
 | account_name        | string  | n        | Account name. |
-| sub_account_id      | string  | y        | Sub account id. Refer to [Sub account](./README.md#sub-accounts) for details. |
+| sub_account_id      | string  | y        | Sub account id. Refer to [Sub account](./dtcp.md#sub-accounts) for details. |
 | sub_account_name    | string  | y        | Sub account name. |
 
 `extra` object:
@@ -84,7 +84,7 @@ $ curl -x https://rigel-a.primas.network/v3/content -d '{"type":"article","conte
 | updated             | integer | n        | Report updated time. Unix timestamp. |
 | extra               | object  | n        | Extra metadata. |
 | dna                 | string  | n        | Latest report DNA. |
-| signature           | string  | n        | [Metadata signature](./README.md#dtcp-metadata-signature). |
+| signature           | string  | n        | [Metadata signature](./dtcp.md#metadata-signature). |
 
 `creator` object:
 
@@ -92,7 +92,7 @@ $ curl -x https://rigel-a.primas.network/v3/content -d '{"type":"article","conte
 | --------------      | ------- | -------- | ---------------------------------------- |
 | account_id          | string  | n        | Account id. Root account id in the case of Sub account posting. |
 | account_name        | string  | n        | Account name. |
-| sub_account_id      | string  | y        | Sub account id. Refer to [Sub account](./README.md#sub-accounts) for details. |
+| sub_account_id      | string  | y        | Sub account id. Refer to [Sub account](./dtcp.md#sub-accounts) for details. |
 | sub_account_name    | string  | y        | Sub account name. |
 
 `extra` object:
@@ -129,14 +129,14 @@ $ curl -x https://rigel-a.primas.network/v3/content -d '{"type":"article","conte
 | created             | integer | n        | Report created time. Unix timestamp. |
 | status              | string  | n        | Fixed to "created". |
 | extra               | object  | n        | Extra metadata. |
-| signature           | string  | n        | [Metadata signature](./README.md#dtcp-metadata-signature). |
+| signature           | string  | n        | [Metadata signature](./dtcp.md#metadata-signature). |
 
 `creator` object:
 
 | Name                | Type    | Optional | Description |
 | --------------      | ------- | -------- | ---------------------------------------- |
 | account_id          | string  | n        | Account id. Root account id in the case of Sub account posting. |
-| sub_account_id      | string  | y        | Sub account id. Refer to [Sub account](./README.md#sub-accounts) for details. |
+| sub_account_id      | string  | y        | Sub account id. Refer to [Sub account](./dtcp.md#sub-accounts) for details. |
 | sub_account_name    | string  | y        | Sub account name. For fast creation of new sub accounts. |
 
 `extra` object:
@@ -188,7 +188,7 @@ $ curl -x https://rigel-a.primas.network/v3/content -d '{"type":"article","conte
 | updated             | integer | n        | Like updated time. Unix timestamp. |
 | status              | string  | n        | Fixed to "created". |
 | dna                 | string  | n        | Like DNA. |
-| signature           | string  | n        | [Metadata signature](./README.md#dtcp-metadata-signature). |
+| signature           | string  | n        | [Metadata signature](./dtcp.md#metadata-signature). |
 
 `creator` object:
 
@@ -196,7 +196,7 @@ $ curl -x https://rigel-a.primas.network/v3/content -d '{"type":"article","conte
 | --------------      | ------- | -------- | ---------------------------------------- |
 | account_id          | string  | n        | Account id. Root account id in the case of Sub account posting. |
 | account_name        | string  | n        | Account name. |
-| sub_account_id      | string  | y        | Sub account id. Refer to [Sub account](./README.md#sub-accounts) for details. |
+| sub_account_id      | string  | y        | Sub account id. Refer to [Sub account](./dtcp.md#sub-accounts) for details. |
 | sub_account_name    | string  | y        | Sub account name. |
 
 #### Example
@@ -225,14 +225,14 @@ $ curl -x https://rigel-a.primas.network/v3/content -d '{"type":"article","conte
 | creator             | object  | n        | Creator. |
 | created             | integer | n        | Like created time. Unix timestamp. |
 | status              | string  | n        | Fixed to "created". |
-| signature           | string  | n        | [Metadata signature](./README.md#dtcp-metadata-signature). |
+| signature           | string  | n        | [Metadata signature](./dtcp.md#metadata-signature). |
 
 `creator` object:
 
 | Name                | Type    | Optional | Description |
 | --------------      | ------- | -------- | ---------------------------------------- |
 | account_id          | string  | n        | Account id. Root account id in the case of Sub account posting. |
-| sub_account_id      | string  | y        | Sub account id. Refer to [Sub account](./README.md#sub-accounts) for details. |
+| sub_account_id      | string  | y        | Sub account id. Refer to [Sub account](./dtcp.md#sub-accounts) for details. |
 | sub_account_name    | string  | y        | Sub account name. For fast creation of new sub accounts. |
 
 #### Response
@@ -266,7 +266,7 @@ $ curl -x https://rigel-a.primas.network/v3/content -d '{"type":"article","conte
 | parent_dna          | string  | n        | Latest DNA of the like. |
 | updated             | integer | n        | Like updated time. Unix timestamp. |
 | status              | string  | n        | Fixed to "deleted". |
-| signature           | string  | n        | [Metadata signature](./README.md#dtcp-metadata-signature). |
+| signature           | string  | n        | [Metadata signature](./dtcp.md#metadata-signature). |
 
 #### Response
 
@@ -309,7 +309,7 @@ $ curl -x https://rigel-a.primas.network/v3/content -d '{"type":"article","conte
 | updated             | integer | n        | Comment created time. Unix timestamp. |
 | status              | string  | n        | Fixed to "created". |
 | extra               | object  | n        | Extra metadata. |
-| signature           | string  | n        | [Metadata signature](./README.md#dtcp-metadata-signature). |
+| signature           | string  | n        | [Metadata signature](./dtcp.md#metadata-signature). |
 
 `creator` object:
 
@@ -317,7 +317,7 @@ $ curl -x https://rigel-a.primas.network/v3/content -d '{"type":"article","conte
 | --------------      | ------- | -------- | ---------------------------------------- |
 | account_id          | string  | n        | Account id. Root account id in the case of Sub account posting. |
 | account_name        | string  | n        | Account name. |
-| sub_account_id      | string  | y        | Sub account id. Refer to [Sub account](./README.md#sub-accounts) for details. |
+| sub_account_id      | string  | y        | Sub account id. Refer to [Sub account](./dtcp.md#sub-accounts) for details. |
 | sub_account_name    | string  | y        | Sub account name. |
 
 `extra` object:
@@ -344,14 +344,14 @@ $ curl -x https://rigel-a.primas.network/v3/content -d '{"type":"article","conte
 | created             | integer | n        | Comment created time. Unix timestamp. |
 | status              | string  | n        | Fixed to "created". |
 | extra               | object  | n        | Extra metadata. |
-| signature           | string  | n        | [Metadata signature](./README.md#dtcp-metadata-signature). |
+| signature           | string  | n        | [Metadata signature](./dtcp.md#metadata-signature). |
 
 `creator` object:
 
 | Name                | Type    | Optional | Description |
 | --------------      | ------- | -------- | ---------------------------------------- |
 | account_id          | string  | n        | Account id. Root account id in the case of Sub account posting. |
-| sub_account_id      | string  | y        | Sub account id. Refer to [Sub account](./README.md#sub-accounts) for details. |
+| sub_account_id      | string  | y        | Sub account id. Refer to [Sub account](./dtcp.md#sub-accounts) for details. |
 | sub_account_name    | string  | y        | Sub account name. For fast creation of new sub accounts. |
 
 `extra` object:
@@ -391,14 +391,14 @@ $ curl -x https://rigel-a.primas.network/v3/content -d '{"type":"article","conte
 | updated             | integer | n        | Comment updated time. Unix timestamp. |
 | status              | string  | n        | Fixed to "updated". |
 | extra               | object  | n        | Extra metadata. |
-| signature           | string  | n        | [Metadata signature](./README.md#dtcp-metadata-signature). |
+| signature           | string  | n        | [Metadata signature](./dtcp.md#metadata-signature). |
 
 `creator` object:
 
 | Name                | Type    | Optional | Description |
 | --------------      | ------- | -------- | ---------------------------------------- |
 | account_id          | string  | n        | Account id. Root account id in the case of Sub account posting. |
-| sub_account_id      | string  | y        | Sub account id. Refer to [Sub account](./README.md#sub-accounts) for details. |
+| sub_account_id      | string  | y        | Sub account id. Refer to [Sub account](./dtcp.md#sub-accounts) for details. |
 
 `extra` object:
 
@@ -441,14 +441,14 @@ filled in the `creator` field and group owner's account is used to generate sign
 | status              | string  | n        | Fixed to "deleted". |
 | updated             | integer | n        | Comment updated time. Unix timestamp. |
 | creator             | object  | y        | Creator. |
-| signature           | string  | n        | [Metadata signature](./README.md#dtcp-metadata-signature). |
+| signature           | string  | n        | [Metadata signature](./dtcp.md#metadata-signature). |
 
 `creator` object:
 
 | Name                | Type    | Optional | Description |
 | --------------      | ------- | -------- | ---------------------------------------- |
 | account_id          | string  | n        | Account id. Root account id in the case of Sub account posting. |
-| sub_account_id      | string  | y        | Sub account id. Refer to [Sub account](./README.md#sub-accounts) for details. |
+| sub_account_id      | string  | y        | Sub account id. Refer to [Sub account](./dtcp.md#sub-accounts) for details. |
 
 #### Response
 

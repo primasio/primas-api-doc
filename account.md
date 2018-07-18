@@ -20,11 +20,11 @@
 | title               | string  | n        | Account name. |
 | abstract            | string  | y        | Description. |
 | avatar              | string  | y        | An image DNA used for avatar. |
-| creator             | object  | y        | Creator of the [sub account](./README.md#sub-accounts). |
+| creator             | object  | y        | Creator of the [sub account](./dtcp.md#sub-accounts). |
 | created             | string  | n        | Account creation time. Unix timestamp. |
 | updated             | string  | n        | Account last updating time. Unix timestamp. |
 | extra               | object  | y        | Extra metadata. |
-| signature           | string  | n        | [Metadata signature](./README.md#dtcp-metadata-signature). |
+| signature           | string  | n        | [Metadata signature](./dtcp.md#metadata-signature). |
 | dna                 | string  | n        | DNA of the account. |
 | hp_total            | integer | n        | Total HP. |
 | hp_current          | integer | n        | Current HP. |
@@ -67,10 +67,10 @@ $ curl -x https://rigel-a.primas.network/v3/content -d '{"type":"article","conte
 | name                | string  | n        | Name. |
 | abstract            | string  | y        | Description. |
 | avatar              | string  | y        | An image id used for avatar. |
-| creator             | object  | y        | Creator. Required when creating [sub account](./README.md#sub-accounts). |
+| creator             | object  | y        | Creator. Required when creating [sub account](./dtcp.md#sub-accounts). |
 | created             | integer | n        | Account creation time. Unix timestamp. |
 | extra               | object  | y        | Extra metadata. |
-| signature           | string  | n        | [Metadata signature](./README.md#dtcp-metadata-signature). |
+| signature           | string  | n        | [Metadata signature](./dtcp.md#metadata-signature). |
 
 `creator` object:
 
@@ -120,9 +120,9 @@ For updating, only the changed metadata need to be provided.
 | name                | string  | y        | Name. |
 | abstract            | string  | y        | Description. |
 | avatar              | string  | y        | An image DNA used for avatar. |
-| creator             | object  | y        | Creator. Required when updating [sub account](./README.md#sub-accounts). |
+| creator             | object  | y        | Creator. Required when updating [sub account](./dtcp.md#sub-accounts). |
 | extra               | object  | y        | Extra metadata. |
-| signature           | string  | n        | [Metadata signature](./README.md#dtcp-metadata-signature). |
+| signature           | string  | n        | [Metadata signature](./dtcp.md#metadata-signature). |
 
 `creator` object:
 

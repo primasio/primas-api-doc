@@ -116,7 +116,7 @@ $ curl -x https://rigel-a.primas.network/v3/content -d '{"type":"article","conte
 | created      | integer     | n            | Withdrawal creation time. Unix timestamp.                  |
 | amount       | big integer | n            | Withdraw amount value.                                     |
 | node_fee     | big integer | n            | Node charged withdrawal fee.                               |
-| signature    | string      | n            | [Metadata signature](./README.md#dtcp-metadata-signature). |
+| signature    | string      | n            | [Metadata signature](./dtcp.md#metadata-signature). |
 
 #### Response
 
@@ -158,7 +158,7 @@ Response `data` is an array whose element containing:
 | created            | integer     | n        | Lock creation time. Unix timestamp. |
 | type               | string      | n        | Pre-lock type. "lock" or "unlock"   |
 | amount             | float       | n        | Pre-lock amount. |
-| signature          | string      | n        | [Metadata signature](./README.md#dtcp-metadata-signature). |
+| signature          | string      | n        | [Metadata signature](./dtcp.md#metadata-signature). |
 | transaction_hash   | string      | n        | Transaction hash. |
 | transaction_status | string      | n        | Transaction status. "pending", "done" or "failed" |
 
@@ -209,7 +209,7 @@ $ curl -x https://rigel-a.primas.network/v3/content -d '{"type":"article","conte
 | node_id      | string      | n        | Primas Node id.                                            |
 | created      | integer     | n        | People creation time. Unix timestamp.                      |
 | amount       | big integer | n        | Unlock amount.                                             |
-| signature    | string      | n        | [Metadata signature](./README.md#dtcp-metadata-signature). |
+| signature    | string      | n        | [Metadata signature](./dtcp.md#metadata-signature). |
 
 #### Response
 
