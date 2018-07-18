@@ -471,7 +471,7 @@ $ curl -x https://rigel-a.primas.network/v3/content -d '{"type":"article","conte
 | -------------- | ------- | -------- | ----------------------------------------------- |
 | share_id       | string  | n        | Parent share id. |
  
- `content` object contains the related [content metadata](./content.md#1.-get-content-metadata):
+ `content` object contains the related [content metadata](./content.md#1-get-content-metadata):
  
  #### Example
  

@@ -50,7 +50,7 @@ in several adjacent shares, only the first one will show.**
 | -------------- | ------- | -------- | ----------------------------------------------- |
 | share_id       | string  | n        | Parent share id. |
  
- `content` object contains the related [content metadata](./content.md#1.-get-content-metadata):
+ `content` object contains the related [content metadata](./content.md#1-get-content-metadata):
  
  #### Example
  

@@ -173,7 +173,7 @@ $ curl -x https://rigel-a.primas.network/v3/content -d '{"type":"article","conte
 
 #### Response
 
-`data` is an array of [content](./content.md#1.-get-content-metadata).
+`data` is an array of [content](./content.md#1-get-content-metadata).
 
 #### Example
 
@@ -200,7 +200,7 @@ $ curl -x https://rigel-a.primas.network/v3/content -d '{"type":"article","conte
 
 #### Response
 
-`data` is an array of [group](./group.md#1.-get-group-metadata).
+`data` is an array of [group](./group.md#1-get-group-metadata).
 
 #### Example
 
@@ -228,7 +228,7 @@ $ curl -x https://rigel-a.primas.network/v3/content -d '{"type":"article","conte
 
 #### Response
 
-`data` is an array of [group shares](./group.md#9.-get-group-shares).
+`data` is an array of [group shares](./group.md#9-get-group-shares).
 
 #### Example
 
@@ -256,7 +256,7 @@ $ curl -x https://rigel-a.primas.network/v3/content -d '{"type":"article","conte
 
 #### Response
 
-`data` is an array of [group shares](./group.md#9.-get-group-shares).
+`data` is an array of [group shares](./group.md#9-get-group-shares).
 
 #### Example
 
@@ -283,7 +283,7 @@ $ curl -x https://rigel-a.primas.network/v3/content -d '{"type":"article","conte
 
 #### Response
 
-`data` is an array of [likes](./content-interaction.md#4.-get-the-likes-of-a-group-share).
+`data` is an array of [likes](./content-interaction.md#4-get-the-likes-of-a-group-share).
 
 #### Example
 
@@ -310,7 +310,7 @@ $ curl -x https://rigel-a.primas.network/v3/content -d '{"type":"article","conte
 
 #### Response
 
-`data` is an array of [comments](./content-interaction.md#7.-get-the-comments-of-a-group-share).
+`data` is an array of [comments](./content-interaction.md#7-get-the-comments-of-a-group-share).
 
 #### Example
 
