@@ -61,6 +61,7 @@ $ curl -x https://rigel-a.primas.network/v3/content -d '{"type":"article","conte
 
 | Name                | Type    | Optional | Description |
 | --------------      | ------- | -------- | ---------------------------------------- |
+| version             | string  | n        | DTCP version. Fixed to "1.0". |
 | type                | string  | n        | Fixed to "object". |
 | tag                 | string  | n        | Fixed to "account". |
 | name                | string  | n        | Name. |
@@ -111,6 +112,7 @@ For updating, only the changed metadata need to be provided.
 
 | Name                | Type    | Optional | Description |
 | --------------      | ------- | -------- | ---------------------------------------- |
+| version             | string  | n        | DTCP version. Fixed to "1.0". |
 | type                | string  | n        | Fixed to "object". |
 | tag                 | string  | n        | Fixed to "account". |
 | parent_dna          | string  | n        | The latest DNA of the account. |

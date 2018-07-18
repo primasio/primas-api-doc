@@ -120,6 +120,7 @@ $ curl -x https://rigel-a.primas.network/v3/content -d '{"type":"article","conte
 
 | Name                | Type    | Optional | Description |
 | --------------      | ------- | -------- | ---------------------------------------- |
+| version             | string  | n        | DTCP version. Fixed to "1.0". |
 | type                | string  | n        | Fixed to "relation". |
 | tag                 | string  | n        | Fixed to "share_report". |
 | src_id              | string  | n        | Account id. |
@@ -216,6 +217,7 @@ $ curl -x https://rigel-a.primas.network/v3/content -d '{"type":"article","conte
 
 | Name                | Type    | Optional | Description |
 | --------------      | ------- | -------- | ---------------------------------------- |
+| version             | string  | n        | DTCP version. Fixed to "1.0". |
 | type                | string  | n        | Fixed to "relation". |
 | tag                 | string  | n        | Fixed to "share_like". |
 | src_id              | string  | n        | Account id. |
@@ -258,6 +260,7 @@ $ curl -x https://rigel-a.primas.network/v3/content -d '{"type":"article","conte
 
 | Name                | Type    | Optional | Description |
 | --------------      | ------- | -------- | ---------------------------------------- |
+| version             | string  | n        | DTCP version. Fixed to "1.0". |
 | type                | string  | n        | Fixed to "relation". |
 | tag                 | string  | n        | Fixed to "share_like". |
 | parent_dna          | string  | n        | Latest DNA of the like. |
@@ -332,6 +335,7 @@ $ curl -x https://rigel-a.primas.network/v3/content -d '{"type":"article","conte
 
 | Name                | Type    | Optional | Description |
 | --------------      | ------- | -------- | ---------------------------------------- |
+| version             | string  | n        | DTCP version. Fixed to "1.0". |
 | type                | string  | n        | Fixed to "relation". |
 | tag                 | string  | n        | Fixed to "share_comment". |
 | src_id              | string  | n        | Account id. |
@@ -380,6 +384,7 @@ $ curl -x https://rigel-a.primas.network/v3/content -d '{"type":"article","conte
 
 | Name                | Type    | Optional | Description |
 | --------------      | ------- | -------- | ---------------------------------------- |
+| version             | string  | n        | DTCP version. Fixed to "1.0". |
 | type                | string  | n        | Fixed to "relation". |
 | tag                 | string  | n        | Fixed to "share_comment". |
 | parent_dna          | string  | n        | Latest comment DNA. |
@@ -429,6 +434,7 @@ filled in the `creator` field and group owner's account is used to generate sign
 
 | Name                | Type    | Optional | Description |
 | --------------      | ------- | -------- | ---------------------------------------- |
+| version             | string  | n        | DTCP version. Fixed to "1.0". |
 | type                | string  | n        | Fixed to "relation". |
 | tag                 | string  | n        | Fixed to "share_comment". |
 | parent_dna          | string  | n        | Latest comment DNA. |

@@ -151,6 +151,7 @@ $ curl -x https://rigel-a.primas.network/v3/content/1GFYUNP815RUIFDNNRKLNU78RPCF
 
 | Name                | Type    | Optional | Description |
 | --------------      | ------- | -------- | ---------------------------------------- |
+| version             | string  | n        | DTCP version. Fixed to "1.0". |
 | type                | string  | n        | Fixed to "object". |
 | tag                 | string  | n        | Content type. Currently "article", "image" are supported. |
 | title               | string  | n        | Content title. |
@@ -199,6 +200,7 @@ For updating, only the changed metadata need to be provided.
 
 | Name                | Type    | Optional | Description |
 | --------------      | ------- | -------- | ---------------------------------------- |
+| version             | string  | n        | DTCP version. Fixed to "1.0". |
 | type                | string  | n        | Fixed to "object". |
 | tag                 | string  | n        | Content type. Currently "article", "image" are supported. |
 | parent_dna          | string  | n        | Latest DNA of the content. |

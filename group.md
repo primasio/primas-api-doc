@@ -49,6 +49,7 @@
 
 | Name                | Type    | Optional | Description |
 | --------------      | ------- | -------- | ---------------------------------------- |
+| version             | string  | n        | DTCP version. Fixed to "1.0". |
 | type                | string  | n        | Fixed to "object". |
 | tag                 | string  | n        | Fixed to "group". |
 | title               | string  | n        | Group title. |
@@ -105,6 +106,7 @@ For updating, only the changed metadata need to be provided.
 
 | Name                | Type    | Optional | Description |
 | --------------      | ------- | -------- | ---------------------------------------- |
+| version             | string  | n        | DTCP version. Fixed to "1.0". |
 | type                | string  | n        | Fixed to "object". |
 | tag                 | string  | n        | Fixed to "group". |
 | parent_dna          | string  | n        | The latest DNA of the group. |
@@ -150,6 +152,7 @@ $ curl -x https://rigel-a.primas.network/v3/content -d '{"type":"article","conte
 
 | Name                | Type    | Optional | Description |
 | --------------      | ------- | -------- | ---------------------------------------- |
+| version             | string  | n        | DTCP version. Fixed to "1.0". |
 | type                | string  | n        | Fixed to "object". |
 | tag                 | string  | n        | Fixed to "group". |
 | parent_dna          | string  | n        | The latest DNA of the group. |
@@ -251,6 +254,7 @@ $ curl -x https://rigel-a.primas.network/v3/content -d '{"type":"article","conte
 
 | Name                | Type    | Optional | Description |
 | --------------      | ------- | -------- | ---------------------------------------- |
+| version             | string  | n        | DTCP version. Fixed to "1.0". |
 | type                | string  | n        | Fixed to "relation". |
 | tag                 | string  | n        | Fixed to "group_member". |
 | src_id              | string  | n        | Account id. Root account id in the case of [Sub account](./README.md#sub-accounts). |
@@ -300,6 +304,7 @@ $ curl -x https://rigel-a.primas.network/v3/content -d '{"type":"article","conte
 
 | Name                | Type    | Optional | Description |
 | --------------      | ------- | -------- | ---------------------------------------- |
+| version             | string  | n        | DTCP version. Fixed to "1.0". |
 | type                | string  | n        | Fixed to "relation". |
 | tag                 | string  | n        | Fixed to "group_member". |
 | parent_dna          | string  | n        | Latest group member DNA. |
@@ -350,6 +355,7 @@ to kick member out.
 
 | Name                | Type    | Optional | Description |
 | --------------      | ------- | -------- | ---------------------------------------- |
+| version             | string  | n        | DTCP version. Fixed to "1.0". |
 | type                | string  | n        | Fixed to "relation". |
 | tag                 | string  | n        | Fixed to "group_member". |
 | parent_dna          | string  | n        | Latest group member DNA. |
@@ -446,6 +452,7 @@ $ curl -x https://rigel-a.primas.network/v3/content -d '{"type":"article","conte
 
 | Name                | Type    | Optional | Description |
 | --------------      | ------- | -------- | ---------------------------------------- |
+| version             | string  | n        | DTCP version. Fixed to "1.0". |
 | type                | string  | n        | Fixed to "relation". |
 | tag                 | string  | n        | Fixed to "group_share". |
 | src_id              | string  | n        | Content id. |
@@ -496,6 +503,7 @@ $ curl -x https://rigel-a.primas.network/v3/content -d '{"type":"article","conte
 
 | Name                | Type    | Optional | Description |
 | --------------      | ------- | -------- | ---------------------------------------- |
+| version             | string  | n        | DTCP version. Fixed to "1.0". |
 | type                | string  | n        | Fixed to "relation". |
 | tag                 | string  | n        | Fixed to "group_share". |
 | parent_dna          | string  | n        | Latest share DNA. |
@@ -544,6 +552,7 @@ This API can be called both by group owner or share creator with corresponding c
 
 | Name                | Type    | Optional | Description |
 | --------------      | ------- | -------- | ---------------------------------------- |
+| version             | string  | n        | DTCP version. Fixed to "1.0". |
 | type                | string  | n        | Fixed to "relation". |
 | tag                 | string  | n        | Fixed to "group_share". |
 | parent_dna          | string  | n        | Latest share DNA. |
