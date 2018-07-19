@@ -44,15 +44,12 @@ $ curl -x https://rigel-a.primas.network/v3/content -d '{"type":"article","conte
 
 Response `data` is an array whose element containing:
 
-| Name              | Type          | Optional | Description                           |
-| ----------------- | ------------- | -------- | ------------------------------------- |
-| date              | string        | n        | Incentives date. Unix timestamp.      |
-| total             | big integer   | n        | Total incentives get for today.       |
-| originals         | big integer   | n        | Incentives get from original.         |
-| likes             | big integer   | n        | Incentives get from likes.            |
-| comments          | big integer   | n        | Incentives get from comments.         |
-| shares            | big integer   | n        | Incentives get from shares.           |
-| groups            | big integer   | n        | Incentives get from group management. |
+| Name              | Type          | Optional | Description                                                       |
+| ----------------- | ------------- | -------- | ----------------------------------------------------------------- |
+| date              | string        | n        | Incentives date. Unix timestamp.                                  |
+| from              | string        | n        |  "original", "share", "group", "original_like", "original_comment", "original_share". |
+| object_id         | string        | n        | Corresponding object id. Such as article_id, group_id, share_id.  |
+| amount            | big integer   | n        | Incentives amount.                                                |
 
 #### Example
 
@@ -64,7 +61,45 @@ $ curl -x https://rigel-a.primas.network/v3/content -d '{"type":"article","conte
 ```
 
 
-### 3. Get incentives withdrawal list
+### 3. Get incentives statistics list
+
+[GET] /accounts/{account_id}/tokens/incentives/stats
+
+#### Query parameters
+
+| Name        | Type     | Optional | Description                       |
+| ----------- | -------- | -------- | --------------------------------- |
+| start_date  | integer  | y        | Query start date. Unix timestamp. |
+| end_date    | integer  | y        | Query end date. Unix timestamp.   |
+| page        | integer  | y        | Page number. Starts from 0.       |
+| page_size   | integer  | y        | Page size. Default to 20.         |
+
+#### Response
+
+Response `data` is an array whose element containing:
+
+| Name              | Type          | Optional | Description                           |
+| ----------------- | ------------- | -------- | ------------------------------------- |
+| date              | string        | n        | Incentives date. Unix timestamp.      |
+| total             | big integer   | n        | Total incentives get for today.       |
+| originals         | big integer   | n        | Incentives get from original. 40% of all the incentives.              |
+| shares            | big integer   | n        | Incentives get from shares. 40% of all the incentives.                |
+| original_likes    | big integer   | n        | Incentives get from likes. 10% of the original incentives.            |
+| original_comments | big integer   | n        | Incentives get from comments. 10% of the original incentives.         |
+| original_shares   | big integer   | n        | Incentives get from shares. 10% of the original incentives.           |
+| groups            | big integer   | n        | Incentives get from group management.                                 |
+
+#### Example
+
+```bash
+$ curl -x https://rigel-a.primas.network/v3/content -d '{"type":"article","content":"...","signature":"..."}'
+
+{"result_code":0,"data":{"dna":"", ...}}
+
+```
+
+
+### 4. Get incentives withdrawal list
 
 [GET] /accounts/{account_id}/tokens/incentives/withdrawal
 
@@ -112,7 +147,7 @@ $ curl -x https://rigel-a.primas.network/v3/content -d '{"type":"article","conte
 ```
 
 
-### 4. Withdraw incentives
+### 5. Withdraw incentives
 
 [POST] /accounts/{account_id}/tokens/incentives/withdrawal
 
@@ -142,7 +177,7 @@ $ curl -x https://rigel-a.primas.network/v3/content -d '{"type":"article","conte
 ```
 
 
-### 5. Get token pre-lock list
+### 6. Get token pre-lock list
 
 [GET] /accounts/{account_id}/tokens/pre_locks
 
@@ -180,7 +215,7 @@ $ curl -x https://rigel-a.primas.network/v3/content -d '{"type":"article","conte
 ```
 
 
-### 6. Pre-lock tokens
+### 7. Pre-lock tokens
 
 [POST] /accounts/{account_id}/tokens/pre_locks
 
@@ -206,7 +241,7 @@ $ curl -x https://rigel-a.primas.network/v3/content -d '{"type":"article","conte
 ```
 
 
-### 7. Unlock pre-locked tokens
+### 8. Unlock pre-locked tokens
 
 [DELETE] /accounts/{account_id}/tokens/pre_locks
 
@@ -235,7 +270,7 @@ $ curl -x https://rigel-a.primas.network/v3/content -d '{"type":"article","conte
 ```
 
 
-### 8. Get token lock list
+### 9. Get token lock list
 
 [GET] /accounts/{account_id}/tokens/locks
 
