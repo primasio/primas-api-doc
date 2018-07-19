@@ -91,8 +91,16 @@ Response `data` is an array whose element containing:
 | balance_after       | big integer | n        | Balance after withdrawal.                                     |
 | node_fee            | big integer | n        | Node charged withdrawal fee.                                  |
 | status              | string      | n        | Withdrawal status. "pending", "done" or "cancelled".          |
-| transaction_hash    | string      | n        | Withdrawal transaction hash.                                  |
-| transaction_status  | string      | n        | Withdrawal transaction status. "pending", "done" or "failed". |
+| transaction         | object      | y        | Withdrawal transaction data.                                  |
+
+`transaction` object:
+
+| Name                | Type        | Optional | Description                                                   |
+| ------------------- | ----------- | -------- | ------------------------------------------------------------- |
+| id                  | string      | n        | Transaction hash.                                             |
+| status              | integer     | n        | Transaction status. "pending" or "success".                   |
+| estimated_time      | integer     | n        | Estimated confirmation time. Unix timestamp.                  |
+| confirmed_time      | integer     | n        | Confirmation time. Unix timestamp.                            |
 
 #### Example
 
@@ -157,7 +165,7 @@ Response `data` is an array whose element containing:
 | id                 | string      | n        | Lock id.        |
 | created            | integer     | n        | Lock creation time. Unix timestamp. |
 | type               | string      | n        | Pre-lock type. "lock" or "unlock"   |
-| amount             | float       | n        | Pre-lock amount. |
+| amount             | big integer | n        | Pre-lock amount. |
 | signature          | string      | n        | [Metadata signature](./dtcp.md#metadata-signature). |
 | transaction_hash   | string      | n        | Transaction hash. |
 | transaction_status | string      | n        | Transaction status. "pending", "done" or "failed" |
