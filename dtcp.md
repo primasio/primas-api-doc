@@ -93,6 +93,18 @@ There's a field `signature` in the metadata standard to proof the integrity and 
 The signature in DTCP is also calculated using the same method, both the hash function and
 the asymmetric cryptography, which is also the same with Ethereum.
 
+**Signature String**
+
+Signature string is the JSON encoded string of the metadata. Before encoding the keys of the JSON object
+must be sorted in alphabetic order. And the sorting must be performed recursively on the sub objects. Arrays
+**DO NOT** need to be sorted. However, if the elements of an array are objects, the keys of those elements
+still need to be sorted, recursively.
+
+##### Example of signature string generation
+```go
+
+```
+
 **SHA3 and Keccak256**
 
 DTCP uses Keccak256 as the hasing function. In most cases SHA3 and Keccak256 are the same function.
@@ -104,55 +116,49 @@ To be compatible with Ethereum. Primas uses Keccak256 in both DTCP and Primas ne
 Primas uses ECDSA-SECP256K1 to calculate the signature which is also the same with DTCP and Ethereum.
 The private key is a 32-byte big number. And the address is a portion of the public key.
 
-**Signature String**
-
-Signature string is the JSON encoded string of the metadata. Before encoding the keys of the JSON object
-must be sorted in alphabetic order. And the sorting must be performed recursively on the sub objects and
-object elements in the arrays.
-
 ##### Example of signature calculation and verification in Golang
-
 ```go
+
 package main
 
 import (
-	"crypto"
-	"crypto/rand"
-	"crypto/rsa"
-	"crypto/sha256"
-	"crypto/x509"
-	"encoding/base64"
+	"crypto/ecdsa"
 	"encoding/hex"
+
+	"github.com/ethereum/go-ethereum/crypto"
+	"github.com/ethereum/go-ethereum/crypto/secp256k1"
 )
 
-func Sign(data []byte, privateKey string) (string, error) {
-	h := sha256.New()
-	h.Write(data)
-	hashed := h.Sum(nil)
-	buff, _ := base64.StdEncoding.DecodeString(privateKey)
-	priv, err := x509.ParsePKCS1PrivateKey(buff)
-	if err != nil {
-		return "", err
-	}
-	sign, err := rsa.SignPKCS1v15(rand.Reader, priv, crypto.SHA256, hashed)
-	return hex.EncodeToString(sign), err
+func Sign(serializedJsonString string, privateKey string) (string, error) {
+	locPrivateKey, err := crypto.HexToECDSA(privateKey)
+
+	sigStr := crypto.Keccak256([]byte(serializedJsonString))
+	sigBytes, err := crypto.Sign(sigStr, locPrivateKey)
+
+	return hex.EncodeToString(sigBytes), err
 }
 
-func Verify(data []byte, signature, public string) error {
-	signatureDecode, err := hex.DecodeString(signature)
+func Verify(serializedJsonString, signature, address string) bool {
+	msgBytes := crypto.Keccak256([]byte(serializedJsonString))
+
+	sigBytes, err := hex.DecodeString(signature)
 	if err != nil {
-		return err
+		return false
 	}
-	hashed := sha256.Sum256(data)
-	buff, _ := base64.StdEncoding.DecodeString(public)
-	pubInterface, err := x509.ParsePKIXPublicKey(buff)
+
+	pk, err := secp256k1.RecoverPubkey(msgBytes, sigBytes)
 	if err != nil {
-		return err
+		return false
 	}
-	pub := pubInterface.(*rsa.PublicKey)
-	return rsa.VerifyPKCS1v15(pub, crypto.SHA256, hashed[:], signatureDecode)
+
+	locPublicKey := crypto.ToECDSAPub(pk)
+	locAddress := crypto.PubkeyToAddress(*locPublicKey)
+
+	return locAddress.Hex() == address
 }
+
 ```
+
 ### Metadata on Blockchain
 
 A key feature of DTCP is the tamper-proof property of metadata. All the metadata are recorded
