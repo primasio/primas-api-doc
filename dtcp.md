@@ -101,8 +101,84 @@ must be sorted in alphabetic order. And the sorting must be performed recursivel
 still need to be sorted, recursively.
 
 ##### Example of signature string generation
-```go
 
+**Before**
+
+```json
+{
+  "id": "bb48c151f509a1064e574dceb95e3b39eb6a1dbd9dfefa75386dc2250fdeac80",
+  "created_at": 1527758683,
+  "user_address": "0x251af16381A9908709DdaaA9185FB21f2811C322",
+  "node_address": "0xd75407ad8cabeeebfed78c4f3794208b3339fbf4",
+  "amount": "1000",
+  "node_fee": "4",
+  "tx_hash": "aa48c151f509a1064e574dceb95e3b39eb6a1dbd9dfefa75386dc2250fdeac80",
+  "account_id": "0x111af16381A9908709DdaaA9185FB21f2811C3dd",
+  "creator": {
+    "sub_account": {
+      "name": "movi",
+      "id": "Sub01"
+    },
+    "account_name": "kevin",
+    "account_id": "NO134134"
+  },
+  "tags": [
+    "wa",
+    "ab"
+  ],
+  "subs": [
+    {
+      "name": "movi_1",
+      "id": "Sub01_1"
+    },
+    {
+      "name": "movi_2",
+      "id": "Sub01_2"
+    }
+  ]
+}
+```
+
+**After Sorting**
+
+```json
+{
+  "account_id": "0x111af16381A9908709DdaaA9185FB21f2811C3dd",
+  "amount": "1000",
+  "created_at": 1527758683,
+  "creator": {
+    "account_id": "NO134134",
+    "account_name": "kevin",
+    "sub_account": {
+      "id": "Sub01",
+      "name": "movi"
+    }
+  },
+  "id": "bb48c151f509a1064e574dceb95e3b39eb6a1dbd9dfefa75386dc2250fdeac80",
+  "node_address": "0xd75407ad8cabeeebfed78c4f3794208b3339fbf4",
+  "node_fee": "4",
+  "subs": [
+    {
+      "id": "Sub01_1",
+      "name": "movi_1"
+    },
+    {
+      "id": "Sub01_2",
+      "name": "movi_2"
+    }
+  ],
+  "tags": [
+    "wa",
+    "ab"
+  ],
+  "tx_hash": "aa48c151f509a1064e574dceb95e3b39eb6a1dbd9dfefa75386dc2250fdeac80",
+  "user_address": "0x251af16381A9908709DdaaA9185FB21f2811C322"
+}
+```
+
+**Final Signature String**
+```
+{"account_id":"0x111af16381A9908709DdaaA9185FB21f2811C3dd","amount":"1000","created_at":1527758683,"creator":{"account_id":"NO134134","account_name":"kevin","sub_account":{"id":"Sub01","name":"movi"}},"id":"bb48c151f509a1064e574dceb95e3b39eb6a1dbd9dfefa75386dc2250fdeac80","node_address":"0xd75407ad8cabeeebfed78c4f3794208b3339fbf4","node_fee":"4","subs":[{"id":"Sub01_1","name":"movi_1"},{"id":"Sub01_2","name":"movi_2"}],"tags":["wa","ab"],"tx_hash":"aa48c151f509a1064e574dceb95e3b39eb6a1dbd9dfefa75386dc2250fdeac80","user_address":"0x251af16381A9908709DdaaA9185FB21f2811C322"}
 ```
 
 **SHA3 and Keccak256**
@@ -116,7 +192,7 @@ To be compatible with Ethereum. Primas uses Keccak256 in both DTCP and Primas ne
 Primas uses ECDSA-SECP256K1 to calculate the signature which is also the same with DTCP and Ethereum.
 The private key is a 32-byte big number. And the address is a portion of the public key.
 
-##### Example of signature calculation and verification in Golang
+##### Example code of signature calculation and verification in Golang
 ```go
 
 package main
