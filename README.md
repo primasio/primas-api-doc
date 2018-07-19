@@ -37,6 +37,9 @@ Mainnet Nodes:
 APIs are served using standard RESTful methods with HTTPS. For posting, both JSON and Form-Data are
 supported for request body. Data sent from Primas Node is always in JSON format.
 
+To post data in JSON format, set `Content-Type` to `application/json` in http header. To post using
+Form-Data, set `Content-Type` to `application/x-www-form-urlencoded` or `multipart-formdata` to upload images.
+
 API should be prefixed with API version. For example, when trying to get the metadata for an article.
 We should call:
 
@@ -51,6 +54,13 @@ description of the error.
 
 Primas is built upon DTCP. A lot of APIs are transferring data in the DTCP standard. Check [this document](./dtcp.md) for
 a detailed explanation about DTCP and its usage in Primas.
+
+### API Batch Post
+
+APIs creating object, such as posting article, creating group, sharing article, all support batch post. Batch post can
+only be used with JSON format posting. To post in batch, simply pass a JSON array whose elements are the same group of
+metadata passed when creating a single object. The returning `data` field becomes an array containing the corresponding
+data for each metadata in the same order then.
 
 ### API Categories
 
