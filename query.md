@@ -1,28 +1,30 @@
 # Primas Node API Documentation
 
-## Query APIs
+### 1. Query all APIs
 
 [GET] /query
 
-#### Request
+#### Query parameters
 
-| Parameter | Type | Data Type | Optional | Description |
-| ------------ | ----------- | ------------- | ------------ | ------------- |
-| q | GET | string | no |Query string |
-| type | GET | string | no | Query type. Currently supports "all", "content", "person", "group" |
-| page | GET | integer | no | Current page number. Starts from 0. | 
-| page_size | GET  | integer | no | Page size |
+| Name               | Type     | Optional | Description                                                          |
+| ------------------ | -------- | -------- | -------------------------------------------------------------------- |
+| page               | integer  | y        | Page number. Starts from 0.                                          |
+| page_size          | integer  | y        | Page size. Default to 20.                                            |
+| text               | string   | y        | Text filter. Full text search on title, description, etc.            |
+| type               | string   | y        | Query type. Currently supports "all", "content", "account", "group". |
+| category           | string   | y        | Category filter.                                                     |
 
 #### Response
 
-Response in `data` field is a JSON array whose element contains following field:
-
-| Parameter | Type | Optional | Description |
-| ------------ | ------------- | ------------ | ------------- | 
-|  dna  | string | no | The DNA of the content |
+`data` is an array containing [groups](./group.md#1-get-group-metadata),
+[content](./content.md#1-get-content-metadata), [accounts](./account.md#1-get-account-metadata)
+or a mixture of all types.
 
 #### Example
 
 ```bash
+$ curl -x https://rigel-a.primas.network/v3/content -d '{"type":"article","content":"...","signature":"..."}'
+
+{"result_code":0,"data":{"dna":"", ...}}
 
 ```
