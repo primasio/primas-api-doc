@@ -19,7 +19,7 @@
 | address             | string  | n        | Account address. |
 | title               | string  | n        | Account name. |
 | abstract            | string  | y        | Description. |
-| avatar              | string  | y        | An image DNA used for avatar. |
+| avatar              | string  | y        | An image id used for avatar. |
 | creator             | object  | y        | Creator of the [sub account](./dtcp.md#sub-accounts). |
 | created             | string  | n        | Account creation time. Unix timestamp. |
 | updated             | string  | n        | Account last updating time. Unix timestamp. |
