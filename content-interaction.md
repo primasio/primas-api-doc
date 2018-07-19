@@ -102,6 +102,7 @@ $ curl -x https://rigel-a.primas.network/v3/content -d '{"type":"article","conte
 | Name          | Type    | Optional | Description |
 | ------------- | ------- | -------- | ------------------------------------------------ |
 | content       | string  | n        | Content URI. In the case of IPFS, a link starts with "ipfs://" |
+| content_hash  | string  | n        | Lowercase hex string of the SHA256 hash of the raw content. |
 | report_status | string  | n        | "pending", "approved" or "declined". |
 
 #### Example
@@ -146,6 +147,7 @@ $ curl -x https://rigel-a.primas.network/v3/content -d '{"type":"article","conte
 | Name          | Type    | Optional | Description |
 | ------------- | ------- | -------- | ------------------------------------------------ |
 | content       | string  | n        | base64 encoded report [content](./content.md#content-format). |
+| content_hash  | string  | n        | Lowercase hex string of the SHA256 hash of the raw content. |
 | report_status | string  | n        | Fixed to "pending". |
 
 #### Response
@@ -329,6 +331,7 @@ $ curl -x https://rigel-a.primas.network/v3/content -d '{"type":"article","conte
 | Name          | Type    | Optional | Description |
 | ------------- | ------- | -------- | ------------------------------------------------ |
 | content       | string  | n        | Content URI. In the case of IPFS, a link starts with "ipfs://" |
+| content_hash  | string  | n        | Lowercase hex string of the SHA256 hash of the raw content. |
 
 
 ### 8. Comment a group share
@@ -363,6 +366,7 @@ $ curl -x https://rigel-a.primas.network/v3/content -d '{"type":"article","conte
 | Name          | Type    | Optional | Description |
 | ------------- | ------- | -------- | ------------------------------------------------ |
 | content       | string  | n        | base64 encoded comment [content](./content.md#content-format). |
+| content_hash  | string  | n        | Lowercase hex string of the SHA256 hash of the raw content. |
 
 #### Response
 
@@ -409,6 +413,7 @@ $ curl -x https://rigel-a.primas.network/v3/content -d '{"type":"article","conte
 | Name          | Type    | Optional | Description |
 | ------------- | ------- | -------- | ------------------------------------------------ |
 | content       | string  | n        | base64 encoded comment [content](./content.md#content-format). |
+| content_hash  | string  | n        | Lowercase hex string of the SHA256 hash of the raw content. |
 
 #### Response
 

@@ -81,7 +81,7 @@ to set a price on the authorization of the content:
 | created             | integer | n        | Content creation time. Unix timestamp. |
 | updated             | integer | n        | Content last updating time. Unix timestamp. |
 | content             | string  | n        | Content URI. In the case of IPFS, a link starts with "ipfs://" |
-| content_hash        | string  | n        | Keccak256 hash of the raw content. |
+| content_hash        | string  | n        | Lowercase hex string of the SHA256 hash of the raw content. |
 | license             | object  | y        | [Content authorization license](./content.md#content-licensing). |
 | signature           | string  | n        | [Metadata signature](./dtcp.md#metadata-signature). |
 | dna                 | string  | n        | Content DNA. |
@@ -154,6 +154,7 @@ $ curl -x https://rigel-a.primas.network/v3/content/1GFYUNP815RUIFDNNRKLNU78RPCF
 | category            | string  | n        | Content categories. Comma separated words list. |
 | created             | integer | n        | Content creation time. Unix timestamp. |
 | content             | string  | n        | Raw [content](./content.md#content-format) in base64 encoded format. |
+| content_hash        | string  | n        | Lowercase hex string of the SHA256 hash of the raw content. |
 | license             | object  | y        | [Content authorization license](./content.md#content-licensing). "none" is used if empty. |
 | status              | string  | n        | Fixed to "created". |
 | signature           | string  | n        | [Metadata signature](./dtcp.md#metadata-signature). |
@@ -203,6 +204,7 @@ For updating, only the changed metadata need to be provided.
 | abstract            | string  | y        | Content abstract. |
 | category            | string  | y        | Content categories. Comma separated words list. |
 | content             | string  | y        | Raw content in base64 encoded format. |
+| content_hash        | string  | y        | Lowercase hex string of the SHA256 hash of the raw content. |
 | license             | object  | y        | [Content authorization license](./content.md#content-licensing). "none" is used if empty. |
 | signature           | string  | n        | [Metadata signature](./dtcp.md#metadata-signature). |
 
