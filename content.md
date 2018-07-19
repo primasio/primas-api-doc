@@ -118,13 +118,14 @@ $ curl -x https://rigel-a.primas.network/v3/content/1GFYUNP815RUIFDNNRKLNU78RPCF
 
 ### 2. Get raw content
 
-[GET] /content/{content_id}/content
+[GET] /content/{content_id}/raw
+
+Primas Node can build local cache of raw data for accessing speed. Or redirect the request to
+content URI directly.
 
 #### Response
 
-| Name | Type | Optional | Description |
-| ------------ | ------------- | ------------ | ------------- | 
-|  content  | string | no | Base64 encoded raw content |
+Response is raw image data.
 
 #### Example
 

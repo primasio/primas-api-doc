@@ -127,7 +127,6 @@ For updating, only the changed metadata need to be provided.
 | --------------      | ------- | -------- | ---------------------------------------- |
 | allow_join          | string  | y        | Joining group control. "all" or "application". |
 | allow_post          | string  | y        | Posting control. "all", "none", "application". |
-| allow_post_whitelist| array   | y        | An array containing `account_id`s that can always post in the group. |
 
 #### Response
 
@@ -280,6 +279,7 @@ $ curl -x https://rigel-a.primas.network/v3/content -d '{"type":"article","conte
 | Name                | Type    | Optional | Description |
 | --------------      | ------- | -------- | ----------------------------------------------- |
 | application_status  | string  | n        | For group requiring application. Fill "pending". |
+| application_expire  | integer | n        | Application expiration time. |
 
 #### Response
 
@@ -363,7 +363,7 @@ to kick member out.
 | parent_dna          | string  | n        | Latest group member DNA. |
 | status              | string  | n        | "deleted". |
 | updated             | integer | n        | Member quiting time. Unix timestamp. |
-| creator             | object  | y        | Creator. |
+| creator             | object  | n        | Creator. |
 | signature           | string  | n        | [Metadata signature](./dtcp.md#metadata-signature). |
 
 `creator` object:
@@ -389,7 +389,198 @@ $ curl -x https://rigel-a.primas.network/v3/content -d '{"type":"article","conte
 ```
 
 
-### 9. Get group shares
+### 9. Get group member whitelist
+
+[GET] /groups/{group_id}/members/whitelist
+
+#### Query parameters
+
+| Name               | Type     | Optional | Description                                         |
+| ------------------ | -------- | -------- | --------------------------------------------------- |
+| page               | integer  | y        | Page number. Starts from 0.                         |
+| page_size          | integer  | y        | Page size. Default to 20.                           |
+| application_status | string   | y        | Status filter. "pending", "approved" or "declined". |
+
+#### Response
+
+| Name                | Type    | Optional | Description |
+| --------------      | ------- | -------- | ---------------------------------------- |
+| id                  | string  | n        | Whitelist id. |
+| src_id              | string  | n        | Account id. |
+| dest_id             | string  | n        | Group id. |
+| creator             | object  | n        | Creator. |
+| created             | integer | n        | Whitelist creating time. Unix timestamp. |
+| status              | string  | n        | Fixed to "created". |
+| extra               | object  | n        | Extra metadata. |
+| signature           | string  | n        | [Metadata signature](./dtcp.md#metadata-signature). |
+| dna                 | string  | n        | Latest whitelist DNA. |
+| account             | object  | n        | Account metadata. |
+
+`creator` object:
+
+| Name                | Type    | Optional | Description |
+| --------------      | ------- | -------- | ---------------------------------------- |
+| account_id          | string  | n        | Account id. Root account id in the case of Sub account posting. |
+| account_name        | string  | n        | Account name. |
+| sub_account_id      | string  | y        | Sub account id. Refer to [Sub account](./dtcp.md#sub-accounts) for details. |
+| sub_account_name    | string  | y        | Sub account name. For fast creation of new sub accounts. |
+
+`extra` object:
+
+| Name                | Type    | Optional | Description |
+| --------------      | ------- | -------- | ----------------------------------------------- |
+| application_status  | string  | n        | Fixed to "pending". |
+
+`account` object contains metadata for [account](./account.md#1-get-account-metadata).
+
+#### Example
+
+```bash
+$ curl -x https://rigel-a.primas.network/v3/content -d '{"type":"article","content":"...","signature":"..."}'
+
+{"result_code":0,"data":{"dna":"", ...}}
+
+```
+
+
+### 10. Add group member whitelist
+
+[POST] /groups/{group_id}/members/whitelist
+
+#### Request
+
+| Name                | Type    | Optional | Description |
+| --------------      | ------- | -------- | ---------------------------------------- |
+| version             | string  | n        | DTCP version. Fixed to "1.0". |
+| type                | string  | n        | Fixed to "relation". |
+| tag                 | string  | n        | Fixed to "group_member_whitelist". |
+| src_id              | string  | n        | Account id. |
+| dest_id             | string  | n        | Group id. |
+| creator             | object  | n        | Creator. |
+| created             | integer | n        | Whitelist creating time. Unix timestamp. |
+| status              | string  | n        | Fixed to "created". |
+| extra               | object  | n        | Extra metadata. |
+| signature           | string  | n        | [Metadata signature](./dtcp.md#metadata-signature). |
+
+`creator` object:
+
+| Name                | Type    | Optional | Description |
+| --------------      | ------- | -------- | ---------------------------------------- |
+| account_id          | string  | n        | Account id. Root account id in the case of Sub account posting. |
+| sub_account_id      | string  | y        | Sub account id. Refer to [Sub account](./dtcp.md#sub-accounts) for details. |
+| sub_account_name    | string  | y        | Sub account name. For fast creation of new sub accounts. |
+
+`extra` object:
+
+| Name                | Type    | Optional | Description |
+| --------------      | ------- | -------- | ----------------------------------------------- |
+| application_status  | string  | n        | Fixed to "pending". |
+
+#### Response
+
+| Name | Type | Optional | Description |
+| ------------ | ------------- | ------------ | ------------- |
+| id  | string  | n        | Group member whitelist id. |
+| dna | string  | n        | Group member whitelist DNA. |
+
+#### Example
+
+```bash
+$ curl -x https://rigel-a.primas.network/v3/content -d '{"type":"article","content":"...","signature":"..."}'
+
+{"result_code":0,"data":{"dna":"", ...}}
+
+```
+
+
+### 11. Approve or decline group member whitelist
+
+[PUT] /groups/{group_id}/members/whitelist/{whitelist_id}
+
+#### Request
+
+| Name                | Type    | Optional | Description |
+| --------------      | ------- | -------- | ---------------------------------------- |
+| version             | string  | n        | DTCP version. Fixed to "1.0". |
+| type                | string  | n        | Fixed to "relation". |
+| tag                 | string  | n        | Fixed to "group_member_whitelist". |
+| parent_dna          | string  | n        | Latest whitelist DNA. |
+| status              | string  | n        | Fixed to "updated". |
+| updated             | integer | n        | Whitelist updating time. Unix timestamp. |
+| creator             | object  | n        | Creator. |
+| extra               | object  | n        | Extra metadata. |
+| signature           | string  | n        | [Metadata signature](./dtcp.md#metadata-signature). |
+
+`creator` object:
+
+| Name                | Type    | Optional | Description |
+| --------------      | ------- | -------- | ---------------------------------------- |
+| account_id          | string  | n        | Account id. Root account id in the case of Sub account posting. |
+| sub_account_id      | string  | y        | Sub account id. Refer to [Sub account](./dtcp.md#sub-accounts) for details. |
+
+`extra` object:
+
+| Name                | Type    | Optional | Description |
+| --------------      | ------- | -------- | ----------------------------------------------- |
+| application_status  | string  | n        | "approved" or "declined". |
+
+#### Response
+
+| Name | Type | Optional | Description |
+| ------------ | ------------- | ------------ | ------------- |
+| dna | string  | n        | Group member whitelist DNA. |
+
+#### Example
+
+```bash
+$ curl -x https://rigel-a.primas.network/v3/content -d '{"type":"article","content":"...","signature":"..."}'
+
+{"result_code":0,"data":{"dna":"", ...}}
+
+```
+
+
+### 12. Quit group member whitelist
+
+[DELETE] /groups/{group_id}/members/whitelist/{whitelist_id}
+
+#### Request
+
+| Name                | Type    | Optional | Description |
+| --------------      | ------- | -------- | ---------------------------------------- |
+| version             | string  | n        | DTCP version. Fixed to "1.0". |
+| type                | string  | n        | Fixed to "relation". |
+| tag                 | string  | n        | Fixed to "group_member_whitelist". |
+| parent_dna          | string  | n        | Latest whitelist DNA. |
+| status              | string  | n        | Fixed to "deleted". |
+| updated             | integer | n        | Whitelist updating time. Unix timestamp. |
+| creator             | object  | n        | Creator. |
+| signature           | string  | n        | [Metadata signature](./dtcp.md#metadata-signature). |
+
+`creator` object:
+
+| Name                | Type    | Optional | Description |
+| --------------      | ------- | -------- | ---------------------------------------- |
+| account_id          | string  | n        | Account id. Root account id in the case of Sub account posting. |
+| sub_account_id      | string  | y        | Sub account id. Refer to [Sub account](./dtcp.md#sub-accounts) for details. |
+
+#### Response
+
+| Name | Type | Optional | Description |
+| ------------ | ------------- | ------------ | ------------- |
+| dna | string  | n        | Group member whitelist DNA. |
+
+#### Example
+
+```bash
+$ curl -x https://rigel-a.primas.network/v3/content -d '{"type":"article","content":"...","signature":"..."}'
+
+{"result_code":0,"data":{"dna":"", ...}}
+
+```
+
+
+### 13. Get group shares
 
 [GET] /groups/{group_id}/shares
 
@@ -447,7 +638,7 @@ $ curl -x https://rigel-a.primas.network/v3/content -d '{"type":"article","conte
  ```
 
 
-### 10. Share to a group
+### 14. Share to a group
 
 [POST] /groups/{group_id}/shares
 
@@ -498,7 +689,7 @@ $ curl -x https://rigel-a.primas.network/v3/content -d '{"type":"article","conte
 ```
 
 
-### 11. Approve or decline share application
+### 15. Approve or decline share application
 
 [PUT] /shares/{share_id}
  
@@ -545,7 +736,7 @@ $ curl -x https://rigel-a.primas.network/v3/content -d '{"type":"article","conte
 ```
 
 
-### 12. Delete group share
+### 16. Delete group share
 
 [DELETE] /shares/{share_id}
 
@@ -576,6 +767,45 @@ This API can be called both by group owner or share creator with corresponding c
 | Name | Type | Optional | Description |
 | ------------ | ------------- | ------------ | ------------- | 
 | dna     | string  | n        | Share DNA. |
+
+#### Example
+
+```bash
+$ curl -x https://rigel-a.primas.network/v3/content -d '{"type":"article","content":"...","signature":"..."}'
+
+{"result_code":0,"data":{"dna":"", ...}}
+
+```
+
+
+#### 17. Get group avatar metadata
+
+[GET] /groups/{group_id}/avatar
+
+#### Response
+
+`data` is [content](./content.md#1-get-content-metadata) metadata.
+
+#### Example
+
+```bash
+$ curl -x https://rigel-a.primas.network/v3/content -d '{"type":"article","content":"...","signature":"..."}'
+
+{"result_code":0,"data":{"dna":"", ...}}
+
+```
+
+
+#### 18. Get group avatar raw image
+
+[GET] /groups/{group_id}/avatar/raw
+
+Primas Node can build local cache of raw image for accessing speed. Or redirect the request to
+image URI for raw content directly.
+
+#### Response
+
+Response is raw image data.
 
 #### Example
 

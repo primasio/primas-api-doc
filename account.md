@@ -323,3 +323,46 @@ $ curl -x https://rigel-a.primas.network/v3/content -d '{"type":"article","conte
 {"result_code":0,"data":{"dna":"", ...}}
 
 ```
+
+
+#### 11. Get account avatar metadata
+
+[GET] /accounts/{account_id}/avatar
+
+[GET] /accounts/{account_id}/{sub_account_id}/avatar
+
+#### Response
+
+`data` is [content](./content.md#1-get-content-metadata) metadata.
+
+#### Example
+
+```bash
+$ curl -x https://rigel-a.primas.network/v3/content -d '{"type":"article","content":"...","signature":"..."}'
+
+{"result_code":0,"data":{"dna":"", ...}}
+
+```
+
+
+#### 12. Get account avatar raw image
+
+[GET] /accounts/{account_id}/avatar/raw
+
+[GET] /accounts/{account_id}/{sub_account_id}/avatar/raw
+
+Primas Node can build local cache of raw image for accessing speed. Or redirect the request to
+image URI for raw content directly.
+
+#### Response
+
+Response is raw image data.
+
+#### Example
+
+```bash
+$ curl -x https://rigel-a.primas.network/v3/content -d '{"type":"article","content":"...","signature":"..."}'
+
+{"result_code":0,"data":{"dna":"", ...}}
+
+```
