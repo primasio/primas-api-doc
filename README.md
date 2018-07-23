@@ -6,6 +6,8 @@ Parameters are constantly changing. Examples are missing.
 APIs can't be found on the mainnet.
 We're trying our best to release it soon.**
 
+**Join Primas developer community on Slack: [https://slack.primas.io](https://slack.primas.io/)**
+
 ### Version
 
 3.0
