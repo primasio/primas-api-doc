@@ -5,7 +5,63 @@ In Primas, content interactions(like, comment, share) can only happen
 in groups. And interactions in a given group are only visible to this group.
 When interacting with content, the corresponding group id must be provided.
 
-### 1. Get the shares of a group share
+### 1. Get share metadata
+
+[GET] /shares/{share_id}
+
+#### Query parameters
+
+#### Response
+
+`data` is the metadata of a share:
+
+| Name                | Type    | Optional | Description |
+| --------------      | ------- | -------- | ---------------------------------------- |
+| id                  | string  | n        | Share id. |
+| src_id              | string  | n        | Content id. |
+| dest_id             | string  | n        | Group id. |
+| creator             | object  | n        | Creator. |
+| created             | integer | n        | Share created time. Unix timestamp. |
+| updated             | integer | n        | Share updated time. Unix timestamp. |
+| status              | string  | n        | Fixed to "created". |
+| extra               | object  | y        | Extra metadata. |
+| signature           | string  | n        | [Metadata signature](./dtcp.md#metadata-signature). |
+| dna                 | string  | n        | Latest share DNA. |
+| transaction_id      | string  | n        | Latest transaction id. |
+| content             | object  | n        | Share related content. |
+
+`creator` object:
+
+| Name                | Type    | Optional | Description |
+| --------------      | ------- | -------- | ---------------------------------------- |
+| account_id          | string  | n        | Account id. Root account id in the case of Sub account posting. |
+| account_name        | string  | n        | Account name. |
+| sub_account_id      | string  | y        | Sub account id. Refer to [Sub account](./dtcp.md#sub-accounts) for details. |
+| sub_account_name    | string  | y        | Sub account name. |
+
+`extra` object:
+
+| Name           | Type    | Optional | Description |
+| -------------- | ------- | -------- | ----------------------------------------------- |
+| share_id       | string  | n        | Parent share id. |
+| likes_total    | integer | n        | Total likes number.    |
+| comments_total | integer | n        | Total comments number. |
+| shares_total   | integer | n        | Total shares number.   |
+| pst_total      | big integer | n    | Total PST earned.      |
+
+ `content` object contains the related [content metadata](./content.md#1-get-content-metadata).
+
+#### Example
+
+```bash
+$ curl -x https://rigel-a.primas.network/v3/content -d '{"type":"article","content":"...","signature":"..."}'
+
+{"result_code":0,"data":{"dna":"", ...}}
+
+```
+
+
+### 2. Get the shares of a group share
 
 [GET] /shares/{share_id}/shares
 
@@ -48,6 +104,10 @@ When interacting with content, the corresponding group id must be provided.
 | Name           | Type    | Optional | Description |
 | -------------- | ------- | -------- | ----------------------------------------------- |
 | share_id       | string  | n        | Parent share id. |
+| likes_total    | integer | n        | Total likes number.    |
+| comments_total | integer | n        | Total comments number. |
+| shares_total   | integer | n        | Total shares number.   |
+| pst_total      | big integer | n    | Total PST earned.      |
 
 #### Example
 
@@ -59,7 +119,7 @@ $ curl -x https://rigel-a.primas.network/v3/content -d '{"type":"article","conte
 ```
 
 
-### 2. Get share reports
+### 3. Get share reports
 
 [GET] /shares/{share_id}/reports
 
@@ -115,7 +175,7 @@ $ curl -x https://rigel-a.primas.network/v3/content -d '{"type":"article","conte
 ```
 
 
-### 3. Report share
+### 4. Report share
 
 [POST] /shares/{share_id}/reports
 
@@ -167,7 +227,7 @@ $ curl -x https://rigel-a.primas.network/v3/content -d '{"type":"article","conte
 ```
 
 
-### 4. Get the likes of a group share
+### 5. Get the likes of a group share
 
 [GET] /shares/{share_id}/likes
 
@@ -214,7 +274,7 @@ $ curl -x https://rigel-a.primas.network/v3/content -d '{"type":"article","conte
 ```
 
 
-### 5. Like a group share
+### 6. Like a group share
 
 [POST] /shares/{share_id}/likes
 
@@ -257,7 +317,7 @@ $ curl -x https://rigel-a.primas.network/v3/content -d '{"type":"article","conte
 ```
 
 
-### 6. Cancel the like of a group share
+### 7. Cancel the like of a group share
 
 [DELETE] /shares/{share_id}/likes/{like_id}
 
@@ -289,7 +349,7 @@ $ curl -x https://rigel-a.primas.network/v3/content -d '{"type":"article","conte
 ```
 
 
-### 7. Get the comments of a group share
+### 8. Get the comments of a group share
 
 [GET] /shares/{share_id}/comments
 
@@ -334,7 +394,7 @@ $ curl -x https://rigel-a.primas.network/v3/content -d '{"type":"article","conte
 | content_hash  | string  | n        | Lowercase hex string of the SHA256 hash of the raw content. |
 
 
-### 8. Comment a group share
+### 9. Comment a group share
 
 [POST] /shares/{share_id}/comments
 
@@ -384,7 +444,8 @@ $ curl -x https://rigel-a.primas.network/v3/content -d '{"type":"article","conte
 
 ```
 
-### 9. Update the comment of a group share
+
+### 10. Update the comment of a group share
 
 [PUT] /shares/{share_id}/comments/{comment_id}
 
@@ -430,7 +491,8 @@ $ curl -x https://rigel-a.primas.network/v3/content -d '{"type":"article","conte
 
 ```
 
-### 10. Delete the comment of a group share
+
+### 11. Delete the comment of a group share
 
 [DELETE] /shares/{share_id}/comments/{comment_id}
 
