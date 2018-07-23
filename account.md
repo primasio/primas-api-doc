@@ -323,7 +323,7 @@ $ curl -x https://rigel-a.primas.network/v3/content -d '{"type":"article","conte
 ```
 
 
-#### 11. Get account group applications
+### 11. Get account group applications
 
 [GET] /accounts/{account_id}/applications/groups
 
@@ -351,7 +351,7 @@ $ curl -x https://rigel-a.primas.network/v3/content -d '{"type":"article","conte
 ```
 
 
-#### 12. Get account share applications
+### 12. Get account share applications
 
 [GET] /accounts/{account_id}/applications/shares
 
@@ -379,7 +379,7 @@ $ curl -x https://rigel-a.primas.network/v3/content -d '{"type":"article","conte
 ```
 
 
-#### 13. Get account report list
+### 13. Get account report list
 
 [GET] /accounts/{account_id}/reports
 
@@ -407,13 +407,64 @@ $ curl -x https://rigel-a.primas.network/v3/content -d '{"type":"article","conte
 ```
 
 
-#### 14. Get account notifications
+### 14. Get account notifications
 
-a. Content
-b. Report
-c. Group
-d. Incentives
-e. Withdrawal & Prelock
+[GET] /accounts/{account_id}/notifications
+
+[GET] /accounts/{account_id}/{sub_account_id}/notifications
+
+The notification read status cannot be recorded in a decentralized system. To implement read status
+in clients, client should record a timestamp about the last time notifications are fetched. When calling
+API the timestamp should be passed as `start_time` to retrieve only the notifications after and mark
+them as unread notifications.
+
+#### Query parameters
+
+| Name               | Type     | Optional | Description                                         |
+| ------------------ | -------- | -------- | --------------------------------------------------- |
+| page               | integer  | y        | Page number. Starts from 0.                         |
+| page_size          | integer  | y        | Page size. Default to 20.                           |
+| start_time         | integer  | y        | List from this time. Unix timestamp.                |
+
+#### Response
+
+`data` is an array of notifications:
+
+| Name                | Type    | Optional | Description                              |
+| --------------      | ------- | -------- | ---------------------------------------- |
+| type                | string  | n        | Notification type.                       |
+| created             | integer | n        | Notification creation time.              |
+| object_id           | string  | y        | Notification related object id.          |
+| extra               | object  | y        | Extra metadata.                          |
+
+**Notification Types:**
+
+* Share
+  * `share_liked` - Share is liked
+  * `share_commented` - Share is commented
+  * `share_shared` - Share is shared
+* Report
+  * `report_processed` - Report is processed
+* Group
+  * `member_application` - New group member application
+  * `member_application_processed` - Group member application processed
+  * `share_application` - New group share application
+  * `share_application_processed` - Group share application processed
+* Incentives
+  * `incentives` - Incentives calculated
+  * `withdrawal_processed` - Withdrawal processed
+* Token
+  * `pre_lock_success` - Token pre-lock success
+  * `pre_lock_unlocked` - Token pre-lock unlocked
+
+#### Example
+
+```bash
+$ curl -x https://rigel-a.primas.network/v3/content -d '{"type":"article","content":"...","signature":"..."}'
+
+{"result_code":0,"data":{"dna":"", ...}}
+
+```
 
 
 #### 15. Get account avatar metadata
