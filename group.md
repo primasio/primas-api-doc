@@ -39,7 +39,9 @@
 | --------------      | ------- | -------- | ---------------------------------------- |
 | allow_join          | string  | n        | Joining group control. "all" or "application". |
 | allow_post          | string  | n        | Posting control. "all", "none", "application". |
-| allow_post_whitelist| array   | y        | An array containing `account_id`s that can always post in the group. |
+| members_total       | integer | n        | Total members number. |
+| shares_total        | integer | n        | Total shares number. |
+
 
 
 ### 2. Create group
@@ -622,9 +624,13 @@ $ curl -x https://rigel-a.primas.network/v3/content -d '{"type":"article","conte
 
 `extra` object:
 
-| Name           | Type    | Optional | Description |
-| -------------- | ------- | -------- | ----------------------------------------------- |
-| share_id       | string  | n        | Parent share id. |
+| Name           | Type    | Optional | Description            |
+| -------------- | ------- | -------- | ---------------------- |
+| share_id       | string  | n        | Parent share id.       |
+| likes_total    | integer | n        | Total likes number.    |
+| comments_total | integer | n        | Total comments number. |
+| shares_total   | integer | n        | Total shares number.   |
+| pst_total      | big integer | n    | Total PST earned.      |
  
  `content` object contains the related [content metadata](./content.md#1-get-content-metadata):
  

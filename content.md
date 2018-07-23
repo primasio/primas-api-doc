@@ -88,15 +88,6 @@ to set a price on the authorization of the content:
 | extra               | object  | n        | Extra content metadata. |
 | transaction_id      | string  | n        | Latest transaction id. |
 
-For image metadata, there're more fields:
-
-| Name     | Type    | Optional | Description              |
-| -------- | ------- | ---- | -------------------- |
-| ext      | string  | n    | image format, such as 'png', 'jpg' |
-| width    | integer | n    | image width in pixels |
-| height   | integer | n    | image height in pixels |
-| size     | integer | n    | image size in bytes |
-
 `creator` object:
 
 | Name                | Type    | Optional | Description |
@@ -105,6 +96,15 @@ For image metadata, there're more fields:
 | account_name        | string  | n        | Account name. Root account name in the case of Sub account posting. |
 | sub_account_id      | string  | y        | Sub account id. Refer to [Sub account](./dtcp.md#sub-accounts) for details. |
 | sub_account_name    | string  | y        | Sub account name. |
+
+`extra` object:
+
+| Name     | Type    | Optional | Description |
+| -------- | ------- | ---- | -------------------- |
+| ext      | string  | y    | Image format, such as 'png', 'jpg'. Image only. |
+| width    | integer | y    | Image width in pixels. Image only.              |
+| height   | integer | y    | Image height in pixels. Image only.             |
+| size     | integer | y    | Image size in bytes. Image only.                |
 
 #### Example
 
