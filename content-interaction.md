@@ -11,6 +11,10 @@ When interacting with content, the corresponding group id must be provided.
 
 #### Query parameters
 
+| Name               | Type     | Optional | Description                                         |
+| ------------------ | -------- | -------- | --------------------------------------------------- |
+| account_id         | string   | y        | Account id. Account related status will be returned.|
+
 #### Response
 
 `data` is the metadata of a share:
@@ -28,7 +32,6 @@ When interacting with content, the corresponding group id must be provided.
 | signature           | string  | n        | [Metadata signature](./dtcp.md#metadata-signature). |
 | dna                 | string  | n        | Latest share DNA. |
 | transaction_id      | string  | n        | Latest transaction id. |
-| content             | object  | n        | Share related content. |
 
 `creator` object:
 
@@ -48,8 +51,14 @@ When interacting with content, the corresponding group id must be provided.
 | comments_total | integer | n        | Total comments number. |
 | shares_total   | integer | n        | Total shares number.   |
 | pst_total      | big integer | n    | Total PST earned.      |
+| pst_updated    | integer | n        | Last PST updated time. Unix timestamp. |
+| is_liked       | bool    | y        | Whether current account liked this share. |
+| content        | object  | n        | Share related content. |
+| report         | object  | y        | Report metadata. |
 
- `content` object contains the related [content metadata](./content.md#1-get-content-metadata).
+`content` object contains the related [content metadata](./content.md#1-get-content-metadata).
+
+`report` object contains the related [report metadata](./content-interaction.md#3-get-share-reports).
 
 #### Example
 
@@ -71,6 +80,7 @@ $ curl -x https://rigel-a.primas.network/v3/content -d '{"type":"article","conte
 | ------------------ | -------- | -------- | --------------------------------------------------- |
 | page               | integer  | y        | Page number. Starts from 0.                         |
 | page_size          | integer  | y        | Page size. Default to 20.                           |
+| account_id         | string   | y        | Account id filter.                                  |
 
 #### Response
 
@@ -163,6 +173,7 @@ $ curl -x https://rigel-a.primas.network/v3/content -d '{"type":"article","conte
 | ------------- | ------- | -------- | ------------------------------------------------ |
 | content       | string  | n        | Content URI. In the case of IPFS, a link starts with "ipfs://" |
 | content_hash  | string  | n        | Lowercase hex string of the SHA256 hash of the raw content. |
+| report_type   | string  | n        | Report type. |
 | report_status | string  | n        | "pending", "approved" or "declined". |
 
 #### Example
@@ -208,6 +219,7 @@ $ curl -x https://rigel-a.primas.network/v3/content -d '{"type":"article","conte
 | ------------- | ------- | -------- | ------------------------------------------------ |
 | content       | string  | n        | base64 encoded report [content](./content.md#content-format). |
 | content_hash  | string  | n        | Lowercase hex string of the SHA256 hash of the raw content. |
+| report_type   | string  | n        | Report type. |
 | report_status | string  | n        | Fixed to "pending". |
 
 #### Response
@@ -237,6 +249,7 @@ $ curl -x https://rigel-a.primas.network/v3/content -d '{"type":"article","conte
 | ------------------ | -------- | -------- | --------------------------------------------------- |
 | page               | integer  | y        | Page number. Starts from 0.                         |
 | page_size          | integer  | y        | Page size. Default to 20.                           |
+| account_id         | string   | y        | Account id filter.                                  |
 
 #### Response
 
@@ -359,10 +372,11 @@ $ curl -x https://rigel-a.primas.network/v3/content -d '{"type":"article","conte
 | ------------------ | -------- | -------- | --------------------------------------------------- |
 | page               | integer  | y        | Page number. Starts from 0.                         |
 | page_size          | integer  | y        | Page size. Default to 20.                           |
+| account_id         | string   | y        | Account id filter.                                  |
 
 #### Response
 
-`data` is an array of comments:
+`data` is an array of top level comments:
 
 | Name                | Type    | Optional | Description |
 | --------------      | ------- | -------- | ---------------------------------------- |
@@ -388,10 +402,35 @@ $ curl -x https://rigel-a.primas.network/v3/content -d '{"type":"article","conte
 
 `extra` object:
 
-| Name          | Type    | Optional | Description |
-| ------------- | ------- | -------- | ------------------------------------------------ |
-| content       | string  | n        | Content URI. In the case of IPFS, a link starts with "ipfs://" |
-| content_hash  | string  | n        | Lowercase hex string of the SHA256 hash of the raw content. |
+| Name              | Type    | Optional | Description |
+| ----------------- | ------- | -------- | ------------------------------------------------ |
+| content           | string  | n        | Comment content. |
+| comments          | array   | n        | Replying comments overview. |
+
+`comments` is an array of replying comments.
+
+#### Example
+
+```bash
+$ curl -x https://rigel-a.primas.network/v3/content -d '{"type":"article","content":"...","signature":"..."}'
+
+{"result_code":0,"data":{"dna":"", ...}}
+
+```
+
+
+### 9. Get replying comments of a comment
+
+[GET] /comments/{comment_id}/comments
+
+#### Example
+
+```bash
+$ curl -x https://rigel-a.primas.network/v3/content -d '{"type":"article","content":"...","signature":"..."}'
+
+{"result_code":0,"data":{"dna":"", ...}}
+
+```
 
 
 ### 9. Comment a group share
@@ -423,10 +462,10 @@ $ curl -x https://rigel-a.primas.network/v3/content -d '{"type":"article","conte
 
 `extra` object:
 
-| Name          | Type    | Optional | Description |
-| ------------- | ------- | -------- | ------------------------------------------------ |
-| content       | string  | n        | base64 encoded comment [content](./content.md#content-format). |
-| content_hash  | string  | n        | Lowercase hex string of the SHA256 hash of the raw content. |
+| Name              | Type    | Optional | Description |
+| ----------------- | ------- | -------- | ------------------------------------------------ |
+| parent_comment_id | string  | y        | Parent comment id.                               |
+| content           | string  | n        | Comment content. |
 
 #### Response
 
@@ -473,8 +512,7 @@ $ curl -x https://rigel-a.primas.network/v3/content -d '{"type":"article","conte
 
 | Name          | Type    | Optional | Description |
 | ------------- | ------- | -------- | ------------------------------------------------ |
-| content       | string  | n        | base64 encoded comment [content](./content.md#content-format). |
-| content_hash  | string  | n        | Lowercase hex string of the SHA256 hash of the raw content. |
+| content       | string  | n        | Comment content. |
 
 #### Response
 

@@ -26,8 +26,6 @@
 | extra               | object  | y        | Extra metadata. |
 | signature           | string  | n        | [Metadata signature](./dtcp.md#metadata-signature). |
 | dna                 | string  | n        | DNA of the account. |
-| hp_total            | integer | n        | Total HP. |
-| hp_current          | integer | n        | Current HP. |
 | credits             | integer | n        | Current credits. |
 | transaction_id      | string  | n        | Latest transaction id. |
 
@@ -323,9 +321,22 @@ $ curl -x https://rigel-a.primas.network/v3/content -d '{"type":"article","conte
 {"result_code":0,"data":{"dna":"", ...}}
 
 ```
+#### 11. Get account group applications
+
+#### 12. Get account share applications
+
+#### 13. Get account report list
+
+#### 14. Get account notifications
+
+a. Content
+b. Report
+c. Group
+d. Incentives
+e. Withdrawal & Prelock
 
 
-#### 11. Get account avatar metadata
+#### 15. Get account avatar metadata
 
 [GET] /accounts/{account_id}/avatar
 
@@ -345,7 +356,7 @@ $ curl -x https://rigel-a.primas.network/v3/content -d '{"type":"article","conte
 ```
 
 
-#### 12. Get account avatar raw image
+#### 16. Get account avatar raw image
 
 [GET] /accounts/{account_id}/avatar/raw
 

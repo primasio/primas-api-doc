@@ -14,7 +14,8 @@
 | balance              | big integer | n        | Token balance.                        |
 | pre_lock_all         | big integer | n        | Total pre-locked amount.              |
 | pre_lock_available   | big integer | n        | Remaining pre-locked amount.          |
-| incentives_all       | big integer | n        | Total incentives.                     |
+| incentives_all       | big integer | n        | Total incentives on this node.   .    |
+| incentives_locked    | big integer | n        | Incentives locked on this node.       |
 | incentives_on_node   | big integer | n        | Amount in the node's incentives pool. |
 
 #### Example
@@ -123,19 +124,9 @@ Response `data` is an array whose element containing:
 | created             | integer     | n        | Withdrawal created time. Unix timestamp.                      |
 | updated             | integer     | n        | Withdrawal updated time.                                      |
 | amount              | big integer | n        | Withdrawal amount.                                            |
-| balance_after       | big integer | n        | Balance after withdrawal.                                     |
 | node_fee            | big integer | n        | Node charged withdrawal fee.                                  |
 | status              | string      | n        | Withdrawal status. "pending", "done" or "cancelled".          |
-| transaction         | object      | y        | Withdrawal transaction data.                                  |
-
-`transaction` object:
-
-| Name                | Type        | Optional | Description                                                   |
-| ------------------- | ----------- | -------- | ------------------------------------------------------------- |
-| id                  | string      | n        | Transaction hash.                                             |
-| status              | integer     | n        | Transaction status. "pending" or "success".                   |
-| estimated_time      | integer     | n        | Estimated confirmation time. Unix timestamp.                  |
-| confirmed_time      | integer     | n        | Confirmation time. Unix timestamp.                            |
+| transaction_id      | string      | y        | Withdrawal transaction id.                                  |
 
 #### Example
 

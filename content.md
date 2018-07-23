@@ -86,7 +86,7 @@ to set a price on the authorization of the content:
 | signature           | string  | n        | [Metadata signature](./dtcp.md#metadata-signature). |
 | dna                 | string  | n        | Content DNA. |
 | extra               | object  | n        | Extra content metadata. |
-| transaction_id      | string  | n        | Latest transaction id. |
+| transaction_id      | string  | n        | Transaction id. |
 
 `creator` object:
 
@@ -99,12 +99,32 @@ to set a price on the authorization of the content:
 
 `extra` object:
 
-| Name     | Type    | Optional | Description |
-| -------- | ------- | ---- | -------------------- |
-| ext      | string  | y    | Image format, such as 'png', 'jpg'. Image only. |
-| width    | integer | y    | Image width in pixels. Image only.              |
-| height   | integer | y    | Image height in pixels. Image only.             |
-| size     | integer | y    | Image size in bytes. Image only.                |
+| Name           | Type    | Optional | Description |
+| -------------- | ------- | ----- | -------------------- |
+| ext            | string  | y     | Image format, such as 'png', 'jpg'. Image only. |
+| width          | integer | y     | Image width in pixels. Image only.              |
+| height         | integer | y     | Image height in pixels. Image only.             |
+| size           | integer | y     | Image size in bytes. Image only.                |
+| pst_total      | big integer | n | Total PST earned.      |
+| pst_updated    | integer | n     | Last PST updated time. Unix timestamp. |
+| objects        | array   | y     | A list of images, videos, audios contained in the content. Article only. |
+
+`objects` array:
+
+| Name           | Type    | Optional | Description |
+| -------------- | ------- | ----- | -------------------- |
+| id             | string  | n     | Object id. |
+| type           | string  | n     | "image", "audio" or "video". |
+| extra          | object  | n     | Extra metadata. |
+
+`extra` object in `resources`:
+
+| Name           | Type    | Optional | Description |
+| -------------- | ------- | ----- | -------------------- |
+| ext            | string  | y     | Image format, such as 'png', 'jpg'. Image only. |
+| width          | integer | y     | Image width in pixels. Image only.              |
+| height         | integer | y     | Image height in pixels. Image only.             |
+| size           | integer | y     | Image size in bytes. Image only.                |
 
 #### Example
 

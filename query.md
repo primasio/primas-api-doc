@@ -11,7 +11,7 @@
 | page               | integer  | y        | Page number. Starts from 0.                                          |
 | page_size          | integer  | y        | Page size. Default to 20.                                            |
 | text               | string   | y        | Text filter. Full text search on title, description, etc.            |
-| type               | string   | y        | Query type. Currently supports "all", "content", "account", "group". |
+| type               | string   | y        | Query type. Currently supports "all", "share", "account", "group". |
 | category           | string   | y        | Category filter.                                                     |
 
 #### Response

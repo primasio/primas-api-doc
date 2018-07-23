@@ -6,6 +6,12 @@
 
 [GET] /groups/{group_id}
 
+#### Query parameters
+
+| Name               | Type     | Optional | Description                                         |
+| ------------------ | -------- | -------- | --------------------------------------------------- |
+| account_id         | string   | y        | Account id. Account related status will be returned.|
+
 #### Response
 
 | Name                | Type    | Optional | Description |
@@ -41,6 +47,8 @@
 | allow_post          | string  | n        | Posting control. "all", "none", "application". |
 | members_total       | integer | n        | Total members number. |
 | shares_total        | integer | n        | Total shares number. |
+| account_role        | string  | y        | Member status of current account. "owner", "member", "applicant" or "none". |
+| members             | array   | n        | Members overview. An array of account id. |
 
 
 ### 2. Create group
@@ -79,7 +87,6 @@
 | --------------      | ------- | -------- | ---------------------------------------- |
 | allow_join          | string  | n        | Joining group control. "all" or "application". |
 | allow_post          | string  | n        | Posting control. "all", "none", "application". |
-| allow_post_whitelist| array   | y        | An array containing `account_id`s that can always post in the group. |
 
 #### Response
 
@@ -595,43 +602,7 @@ $ curl -x https://rigel-a.primas.network/v3/content -d '{"type":"article","conte
 
 #### Response
 
-`data` is an array of shares:
-
-| Name                | Type    | Optional | Description |
-| --------------      | ------- | -------- | ---------------------------------------- |
-| id                  | string  | n        | Share id. |
-| src_id              | string  | n        | Content id. |
-| dest_id             | string  | n        | Group id. |
-| creator             | object  | n        | Creator. |
-| created             | integer | n        | Share created time. Unix timestamp. |
-| updated             | integer | n        | Share updated time. Unix timestamp. |
-| status              | string  | n        | Fixed to "created". |
-| extra               | object  | y        | Extra metadata. |
-| signature           | string  | n        | [Metadata signature](./dtcp.md#metadata-signature). |
-| dna                 | string  | n        | Latest share DNA. |
-| transaction_id      | string  | n        | Latest transaction id. |
-| content             | object  | n        | Share related content. |
-
-`creator` object:
-
-| Name                | Type    | Optional | Description |
-| --------------      | ------- | -------- | ---------------------------------------- |
-| account_id          | string  | n        | Account id. Root account id in the case of Sub account posting. |
-| account_name        | string  | n        | Account name. |
-| sub_account_id      | string  | y        | Sub account id. Refer to [Sub account](./dtcp.md#sub-accounts) for details. |
-| sub_account_name    | string  | y        | Sub account name. |
-
-`extra` object:
-
-| Name           | Type    | Optional | Description            |
-| -------------- | ------- | -------- | ---------------------- |
-| share_id       | string  | n        | Parent share id.       |
-| likes_total    | integer | n        | Total likes number.    |
-| comments_total | integer | n        | Total comments number. |
-| shares_total   | integer | n        | Total shares number.   |
-| pst_total      | big integer | n    | Total PST earned.      |
- 
- `content` object contains the related [content metadata](./content.md#1-get-content-metadata).
+`data` is an array of [shares](./content-interaction.md#1-get-share-metadata).
  
  #### Example
  

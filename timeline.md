@@ -19,39 +19,7 @@ in several adjacent shares, only the first one will show.**
 
 #### Response
 
-`data` is an array of shares:
-
-| Name                | Type    | Optional | Description |
-| --------------      | ------- | -------- | ---------------------------------------- |
-| id                  | string  | n        | Share id. |
-| src_id              | string  | n        | Content id. |
-| dest_id             | string  | n        | Group id. |
-| creator             | object  | n        | Creator. |
-| created             | integer | n        | Share created time. Unix timestamp. |
-| updated             | integer | n        | Share updated time. Unix timestamp. |
-| status              | string  | n        | Fixed to "created". |
-| extra               | object  | y        | Extra metadata. |
-| signature           | string  | n        | [Metadata signature](./dtcp.md#metadata-signature). |
-| dna                 | string  | n        | Latest share DNA. |
-| transaction_id      | string  | n        | Latest transaction id. |
-| content             | object  | n        | Share related content. |
-
-`creator` object:
-
-| Name                | Type    | Optional | Description |
-| --------------      | ------- | -------- | ---------------------------------------- |
-| account_id          | string  | n        | Account id. Root account id in the case of Sub account posting. |
-| account_name        | string  | n        | Account name. |
-| sub_account_id      | string  | y        | Sub account id. Refer to [Sub account](./dtcp.md#sub-accounts) for details. |
-| sub_account_name    | string  | y        | Sub account name. |
-
-`extra` object:
-
-| Name           | Type    | Optional | Description |
-| -------------- | ------- | -------- | ----------------------------------------------- |
-| share_id       | string  | n        | Parent share id. |
- 
- `content` object contains the related [content metadata](./content.md#1-get-content-metadata):
+`data` is an array of [shares](./content-interaction.md#1-get-share-metadata):
  
  #### Example
  
