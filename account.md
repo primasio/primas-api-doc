@@ -321,11 +321,91 @@ $ curl -x https://rigel-a.primas.network/v3/content -d '{"type":"article","conte
 {"result_code":0,"data":{"dna":"", ...}}
 
 ```
+
+
 #### 11. Get account group applications
+
+[GET] /accounts/{account_id}/applications/groups
+
+[GET] /accounts/{account_id}/{sub_account_id}/applications/groups
+
+#### Query parameters
+
+| Name               | Type     | Optional | Description                                         |
+| ------------------ | -------- | -------- | --------------------------------------------------- |
+| page               | integer  | y        | Page number. Starts from 0.                         |
+| page_size          | integer  | y        | Page size. Default to 20.                           |
+| application_status | string   | y        | "pending", "approved" or "declined".                |
+
+#### Response
+
+`data` is an array of [group member](./group.md#5-get-group-members).
+
+#### Example
+
+```bash
+$ curl -x https://rigel-a.primas.network/v3/content -d '{"type":"article","content":"...","signature":"..."}'
+
+{"result_code":0,"data":{"dna":"", ...}}
+
+```
+
 
 #### 12. Get account share applications
 
+[GET] /accounts/{account_id}/applications/shares
+
+[GET] /accounts/{account_id}/{sub_account_id}/applications/shares
+
+#### Query parameters
+
+| Name               | Type     | Optional | Description                                         |
+| ------------------ | -------- | -------- | --------------------------------------------------- |
+| page               | integer  | y        | Page number. Starts from 0.                         |
+| page_size          | integer  | y        | Page size. Default to 20.                           |
+| application_status | string   | y        | "pending", "approved" or "declined".                |
+
+#### Response
+
+`data` is an array of [share](./content-interaction.md#1-get-share-metadata).
+
+#### Example
+
+```bash
+$ curl -x https://rigel-a.primas.network/v3/content -d '{"type":"article","content":"...","signature":"..."}'
+
+{"result_code":0,"data":{"dna":"", ...}}
+
+```
+
+
 #### 13. Get account report list
+
+[GET] /accounts/{account_id}/reports
+
+[GET] /accounts/{account_id}/{sub_account_id}/reports
+
+#### Query parameters
+
+| Name               | Type     | Optional | Description                                         |
+| ------------------ | -------- | -------- | --------------------------------------------------- |
+| page               | integer  | y        | Page number. Starts from 0.                         |
+| page_size          | integer  | y        | Page size. Default to 20.                           |
+| report_status      | string   | y        | "pending", "approved" or "declined".                |
+
+#### Response
+
+`data` is an array of [report](./content-interaction.md#3-get-share-reports).
+
+#### Example
+
+```bash
+$ curl -x https://rigel-a.primas.network/v3/content -d '{"type":"article","content":"...","signature":"..."}'
+
+{"result_code":0,"data":{"dna":"", ...}}
+
+```
+
 
 #### 14. Get account notifications
 
