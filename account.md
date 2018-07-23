@@ -467,7 +467,7 @@ $ curl -x https://rigel-a.primas.network/v3/content -d '{"type":"article","conte
 ```
 
 
-#### 15. Get account avatar metadata
+### 15. Get account avatar metadata
 
 [GET] /accounts/{account_id}/avatar
 
@@ -487,7 +487,7 @@ $ curl -x https://rigel-a.primas.network/v3/content -d '{"type":"article","conte
 ```
 
 
-#### 16. Get account avatar raw image
+### 16. Get account avatar raw image
 
 [GET] /accounts/{account_id}/avatar/raw
 
