@@ -112,6 +112,7 @@ For updating, only the changed metadata need to be provided.
 | type                | string  | n        | Fixed to "object". |
 | tag                 | string  | n        | Fixed to "account". |
 | parent_dna          | string  | n        | The latest DNA of the account. |
+| status              | string  | n        | Fixed to "updated".            |
 | updated             | integer | n        | Updating time. Unix timestamp. |
 | name                | string  | y        | Name. |
 | abstract            | string  | y        | Description. |
