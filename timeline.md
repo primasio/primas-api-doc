@@ -2,7 +2,7 @@
 
 ## Timeline APIs
 
-#### 1. Get account timeline
+### 1. Get account timeline
 
 [GET] /accounts/{account_id}/timeline
 
@@ -21,7 +21,7 @@ in several adjacent shares, only the first one will show.**
 
 `data` is an array of [shares](./content-interaction.md#1-get-share-metadata):
  
- #### Example
+#### Example
  
  ```bash
  $ curl -x https://rigel-a.primas.network/v3/content -d '{"type":"article","content":"...","signature":"..."}'

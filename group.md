@@ -754,7 +754,7 @@ $ curl -x https://rigel-a.primas.network/v3/content -d '{"type":"article","conte
 ```
 
 
-#### 17. Get group avatar metadata
+### 17. Get group avatar metadata
 
 [GET] /groups/{group_id}/avatar
 
@@ -772,7 +772,7 @@ $ curl -x https://rigel-a.primas.network/v3/content -d '{"type":"article","conte
 ```
 
 
-#### 18. Get group avatar raw image
+### 18. Get group avatar raw image
 
 [GET] /groups/{group_id}/avatar/raw
 

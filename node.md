@@ -2,7 +2,7 @@
 
 ## Node APIs
 
-#### 1. Get node list
+### 1. Get node list
 
 [GET] /nodes
 

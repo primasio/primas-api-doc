@@ -2,9 +2,6 @@
 
 ## Account APIs
 
-#### Account ID
-
-
 ### 1. Get account metadata
 
 [GET] /accounts/{account_id}

@@ -433,7 +433,7 @@ $ curl -x https://rigel-a.primas.network/v3/content -d '{"type":"article","conte
 ```
 
 
-### 9. Comment a group share
+### 10. Comment a group share
 
 [POST] /shares/{share_id}/comments
 
@@ -484,7 +484,7 @@ $ curl -x https://rigel-a.primas.network/v3/content -d '{"type":"article","conte
 ```
 
 
-### 10. Update the comment of a group share
+### 11. Update the comment of a group share
 
 [PUT] /shares/{share_id}/comments/{comment_id}
 
@@ -530,7 +530,7 @@ $ curl -x https://rigel-a.primas.network/v3/content -d '{"type":"article","conte
 ```
 
 
-### 11. Delete the comment of a group share
+### 12. Delete the comment of a group share
 
 [DELETE] /shares/{share_id}/comments/{comment_id}
 

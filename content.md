@@ -4,7 +4,7 @@
 
 Content(articles and images) related APIs. Posting and reading content.
 
-#### Content Licensing
+### Content Licensing
 
 When posting, the author could attach a license to the content
 to describe how the content could be used or disseminated.
@@ -61,7 +61,7 @@ to set a price on the authorization of the content:
 }
 ``` 
 
-#### Content Format
+### Content Format
 
 ### 1. Get content metadata
 

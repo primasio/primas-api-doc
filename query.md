@@ -1,5 +1,7 @@
 # Primas Node API Documentation
 
+## Query APIs
+
 ### 1. Query all APIs
 
 [GET] /query

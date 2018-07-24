@@ -1,0 +1,23 @@
+{
+  "name": "primas-api-doc",
+  "version": "1.0.0",
+  "description": "Primas Node API Documentation",
+  "main": "README.md",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "node run toc.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/primasio/primas-api-doc.git"
+  },
+  "author": "Gan Lu",
+  "license": "Apache-2.0",
+  "bugs": {
+    "url": "https://github.com/primasio/primas-api-doc/issues"
+  },
+  "homepage": "https://github.com/primasio/primas-api-doc#readme",
+  "dependencies": {
+    "markdown-toc": "^1.2.0"
+  }
+}

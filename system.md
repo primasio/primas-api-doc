@@ -2,7 +2,7 @@
 
 ## System APIs
 
-#### 1. Get system parameters
+### 1. Get system parameters
 
 [GET] /system
 

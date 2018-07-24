@@ -1,2 +1,4 @@
 .idea/
 *.iml
+*.json
+node_modules/
