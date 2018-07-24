@@ -6,6 +6,10 @@ Parameters are constantly changing. Examples are missing.
 APIs can't be found on the mainnet.
 We're trying our best to release it soon.**
 
+**Status update: This document is almost finalized. Our focus is on the SDK now. The API examples will be
+provided with the implementation and testing of the SDK. The parameters of APIs might still be changed slightly
+during this process.**
+
 **Join Primas developer community on Slack: [https://slack.primas.io](https://slack.primas.io/)**
 
 ### Version
