@@ -496,6 +496,7 @@ $ curl -x https://rigel-a.primas.network/v3/content -d '{"type":"article","conte
 | type                | string  | n        | Fixed to "relation". |
 | tag                 | string  | n        | Fixed to "share_comment". |
 | parent_dna          | string  | n        | Latest comment DNA. |
+| creator             | string  | n        | creator. |
 | updated             | integer | n        | Comment updated time. Unix timestamp. |
 | status              | string  | n        | Fixed to "updated". |
 | extra               | object  | n        | Extra metadata. |
