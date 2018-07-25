@@ -273,7 +273,7 @@ $ curl -x https://rigel-a.primas.network/v3/content -d '{"type":"article","conte
 | end_date    | integer  | y        | Query end date. Unix timestamp.                 |
 | page        | integer  | y        | Page number. Starts from 0.                     |
 | page_size   | integer  | y        | Page size. Default to 20.                       |
-| type        | string   | y        | Type filter. "content", "group" or "report".    |
+| type        | string   | y        | Type filter. "content", "group_create", "group_join" or "report".    |
 
 #### Response
 
@@ -284,7 +284,7 @@ Response `data` is an array whose element containing:
 | id        | string      | n       | Lock id.                                                  |
 | amount	| big integer | n	    | Lock amount.                                              |
 | expire    | integer     | n       | Lock expire time. Unix timestamp. 0 for non-expire locks. |
-| type      | string      | n       | Lock type. "content", "group" or "report".                |
+| type      | string      | n       | Lock type. "content", "group_create", "group_join" or "report". |
 | object_id | string      | n       | Locked object(content, group, report) id.                 |
 | created   | integer     | n       | Lock creation time. Unix timestamp.                       |
 
