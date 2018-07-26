@@ -4,9 +4,9 @@
 
 ### 1. Get account metadata
 
-[GET] /accounts/{account_id}
+[GET] /accounts/{account_id}/metadata
 
-[GET] /accounts/{account_id}/{sub_account_id}
+[GET] /accounts/{account_id}/sub/{sub_account_id}/metadata
 
 #### Response
 
