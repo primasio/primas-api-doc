@@ -154,7 +154,7 @@ $ curl -x https://rigel-a.primas.network/v3/content -d '{"type":"article","conte
 
 [GET] /accounts/{account_id}/credits
 
-[GET] /accounts/{account_id}/{sub_account_id}/credits
+[GET] /accounts/{account_id}/sub/{sub_account_id}/credits
 
 
 ### 5. Get account content list
