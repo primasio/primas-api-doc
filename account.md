@@ -188,7 +188,7 @@ $ curl -x https://rigel-a.primas.network/v3/content -d '{"type":"article","conte
 
 [GET] /accounts/{account_id}/groups
 
-[GET] /accounts/{account_id}/{sub_account_id}/groups
+[GET] /accounts/{account_id}/sub/{sub_account_id}/groups
 
 #### Query parameters
 
@@ -215,7 +215,7 @@ $ curl -x https://rigel-a.primas.network/v3/content -d '{"type":"article","conte
 
 [GET] /accounts/{account_id}/shares
 
-[GET] /accounts/{account_id}/{sub_account_id}/shares
+[GET] /accounts/{account_id}/sub/{sub_account_id}/shares
 
 #### Query parameters
 
@@ -243,7 +243,7 @@ $ curl -x https://rigel-a.primas.network/v3/content -d '{"type":"article","conte
 
 [GET] /accounts/{account_id}/groups/{group_id}/shares
 
-[GET] /accounts/{account_id}/{sub_account_id}/groups/{group_id}/shares
+[GET] /accounts/{account_id}/sub/{sub_account_id}/groups/{group_id}/shares
 
 #### Query parameters
 
@@ -271,7 +271,7 @@ $ curl -x https://rigel-a.primas.network/v3/content -d '{"type":"article","conte
 
 [GET] /accounts/{account_id}/likes
 
-[GET] /accounts/{account_id}/{sub_account_id}/likes
+[GET] /accounts/{account_id}/sub/{sub_account_id}/likes
 
 #### Query parameters
 
@@ -298,7 +298,7 @@ $ curl -x https://rigel-a.primas.network/v3/content -d '{"type":"article","conte
 
 [GET] /accounts/{account_id}/comments
 
-[GET] /accounts/{account_id}/{sub_account_id}/comments
+[GET] /accounts/{account_id}/sub/{sub_account_id}/comments
 
 #### Query parameters
 
@@ -325,7 +325,7 @@ $ curl -x https://rigel-a.primas.network/v3/content -d '{"type":"article","conte
 
 [GET] /accounts/{account_id}/applications/groups
 
-[GET] /accounts/{account_id}/{sub_account_id}/applications/groups
+[GET] /accounts/{account_id}/sub/{sub_account_id}/applications/groups
 
 #### Query parameters
 
@@ -353,7 +353,7 @@ $ curl -x https://rigel-a.primas.network/v3/content -d '{"type":"article","conte
 
 [GET] /accounts/{account_id}/applications/shares
 
-[GET] /accounts/{account_id}/{sub_account_id}/applications/shares
+[GET] /accounts/{account_id}/sub/{sub_account_id}/applications/shares
 
 #### Query parameters
 
@@ -381,7 +381,7 @@ $ curl -x https://rigel-a.primas.network/v3/content -d '{"type":"article","conte
 
 [GET] /accounts/{account_id}/reports
 
-[GET] /accounts/{account_id}/{sub_account_id}/reports
+[GET] /accounts/{account_id}/sub/{sub_account_id}/reports
 
 #### Query parameters
 
@@ -409,7 +409,7 @@ $ curl -x https://rigel-a.primas.network/v3/content -d '{"type":"article","conte
 
 [GET] /accounts/{account_id}/notifications
 
-[GET] /accounts/{account_id}/{sub_account_id}/notifications
+[GET] /accounts/{account_id}/sub/{sub_account_id}/notifications
 
 The notification read status cannot be recorded in a decentralized system. To implement read status
 in clients, client should record a timestamp about the last time notifications are fetched. When calling
@@ -469,7 +469,7 @@ $ curl -x https://rigel-a.primas.network/v3/content -d '{"type":"article","conte
 
 [GET] /accounts/{account_id}/avatar
 
-[GET] /accounts/{account_id}/{sub_account_id}/avatar
+[GET] /accounts/{account_id}/sub/{sub_account_id}/avatar
 
 #### Response
 
@@ -489,7 +489,7 @@ $ curl -x https://rigel-a.primas.network/v3/content -d '{"type":"article","conte
 
 [GET] /accounts/{account_id}/avatar/raw
 
-[GET] /accounts/{account_id}/{sub_account_id}/avatar/raw
+[GET] /accounts/{account_id}/sub/{sub_account_id}/avatar/raw
 
 Primas Node can build local cache of raw image for accessing speed. Or redirect the request to
 image URI for raw content directly.
