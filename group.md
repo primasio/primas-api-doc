@@ -48,7 +48,7 @@
 | members_total       | integer | n        | Total members number. |
 | shares_total        | integer | n        | Total shares number. |
 | account_role        | string  | y        | Member status of current account. "owner", "member", "applicant" or "none". |
-| members             | array   | n        | Members overview. An array of account id. |
+| members             | array   | n        | Members overview. An array of [account metadata](./account.md#1-get-account-metadata). |
 
 
 ### 2. Create group
