@@ -161,7 +161,7 @@ $ curl -x https://rigel-a.primas.network/v3/content -d '{"type":"article","conte
 
 [GET] /accounts/{account_id}/content
 
-[GET] /accounts/{account_id}/{sub_account_id}/content
+[GET] /accounts/{account_id}/sub/{sub_account_id}/content
 
 #### Query parameters
 
