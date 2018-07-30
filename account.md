@@ -121,6 +121,7 @@ For updating, only the changed metadata need to be provided.
 | avatar              | string  | y        | An image DNA used for avatar. |
 | creator             | object  | y        | Creator. Required when updating [sub account](./dtcp.md#sub-accounts). |
 | extra               | object  | y        | Extra metadata. |
+| address	          | string	| n	       | Ethereum address, start with "0x" |
 | signature           | string  | n        | [Metadata signature](./dtcp.md#metadata-signature). |
 
 `creator` object:
