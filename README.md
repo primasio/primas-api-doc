@@ -38,6 +38,12 @@ Mainnet Nodes:
 
 * Rigel A: [https://rigel-a.primas.network](https://rigel-a.primas.network)
 
+### Getting Started
+
+[This document](./getting-started.md) will walk you through the general process of connecting a 
+traditional content application to Primas. Be sure to check the [basic concepts](./dtcp.md) about Primas and
+DTCP before you start.
+
 ### RESTful API and Transfer Encoding
 
 APIs are served using standard RESTful methods with HTTPS. For posting, both JSON and Form-Data are
