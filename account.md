@@ -66,6 +66,8 @@ $ curl -x https://rigel-a.primas.network/v3/content -d '{"type":"article","conte
 | creator             | object  | y        | Creator. Required when creating [sub account](./dtcp.md#sub-accounts). |
 | created             | integer | n        | Account creation time. Unix timestamp. |
 | extra               | object  | y        | Extra metadata. |
+| status	          | string	| n	       | Fixed to "created". |
+| address	          | string	| n	       | Ethereum address, start with "0x" |
 | signature           | string  | n        | [Metadata signature](./dtcp.md#metadata-signature). |
 
 `creator` object:
