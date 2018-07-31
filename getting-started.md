@@ -10,7 +10,7 @@ into Primas, where users can sign up, post their content, join different groups,
 
 To make the life easier for applications, there's only one crypto account(a public/private keypair) that is required
 to connect to Primas. This account is used by the application to sign requests. A proper design of offline signing is
-still required to protect the private key. This is already less work comparing to generating keypair for every single
+still needed to protect the private key. This is already less work comparing to generating keypair for every single
 user.
 
 The crypto account is nothing more than a normal Ethereum account, with enough PST in it of course. All the locks
@@ -29,26 +29,59 @@ $ ./offline-signer account --passwd "password"
 ```
 
 Now we have the mnemonic words of the private key and the account address. Write down the mnemonic words on a paper
-and keep it at a safe place.
+and keep it in a safe place.
 
 Let's skip the steps where we go to a token exchange who has PST listed and buy some PSTs and withdraw those tokens
 into the account we just created.
 
-Now the root account is fully prepared and can be used to sign API requests.
+The next step is registering the root account on the Primas network. This can be done using Primas API. We have SDKs
+prepared for different languages. In this guide we use the [NodeJS SDK](https://github.com/primasio/primas-api-sdk-js).
+
+```js
+
+/**
+ * Root(Application) account creation
+ */
+
+
+```
+
+After that the root account is fully prepared and can be used to sign API requests.
 
 ### 2. User sign up
 
+The UGC platform assigned each of its user a numeric unique ID in the system. This ID, together with the root account
+ID, is used to identify the application user in Primas network.
+
+For the UGC platform, there's not too much profile data needed for the user in the Primas network. The name and id
+might already be sufficient. In this case, we don't even need to have a separated sign up process. We can already use
+the content publishing API to post content on behalf of the user, with the id and name of the user attached in the
+request. The user account will be created automatically.
+
+However, for other applications that have a rich set of user profile, such as applications that store users' resume.
+We need to create user's account separately to upload the resume data. If the application needs to keep the detailed
+profile data safe while at the same time create proof-of-existence of the data, it can upload only the hash of the
+profile data to Primas network.
+
+```js
+
+/**
+ * Sub(User) account creation
+ */
 
 
-### 3. User profile editing
+```
 
-### 4. Content posting
 
-### 5. Create group
+### 3. Content posting
 
-### 6. Join a group
+Now we can post content to Primas network.
 
-### 7. Share content to a group
+### 4. Create group
 
-### 8. Discuss about the content
+### 5. Join a group
+
+### 6. Share content to a group
+
+### 7. Discuss about the content
 
