@@ -6,6 +6,7 @@ This document describes the general steps required to connect traditional applic
 We will use an example to illustrate the whole integration process. In this example we connect a basic UGC platform
 into Primas, where users can sign up, post their content, join different groups, and discuss about the content.
 
+
 ### 1. Prepare the root account
 
 To make the life easier for applications, there's only one crypto account(a public/private keypair) that is required
@@ -48,6 +49,7 @@ prepared for different languages. In this guide we use the [NodeJS SDK](https://
 
 After that the root account is fully prepared and can be used to sign API requests.
 
+
 ### 2. User sign up
 
 The UGC platform assigned each of its user a numeric unique ID in the system. This ID, together with the root account
@@ -76,6 +78,26 @@ profile data to Primas network.
 ### 3. Content posting
 
 Now we can post content to Primas network.
+
+Primas supports different kinds of contents, such as articles, images, videos and audio. Among which the article type
+serves as a container for texts and other types of content. The article type supports a sub set of HTML rules to
+determine the way content is displayed. There's also an extension to the HTML to support the mixture of texts and other
+content types. For details please refer to [Content Format](./content.md#content-format).
+
+To upload HTML content with out-linking images in it. The images should be uploaded separately first. After getting the
+[Metadata ID](./dtcp.md#metadata-dna-and-metadata-id) of the images, the out-linking images in the HTML content should
+be replaced with Metadata IDs using the extension format. Then the content could be post to Primas using the same
+content publishing API.
+
+```js
+
+/**
+ * Posting content with embedded images
+ */
+
+
+```
+
 
 ### 4. Create group
 
