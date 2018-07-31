@@ -40,7 +40,7 @@ Mainnet Nodes:
 
 ### Getting Started
 
-[This document](./getting-started.md) will walk you through the general process of connecting a 
+[The getting started guide](./getting-started.md) will walk you through the general process of connecting a 
 traditional content application to Primas. Be sure to check the [basic concepts](./dtcp.md) about Primas and
 DTCP before you start.
 
@@ -58,14 +58,14 @@ We should call:
 `GET https://staging.primas.io/v3/content/1GFYUNP815RUIFDNNRKLNU78RPCFLNL5DWGT7EXODHFVRCRVXJ`
 
 The response data will always include a field `result_code` indicating the invocation status.
-On successful invocation `result_code` will be `0`. And the response data is in the field `data`. Otherwise `result_code` will be the corresponding
-error type while at the same time there will be another field `result_msg` containing the detailed
-description of the error.
+On successful invocation `result_code` will be `0`. And the response data is in the field `data`.
+Otherwise `result_code` will be the corresponding error type while at the same time there will be another field
+`result_msg` containing the detailed description of the error.
 
 ### DTCP Metadata
 
-Primas is built upon DTCP. A lot of APIs are transferring data in the DTCP standard. Check [this document](./dtcp.md) for
-a detailed explanation about DTCP and its usage in Primas.
+Primas is built upon DTCP. A lot of APIs are transferring data in the DTCP standard. Check
+[the DTCP brief introduction](./dtcp.md) for a detailed explanation about DTCP and its usage in Primas.
 
 ### API Batch Post
 
