@@ -217,7 +217,7 @@ $ curl -x https://rigel-a.primas.network/v3/content -d '{"type":"article","conte
 
 | Name          | Type    | Optional | Description |
 | ------------- | ------- | -------- | ------------------------------------------------ |
-| content       | string  | n        | base64 encoded report [content](./content.md#content-format). |
+| content       | string  | n        | base64 encoded report [content](./dtcp.md#content-format). |
 | content_hash  | string  | n        | Lowercase hex string of the SHA256 hash of the raw content. |
 | report_type   | string  | n        | Report type. |
 | report_status | string  | n        | Fixed to "pending". |

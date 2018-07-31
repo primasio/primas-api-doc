@@ -82,11 +82,11 @@ Now we can post content to Primas network.
 Primas supports different kinds of contents, such as articles, images, videos and audio. Among which the article type
 serves as a container for texts and other types of content. The article type supports a sub set of HTML rules to
 determine the way content is displayed. There's also an extension to the HTML to support the mixture of texts and other
-content types. For details please refer to [Content Format](./content.md#content-format).
+content types. For details please refer to [Content Format](./dtcp.md#content-format).
 
 To upload HTML content with out-linking images in it. The images should be uploaded separately first. After getting the
-[Metadata ID](./dtcp.md#metadata-dna-and-metadata-id) of the images, the out-linking images in the HTML content should
-be replaced with Metadata IDs using the extension format. Then the content could be post to Primas using the same
+[Metadata ID](./dtcp.md#metadata-dna-and-metadata-id) of the images, the out-linking images source in the HTML content should
+be replaced with Metadata IDs. Then the content could be post to Primas using the same
 content publishing API.
 
 ```js
@@ -106,4 +106,3 @@ content publishing API.
 ### 6. Share content to a group
 
 ### 7. Discuss about the content
-

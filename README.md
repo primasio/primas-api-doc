@@ -77,8 +77,6 @@ data for each metadata in the same order then.
 ### API List
 
 - [Content APIs](./content.md#content-apis)
-  * [Content Licensing](./content.md#content-licensing)
-  * [Content Format](./content.md#content-format)
   * [1. Get content metadata](./content.md#1-get-content-metadata)
   * [2. Get raw content](./content.md#2-get-raw-content)
   * [3. Post content](./content.md#3-post-content)
