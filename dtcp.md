@@ -29,8 +29,7 @@ formatting. The only difference between the HTML DTCP used and any arbitrary HTM
 hypertext links between URLs and object sources such as image sources and video sources.
 
 An important part of DTCP is the upgrade to the hypertext links. In DTCP the link is between 2 DTCP objects rather than
-between URLs in WWW, which gives better content sourcing ability and better identification and interpretation of the
-related content.
+between URLs in WWW, which gives better ability of content sourcing and content identification and interpretation.
 
 DTCP aims to replace WWW. As the Internet using WWW right now is large and filled with huge amounts of hypertext links.
 It is more feasible to make the upgrade a step by step process. At the beginning hypertext links and DTCP links will

@@ -27,7 +27,6 @@ When interacting with content, the corresponding group id must be provided.
 | creator             | object  | n        | Creator. |
 | created             | integer | n        | Share created time. Unix timestamp. |
 | updated             | integer | n        | Share updated time. Unix timestamp. |
-| status              | string  | n        | Fixed to "created". |
 | extra               | object  | y        | Extra metadata. |
 | signature           | string  | n        | [Metadata signature](./dtcp.md#metadata-signature). |
 | dna                 | string  | n        | Latest share DNA. |
@@ -94,7 +93,6 @@ $ curl -x https://rigel-a.primas.network/v3/content -d '{"type":"article","conte
 | creator             | object  | n        | Creator. |
 | created             | integer | n        | Share created time. Unix timestamp. |
 | updated             | integer | n        | Share updated time. Unix timestamp. |
-| status              | string  | n        | Fixed to "created". |
 | extra               | object  | y        | Extra metadata. |
 | signature           | string  | n        | [Metadata signature](./dtcp.md#metadata-signature). |
 | dna                 | string  | n        | Latest share DNA. |
@@ -263,7 +261,6 @@ $ curl -x https://rigel-a.primas.network/v3/content -d '{"type":"article","conte
 | creator             | object  | n        | Creator. |
 | created             | integer | n        | Like created time. Unix timestamp. |
 | updated             | integer | n        | Like updated time. Unix timestamp. |
-| status              | string  | n        | Fixed to "created". |
 | dna                 | string  | n        | Like DNA. |
 | signature           | string  | n        | [Metadata signature](./dtcp.md#metadata-signature). |
 | transaction_id      | string  | n        | Latest transaction id. |
@@ -386,7 +383,6 @@ $ curl -x https://rigel-a.primas.network/v3/content -d '{"type":"article","conte
 | creator             | object  | n        | Creator. |
 | created             | integer | n        | Comment created time. Unix timestamp. |
 | updated             | integer | n        | Comment created time. Unix timestamp. |
-| status              | string  | n        | Fixed to "created". |
 | extra               | object  | n        | Extra metadata. |
 | signature           | string  | n        | [Metadata signature](./dtcp.md#metadata-signature). |
 | transaction_id      | string  | n        | Latest transaction id. |
