@@ -83,7 +83,7 @@ Primas supports different kinds of content, such as articles, images, videos and
 serves as a container for texts and other types of content. For details about how content is stored in article type,
 please refer to [Content Format](./dtcp.md#content-format). 
 
-**For mobile or web applications without their own server, the content posting will be an interactive process:**
+**For mobile or web applications that don't have their own servers, the content posting will be an interactive process:**
 
 #### User uploads an image
 
