@@ -66,7 +66,7 @@ For `<a>` hypertext links, the `href` should also be checked. The target URL sho
 DTCP network. Then the hypertext link should be changed to a DTCP link with reproduction's metadata ID:
 
 ```html
-<a data-dtcp-id="{metadata_id}" />
+<a data-dtcp-id="{metadata_id}" ></a>
 ```
 
 The last thing to mention is that if the link is transformed to DTCP link, the original `src` and `href` attribute should
