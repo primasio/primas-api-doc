@@ -45,7 +45,7 @@ When interacting with content, the corresponding group id must be provided.
 
 | Name           | Type    | Optional | Description |
 | -------------- | ------- | -------- | ----------------------------------------------- |
-| share_id       | string  | n        | Parent share id. |
+| share_id       | string  | y        | Parent share id. |
 | likes_total    | integer | n        | Total likes number.    |
 | comments_total | integer | n        | Total comments number. |
 | shares_total   | integer | n        | Total shares number.   |

@@ -79,15 +79,51 @@ profile data to Primas network.
 
 Now we can post content to Primas network.
 
-Primas supports different kinds of contents, such as articles, images, videos and audio. Among which the article type
-serves as a container for texts and other types of content. The article type supports a sub set of HTML rules to
-determine the way content is displayed. There's also an extension to the HTML to support the mixture of texts and other
-content types. For details please refer to [Content Format](./dtcp.md#content-format).
+Primas supports different kinds of content, such as articles, images, videos and audios. Among which the article type
+serves as a container for texts and other types of content. For details about how content is stored in article type,
+please refer to [Content Format](./dtcp.md#content-format). 
 
-To upload HTML content with out-linking images in it. The images should be uploaded separately first. After getting the
-[Metadata ID](./dtcp.md#metadata-dna-and-metadata-id) of the images, the out-linking images source in the HTML content should
-be replaced with Metadata IDs. Then the content could be post to Primas using the same
-content publishing API.
+**For mobile or web applications without their own server, the content posting will be an interactive process:**
+
+#### User uploads an image
+
+1. The image should be directly post to [content posting API](./content.md#3-post-content).
+Primas Node checks the image hash to see if there's a same image in the DTCP network before. If there exists one, the
+[Metadata ID](./dtcp.md#metadata-dna-and-metadata-id) of the existing image is returned, otherwise Primas Node uploads
+the image to DTCP network and returns its Metadata ID.
+
+2. Primas Node will cache the image and generate a URL for the image and return the URL together with Metadata ID. This
+URL can be inserted into the `src` attribute of `<img>` to display the image in the text editor:
+
+    `<img src="https://rigel-a.primas.network/dtcp/raw/U2A3F33G.png" data-dtcp-id="U2A3F33G" />`
+
+#### User inserts `<img>` element directly
+
+1. The `src` attribute of the `<img>` element should be checked in DTCP network using
+[query content API](./query.md#2-find-content-using-url-or-hash).
+
+2. If the image is found, the `<img>` element should be upgraded to DTCP link:
+
+    `<img src="https://rigel-a.primas.network/dtcp/raw/U2A3F33G.png" data-dtcp-id="U2A3F33G" />`
+
+#### User creates hypertext link
+
+1. The `href` attribute of the `a` element should be checked using
+[query reproduction API](./query.md#3-find-reproductions-using-url).
+
+2. If the reproduction is found, the hypertext link should be upgraded:
+
+    `<a href="https://the.original.url" data-dtcp-id="U23G9IOU" ></a>`
+
+When user submits the content, The content is post to [content posting API](./content.md#3.-post-content) using SDK.
+The SDK will automatically removes `src` attribute of the `<img>` element and `href` in the `<a>` element from the
+DTCP links(those attributes in traditional hypertext links will be preserved) and then signs the content and posts it
+to Primas API.
+
+**For large applications such as our UGC platform, the user interface to handle content editing and image uploading is
+likely to be fully functional already. The content posting to Primas API is much easier with the help of the SDK, and
+the posting can be built as an async operation to avoid blocking:**
+
 
 ```js
 
@@ -95,6 +131,7 @@ content publishing API.
  * Posting content with embedded images
  */
 
+// Upgrade link function call before posting
 
 ```
 
