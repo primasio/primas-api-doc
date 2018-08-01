@@ -135,6 +135,8 @@ the posting can be built as an async operation to avoid blocking:**
 
 ```
 
+Note that in this case, the `src` and `href` attribute will **NOT** be replaced by the cached version on Primas Node
+and the original URL points to the UGC platform will be preserved. 
 
 ### 4. Create group
 
