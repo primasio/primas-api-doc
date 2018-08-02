@@ -14,7 +14,7 @@ user account system.
 For client applications, this is the crypto account representing the end-user and is the only account required.
 
 For platform applications, this is the crypto account representing the platform. For each of the platform users,
-there is still sub account needed.
+there is still a sub account needed.
 
 To make the life easier for platform applications, there's only one crypto account(a public/private keypair) that is
 required to connect to Primas. This account is used by the platform to sign requests. The users of the platform don't
@@ -22,13 +22,13 @@ need to have their own crypto account. They share the platform's crypto account 
 used to create sub accounts on Primas network.
 
 The crypto account is nothing more than a normal Ethereum account, with enough PST in it of course. All the locks
-and consumptions of PST of the application users will be counted on the root account. For example, the illustrated UGC
+and consumptions of PST of the platform users will be counted on the platform account. For example, a UGC
 platform has 10 users in total, and today there're 2 articles post by 2 users. There will be a lock of 4 PSTs for
-7 days on the root account.
+7 days on the platform account.
 
-Platform application usually needs to sign the request online, a proper design of offline signing is still needed to
-protect the private key. This is already less work comparing to generating keypair for every single user. The crypto
-account should be created on the signing machine and never touch the Internet.
+Platform application usually needs to sign the request online, a proper design of offline signing mechanism is still
+needed to protect the private key. This is already less work comparing to generating keypair for every single user.
+The crypto account should be created on the signing machine and never touch the Internet.
 
 [Primas Offline Signer](https://github.com/primasio/primas-offline-signer) can be used to implement an offline signing
 machine. To generate a new Ethereum account, type the following command in the console:
