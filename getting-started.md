@@ -14,7 +14,7 @@ user account system.
 For client applications, this is the crypto account representing the end-user and is the only account required.
 
 For platform applications, this is the crypto account representing the platform. For each of the platform users,
-there are still sub accounts needed to represent the users.
+there is still sub account needed.
 
 To make the life easier for platform applications, there's only one crypto account(a public/private keypair) that is
 required to connect to Primas. This account is used by the platform to sign requests. The users of the platform don't
