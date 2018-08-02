@@ -51,8 +51,29 @@ prepared for different languages. In this guide we use the [NodeJS SDK](https://
 /**
  * Create root(application) account
  */
-
-
+var Primas = require("primas-sdk-nodejs");
+var client = new Primas({
+	address: "<Your address>",
+	passphrase: "<Your password>"
+});
+client.Account.create(
+	{
+		version: "1.0",
+		type: "object",
+		tag: "account",
+		name: "<account name>",
+		created: new Date().getTime(),
+		status: "created",
+		address: "<account address>"
+	},
+	function(err, res) {
+		if (err) {
+			// handle error
+			return;
+		}
+		// handle res
+	}
+);
 ```
 
 After that the root account is fully prepared and can be used to sign API requests.
@@ -79,7 +100,27 @@ profile data to Primas network.
 /**
  * Create sub(user) account 
  */
-
+client.Account.create(
+	{
+		version: "1.0",
+		type: "object",
+		tag: "account",
+		name: "<account name>",
+		creator: {
+			account_id: "<root account id>"
+		},
+		created: new Date().getTime(),
+		status: "created",
+		address: "<account address>"
+	},
+	function(err, res) {
+		if (err) {
+			// handle error
+			return;
+		}
+		// handle res
+	}
+);
 
 ```
 
@@ -141,7 +182,42 @@ async operation to avoid blocking:**
  */
 
 // Upgrade link function call before posting
-
+var images = fetchAllImageUrls(html); // parse html text and find all img src
+images.forEach((image) => {
+	client.Query.content({
+		qs: {
+			url: encodeURI(image)
+		}
+	}, function (err, res) {
+		if (err) {
+			// handle error
+			return;
+		}
+		html.replace(imageUrl, "<end point>/dtcp/raw/" + res.data.id);
+	})
+})
+client.Content.create({
+	version: "1.0",
+	type: "object",
+	tag: "article",
+	title: "<article title>",
+	creator: {
+		account_id: "<article id>"
+	},
+	abstract: "<article abstract>",
+	language: "en-US",
+	category: "<article category>",
+	created: new Date().getTime(),
+	content: base64(html),
+	content_hash: sha256(html),
+	status: "created"
+}, function (err, res) {
+	if (err) {
+		// handle error
+		return;
+	}
+	// handle res
+})
 ```
 
 Note that in this case, the `src` and `href` attribute will **NOT** be replaced by the cached version on Primas Node
@@ -175,7 +251,31 @@ There're different options to customize the group rules when creating the group:
 /**
  * Creat a group
  */
-
+client.Group.create({
+	version: "1.0",
+	type: "object",
+	tag: "group",
+	title: "<group title>",
+	creator: {
+		account_id: "<article id>"
+	},
+	avatar: "<avatar id>",
+	abstract: "<group abstract>",
+	language: "en-US",
+	category: "<article category>",
+	created: new Date().getTime(),
+	extra: {
+		allow_join: "all",
+		allow_post: "all"
+	},
+	status: "created"
+}, function (err, res) {
+	if (err) {
+		// handle error
+		return;
+	}
+	// handle res
+})
 
 
 ```
@@ -192,7 +292,30 @@ group requires application before joining, the `application_status` parameter sh
  */
 
 // Group requires application
-
+client.Group.join("<group id>",
+{
+	version: "1.0",
+	type: "relation",
+	tag: "group_member",
+	title: "<group title>",
+	src_id: "<account id>",
+	dest_id: "<group id>",
+	creator: {
+		account_id: "<article id>"
+	},
+	created: new Date().getTime(),
+	extra: {
+		application_status: "pending",
+		application_expire: "<expire time>"
+	},
+	status: "created"
+}, function (err, res) {
+	if (err) {
+		// handle error
+		return;
+	}
+	// handle res
+})
 ```
 
 ### 6. Share content to a group
@@ -210,7 +333,25 @@ If the group requires application before sharing, set the `application_status` f
  */
 
 // Group requires application
-
+client.Group.createShare("<group id>",
+{
+	version: "1.0",
+	type: "relation",
+	tag: "group_share",
+	src_id: "<content id>",
+	dest_id: "<group id>",
+	creator: {
+		account_id: "<article id>"
+	},
+	created: new Date().getTime(),
+	status: "created"
+}, function (err, res) {
+	if (err) {
+		// handle error
+		return;
+	}
+	// handle res
+})
 ```
 
 ### 7. Discuss about the content
@@ -223,11 +364,50 @@ only visible in the group.
 /**
  * Like a share
  */
-
+client.ContentInteraction.createLike("<share id>",
+{
+	version: "1.0",
+	type: "relation",
+	tag: "share_like",
+	src_id: "<account id>",
+	dest_id: "<share id>",
+	creator: {
+		account_id: "<article id>"
+	},
+	created: new Date().getTime(),
+	status: "created"
+}, function (err, res) {
+	if (err) {
+		// handle error
+		return;
+	}
+	// handle res
+})
 
 /**
  * Comment on a share
  */
-
+client.ContentInteraction.createComment("<share id>",
+{
+	version: "1.0",
+	type: "relation",
+	tag: "share_comment",
+	src_id: "<account id>",
+	dest_id: "<share id>",
+	creator: {
+		account_id: "<article id>"
+	},
+	created: new Date().getTime(),
+	extra: {
+		content: "<cmment content>"
+	},
+	status: "created"
+}, function (err, res) {
+	if (err) {
+		// handle error
+		return;
+	}
+	// handle res
+})
 
 ```
