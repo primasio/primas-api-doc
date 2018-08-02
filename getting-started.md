@@ -2,25 +2,33 @@
 
 ## Getting Started Guide
 
-This document describes the general steps required to connect traditional applications to Primas network.
-We will use an example to illustrate the whole integration process. In this example we connect a basic UGC platform
-into Primas, where users can sign up, post their content, join different groups, and discuss about the content.
+This document describes the general steps required to connect to Primas network using API. The applications who connect
+to Primas network can be categorized into 2 types:
 
+1. The client application. Such as Primas Android and iOS DApp. These applications are usually used by only one user.
+2. The platform application. Such as a UGC platform. These applications are used by multiple users and have their own
+user account system.
 
 ### 1. Prepare the root account
 
-To make the life easier for applications, there's only one crypto account(a public/private keypair) that is required
-to connect to Primas. This account is used by the application to sign requests. A proper design of offline signing is
-still needed to protect the private key. This is already less work comparing to generating keypair for every single
-user.
+For client applications, this is the crypto account representing the end-user and is the only account required.
+
+For platform applications, this is the crypto account representing the platform. For each of the platform users,
+there are still sub accounts needed to represent the users.
+
+To make the life easier for platform applications, there's only one crypto account(a public/private keypair) that is
+required to connect to Primas. This account is used by the platform to sign requests. The users of the platform don't
+need to have their own crypto account. They share the platform's crypto account and the user IDs on the platform are
+used to create sub accounts on Primas network.
 
 The crypto account is nothing more than a normal Ethereum account, with enough PST in it of course. All the locks
 and consumptions of PST of the application users will be counted on the root account. For example, the illustrated UGC
 platform has 10 users in total, and today there're 2 articles post by 2 users. There will be a lock of 4 PSTs for
 7 days on the root account.
 
-Now that the UGC platform is using offline signing machine to protect the private key. The root account should be
-created on the signing machine and never touch the Internet.
+Platform application usually needs to sign the request online, a proper design of offline signing is still needed to
+protect the private key. This is already less work comparing to generating keypair for every single user. The crypto
+account should be created on the signing machine and never touch the Internet.
 
 [Primas Offline Signer](https://github.com/primasio/primas-offline-signer) can be used to implement an offline signing
 machine. To generate a new Ethereum account, type the following command in the console:
@@ -35,13 +43,13 @@ and keep it in a safe place.
 Let's skip the steps where we go to a token exchange who has PST listed and buy some PSTs and withdraw those tokens
 into the account we just created.
 
-The next step is registering the root account on the Primas network. This can be done using Primas API. We have SDKs
+The next step is registering the account on the Primas network. This can be done using Primas API. We have SDKs
 prepared for different languages. In this guide we use the [NodeJS SDK](https://github.com/primasio/primas-api-sdk-js).
 
 ```js
 
 /**
- * Root(Application) account creation
+ * Create root(application) account
  */
 
 
@@ -49,8 +57,13 @@ prepared for different languages. In this guide we use the [NodeJS SDK](https://
 
 After that the root account is fully prepared and can be used to sign API requests.
 
+In simpler situations where the API is directly used by the end-user rather than the platform, the root account is
+the user account.
+
 
 ### 2. User sign up
+
+**This is only for the platform applications.**
 
 The UGC platform assigned each of its user a numeric unique ID in the system. This ID, together with the root account
 ID, is used to identify the application user in Primas network.
@@ -68,14 +81,14 @@ profile data to Primas network.
 ```js
 
 /**
- * Sub(User) account creation
+ * Create sub(user) account 
  */
 
 
 ```
 
 
-### 3. Content posting
+### 3. Post content
 
 Now we can post content to Primas network.
 
@@ -83,7 +96,7 @@ Primas supports different kinds of content, such as articles, images, videos and
 serves as a container for texts and other types of content. For details about how content is stored in article type,
 please refer to [Content Format](./dtcp.md#content-format). 
 
-**For mobile or web applications that don't have their own servers, the content posting will be an interactive process:**
+**For client applications that don't have their own servers, the content posting will be an interactive process:**
 
 #### User uploads an image
 
@@ -120,15 +133,15 @@ The SDK will automatically removes `src` attribute of the `<img>` element and `h
 DTCP links(those attributes in traditional hypertext links will be preserved) and then signs the content and posts it
 to Primas API.
 
-**For large applications such as our UGC platform, the user interface to handle content editing and image uploading is
-likely to be fully functional already. The content posting to Primas API is much easier with the help of the SDK, and
-the posting can be built as an async operation to avoid blocking:**
+**For platform applications, the user interface to handle content editing and image uploading should be fully functional
+already. The content posting to Primas API is much easier with the help of the SDK, and the posting can be built as an
+async operation to avoid blocking:**
 
 
 ```js
 
 /**
- * Posting content with embedded images
+ * Post content with embedded images
  */
 
 // Upgrade link function call before posting
@@ -138,10 +151,87 @@ the posting can be built as an async operation to avoid blocking:**
 Note that in this case, the `src` and `href` attribute will **NOT** be replaced by the cached version on Primas Node
 and the original URL points to the UGC platform will be preserved. 
 
-### 4. Create group
+### 4. Create a group
+
+There're different options to customize the group rules when creating the group:
+
+1. How member could join the group
+
+    a. Freely join
+    
+    b. Apply to join
+    
+    c. Pay to join (coming soon)
+    
+2. How content can be shared in the group
+
+    a. Freely share
+    
+    b. Apply to share
+    
+    c. Whitelisted member can share
+    
+    d. Pay to share (coming soon)
+
+
+```js
+
+/**
+ * Creat a group
+ */
+
+
+
+```
 
 ### 5. Join a group
 
+The joining operation is a little bit different according to the group joining rules. The API is always the same. If the
+group requires application before joining, the `application_status` parameter should be set to "pending" in the API call.
+
+```js
+
+/**
+ * Join a group
+ */
+
+// Group requires application
+
+```
+
 ### 6. Share content to a group
 
+The share can be created from content directly, or from another share. There's a field named `share_id` in the `extra`
+field of a share to trace where this share came from. If the share is from the content directly, `share_id` in `extra`
+will be null.
+
+If the group requires application before sharing, set the `application_status` field.
+
+```js
+
+/**
+ * Share to a group
+ */
+
+// Group requires application
+
+```
+
 ### 7. Discuss about the content
+
+More precisely, it is discussing about the **shares** rather than the content, since content cannot be seen or liked
+or commented until it is shared to a group. So the discussion happens on the share in the group. And the discussion is
+only visible in the group.
+
+```js
+/**
+ * Like a share
+ */
+
+
+/**
+ * Comment on a share
+ */
+
+
+```
