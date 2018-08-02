@@ -57,10 +57,6 @@ prepared for different languages. In this guide we use the [NodeJS SDK](https://
 
 After that the root account is fully prepared and can be used to sign API requests.
 
-In simpler situations where the API is directly used by the end-user rather than the platform, the root account is
-the user account.
-
-
 ### 2. User sign up
 
 **This is only for the platform applications.**
