@@ -462,6 +462,7 @@ $ curl -x https://rigel-a.primas.network/v3/content -d '{"type":"article","conte
 | ----------------- | ------- | -------- | ------------------------------------------------ |
 | parent_comment_id | string  | y        | Parent comment id.                               |
 | content           | string  | n        | Comment content. |
+| content_hash      | string  | n        | Lowercase hex string of the SHA256 hash of the raw content. |
 
 #### Response
 
@@ -510,6 +511,7 @@ $ curl -x https://rigel-a.primas.network/v3/content -d '{"type":"article","conte
 | Name          | Type    | Optional | Description |
 | ------------- | ------- | -------- | ------------------------------------------------ |
 | content       | string  | n        | Comment content. |
+| content_hash  | string  | n        | Lowercase hex string of the SHA256 hash of the raw content. |
 
 #### Response
 
