@@ -102,6 +102,14 @@ $ curl -x https://rigel-a.primas.network/v3/content/1GFYUNP815RUIFDNNRKLNU78RPCF
 
 [POST] /content
 
+If the data is sent using JSON(Content-Type: application/json), the content field should be encoded in base64
+format as defined in [RFC4648](https://tools.ietf.org/html/rfc4648). This can be used to send both article and image.
+
+If the data is sent using Form-Data(Content-Type: application/x-www-form-urlencoded), the content should stay in
+its raw format. This is only for the article.
+
+If you're uploading an image(Content-Type: multipart-formdata), the content is the binary data of the image.
+
 #### Request
 
 | Name                | Type    | Optional | Description |
@@ -115,7 +123,7 @@ $ curl -x https://rigel-a.primas.network/v3/content/1GFYUNP815RUIFDNNRKLNU78RPCF
 | language            | string  | n        | Content language. [RFC4646](http://www.ietf.org/rfc/rfc4646.txt) defined locales such as "en-US" |
 | category            | string  | n        | Content categories. Comma separated words list. |
 | created             | integer | n        | Content creation time. Unix timestamp. |
-| content             | string  | n        | Raw [content](./content.md#content-format) in base64 encoded format. |
+| content             | string  | n        | Raw [content](./content.md#content-format). |
 | content_hash        | string  | n        | Lowercase hex string of the SHA256 hash of the raw content. |
 | license             | object  | y        | [Content authorization license](./dtcp.md#content-licensing). "none" is used if empty. |
 | status              | string  | n        | Fixed to "created". |
