@@ -51,27 +51,37 @@ prepared for different languages. In this guide we use the [NodeJS SDK](https://
 /**
  * Create root(application) account
  */
+
 var Primas = require("primas-sdk-nodejs");
+
+// We will not use offline signing mechanism for easier understanding of the process.
+// The keystore is placed under a folder named "keystore" in the root folder of the project
+// which is also the default config.
+
+// The keystore is encrypted with a passphrase.
+
 var client = new Primas({
 	address: "<Your address>",
 	passphrase: "<Your password>"
 });
+
 client.Account.create(
 	{
-		version: "1.0",
-		type: "object",
-		tag: "account",
 		name: "<account name>",
-		created: new Date().getTime(),
-		status: "created",
+		// avatar: "", // Avatar should be a metadata ID which can only be uploaded after the account creation.
 		address: "<account address>"
 	},
 	function(err, res) {
+	    
 		if (err) {
 			// handle error
 			return;
 		}
-		// handle res
+		
+		// The response contains the account id and metadata dna
+		
+		console.log(res.id);
+		console.log(res.dna);
 	}
 );
 ```
