@@ -62,7 +62,8 @@ var Primas = require("primas-sdk-nodejs");
 
 var client = new Primas({
 	address: "<Your address>",
-	passphrase: "<Your password>"
+	passphrase: "<Your password>",
+	node: "https://rigel-a.primas.network"
 });
 
 client.Account.create(
