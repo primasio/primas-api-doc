@@ -647,6 +647,7 @@ $ curl -x https://rigel-a.primas.network/v3/content -d '{"type":"article","conte
 | ------------------ | ------- | -------- | ------------------------------------------------ |
 | share_id           | string  | y        | Parent share id.                                 |
 | application_status | string  | y        | For group requiring application. Fill "pending". |
+| application_expire | integer | y        | Application expiration time. |
 
 #### Response
 

@@ -53,7 +53,6 @@ The next step is registering the account on the Primas network. This can be done
 prepared for different languages. In this guide we use the [NodeJS SDK](https://github.com/primasio/primas-api-sdk-js).
 
 ```js
-
 /**
  * Create root account
  */
@@ -113,7 +112,6 @@ profile data safe while at the same time create proof-of-existence of the data, 
 profile data to Primas network.
 
 ```js
-
 /**
  * Create sub(user) account 
  */
@@ -144,7 +142,6 @@ client.Account.create(
 );
 
 ```
-
 
 ### 3. Post content
 
@@ -195,9 +192,7 @@ to Primas API.
 already. The content posting to Primas API is much easier with the help of the SDK, and the posting can be built as an
 async operation to avoid blocking:**
 
-
 ```js
-
 /**
  * Post content with embedded images
  */
@@ -225,7 +220,7 @@ client.Content.upgradeDTCPLinks(htmlContent, function (err, content) {
     	title: "<article title>",
     	creator: {
     		account_id: "<root account id>",
-    		sub_account_id: "<sub_account_id>",
+    		sub_account_id: "<sub account id>",
     		
     		// If the sub account is not registered separated before,
     		// provide the name here and it will be created automatically.
@@ -248,8 +243,6 @@ client.Content.upgradeDTCPLinks(htmlContent, function (err, content) {
     	console.log(res.dna);
     })
 });
-
-
 ```
 
 Note that in this case, the `src` and `href` attribute will **NOT** be replaced by the cached version on Primas Node
@@ -267,7 +260,7 @@ There're different options to customize the group rules when creating the group:
     
     c. Pay to join (coming soon)
     
-2. How content can be shared in the group
+2. How content could be shared in the group
 
     a. Freely share
     
@@ -277,39 +270,39 @@ There're different options to customize the group rules when creating the group:
     
     d. Pay to share (coming soon)
 
-
 ```js
-
 /**
  * Creat a group
  */
+
 client.Group.create({
-	version: "1.0",
-	type: "object",
-	tag: "group",
 	title: "<group title>",
 	creator: {
-		account_id: "<article id>"
+		account_id: "<account id>",
+		sub_account_id: "<sub account id>",
+            		
+        // If the sub account is not registered separated before,
+        // provide the name here and it will be created automatically.
+        // sub_account_name: "<sub_account_name>"
 	},
-	avatar: "<avatar id>",
+	avatar: "<image metadata id>",
 	abstract: "<group abstract>",
 	language: "en-US",
 	category: "<article category>",
-	created: new Date().getTime(),
 	extra: {
-		allow_join: "all",
-		allow_post: "all"
-	},
-	status: "created"
+		allow_join: "all", // How member could join the group. "all" or "application".
+		allow_post: "all"  // How content could be shared in the group. "all", "none" or "application".
+	}
 }, function (err, res) {
 	if (err) {
 		// handle error
 		return;
 	}
-	// handle res
-})
-
-
+	// group ID and DNA will be returned.
+	
+	console.log(res.id);
+	console.log(res.dna);
+});
 ```
 
 ### 5. Join a group
@@ -318,36 +311,40 @@ The joining operation is a little bit different according to the group joining r
 group requires application before joining, the `application_status` parameter should be set to "pending" in the API call.
 
 ```js
-
 /**
  * Join a group
  */
 
-// Group requires application
 client.Group.join("<group id>",
 {
-	version: "1.0",
-	type: "relation",
-	tag: "group_member",
 	title: "<group title>",
 	src_id: "<account id>",
 	dest_id: "<group id>",
 	creator: {
-		account_id: "<article id>"
+		account_id: "<account id>",
+		sub_account_id: "<sub account id>",
+
+        // If the sub account is not registered separated before,
+        // provide the name here and it will be created automatically.
+        // sub_account_name: "<sub_account_name>"
 	},
-	created: new Date().getTime(),
+	
+	// If the group requires application before joining, the following parameters should be set:
 	extra: {
 		application_status: "pending",
-		application_expire: "<expire time>"
-	},
-	status: "created"
+		application_expire:  Date.now() + 24 * 3600 // The application will expire after 24 hours.
+	}
 }, function (err, res) {
 	if (err) {
 		// handle error
 		return;
 	}
-	// handle res
-})
+	
+	// group member ID and DNA will be returned
+	
+	console.log(res.id);
+	console.log(res.dna);
+});
 ```
 
 ### 6. Share content to a group
@@ -359,7 +356,6 @@ will be null.
 If the group requires application before sharing, set the `application_status` field.
 
 ```js
-
 /**
  * Share to a group
  */
@@ -367,23 +363,38 @@ If the group requires application before sharing, set the `application_status` f
 // Group requires application
 client.Group.createShare("<group id>",
 {
-	version: "1.0",
-	type: "relation",
-	tag: "group_share",
 	src_id: "<content id>",
 	dest_id: "<group id>",
 	creator: {
-		account_id: "<article id>"
+		account_id: "<account id>",
+		sub_account_id: "<sub account id>",
+        
+        // If the sub account is not registered separated before,
+        // provide the name here and it will be created automatically.
+        // sub_account_name: "<sub_account_name>"
 	},
-	created: new Date().getTime(),
-	status: "created"
+	
+	
+	extra: {
+	    // If the share is created from another share, the following parameters should be set:
+	    share_id: "<parent share id>",
+	    
+	    // If the group requires application to share, the following parameters should be set:
+	    application_status: "pending",
+        application_expire:  Date.now() + 24 * 3600 // The application will expire after 24 hours.
+	}
+	
 }, function (err, res) {
 	if (err) {
 		// handle error
 		return;
 	}
-	// handle res
-})
+	
+	// Share ID and DNA will be returned
+	
+	console.log(res.id);
+	console.log(res.dna);
+});
 ```
 
 ### 7. Discuss about the content
@@ -396,50 +407,55 @@ only visible in the group.
 /**
  * Like a share
  */
+
 client.ContentInteraction.createLike("<share id>",
 {
-	version: "1.0",
-	type: "relation",
-	tag: "share_like",
 	src_id: "<account id>",
 	dest_id: "<share id>",
 	creator: {
-		account_id: "<article id>"
-	},
-	created: new Date().getTime(),
-	status: "created"
+		account_id: "<account id>",
+        sub_account_id: "<sub account id>",
+        
+        // If the sub account is not registered separated before,
+        // provide the name here and it will be created automatically.
+        // sub_account_name: "<sub_account_name>"
+	}
 }, function (err, res) {
 	if (err) {
 		// handle error
 		return;
 	}
 	// handle res
-})
+});
 
 /**
  * Comment on a share
  */
+
 client.ContentInteraction.createComment("<share id>",
 {
-	version: "1.0",
-	type: "relation",
-	tag: "share_comment",
 	src_id: "<account id>",
 	dest_id: "<share id>",
 	creator: {
-		account_id: "<article id>"
-	},
-	created: new Date().getTime(),
+        account_id: "<account id>",
+        sub_account_id: "<sub account id>",
+        
+        // If the sub account is not registered separated before,
+        // provide the name here and it will be created automatically.
+        // sub_account_name: "<sub_account_name>"
+    },
 	extra: {
-		content: "<cmment content>"
-	},
-	status: "created"
+	    parent_comment_id: "<parent comment id>", // If this comment is a reply to another comment, the comment id should be set.
+		content: "<comment HTML content>" // HTML format comment content, DTCP links still need to be upgraded.
+	}
 }, function (err, res) {
 	if (err) {
 		// handle error
 		return;
 	}
-	// handle res
-})
-
+	// Comment ID and DNA is returned
+	
+	console.log(res.id);
+	console.log(res.dna);
+});
 ```
