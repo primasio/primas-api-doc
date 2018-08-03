@@ -202,11 +202,14 @@ async operation to avoid blocking:**
  * Post content with embedded images
  */
 
-var htmlContent = "<p>The original HTML content.</p>";
+var htmlContent = '<p>The original HTML content.</p><p><img src="https://an.external.image/image.png" /></p>';
 
 // Upgrade DTCP links before posting
 // This function call might take a long while to complete.
 client.Content.upgradeDTCPLinks(htmlContent, function (err, content) {
+    
+    // The content will become something like this:
+    // <p>The original HTML content.</p><p><img src="https://an.external.image/image.png" data-dtcp-id="5A243UYT" /></p>
     
     if (err) {
         // handle error
