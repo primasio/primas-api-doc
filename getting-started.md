@@ -39,7 +39,7 @@ $ ./offline-signer account --passwd "password"
 Account created successfully
 Account Address:  0x284111d30E36029B6Aa9245d******Bb4b83e420A
 Account Mnemonic:  cover **** drum defense **** curious **** very muscle **** okay slab
-Account Keystore:  keystore:///Users/barry/gopath/src/github.com/kooksee/pstoff/kdata/keystore/UTC--2018-08-03T05-13-24.876762121Z--284111d30e36029b6aa9245ddbd6bbb4b83e420a
+Account Keystore:  keystore:///Users/barry/gopath/src/github.com/kooksee/pstoff/kdata/keystore/UTC--2018-08-03T05-13-24.876762121Z--284111d30e36029b6aa9245d******bb4b83e420a
 
 ```
 
