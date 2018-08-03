@@ -93,10 +93,10 @@ After that the root account is fully prepared and can be used to sign API reques
 
 **This is only for the platform applications.**
 
-The UGC platform assigned each of its user a numeric unique ID in the system. This ID, together with the root account
-ID, is used to identify the application user in Primas network.
+Platforms usually assign each of their users a numeric unique ID in the system. This ID, together with the root account
+ID, is used to identify the platform user in Primas network.
 
-For the UGC platform, there's not too much profile data needed for the user in the Primas network. The name and id
+For some platforms, there's not too much profile data needed for the user in the Primas network. The name and id
 might already be sufficient. In this case, we don't even need to have a separated sign up process. We can already use
 the content publishing API to post content on behalf of the user, with the id and name of the user attached in the
 request. The user account will be created automatically.
@@ -111,25 +111,29 @@ profile data to Primas network.
 /**
  * Create sub(user) account 
  */
+
 client.Account.create(
 	{
-		version: "1.0",
-		type: "object",
-		tag: "account",
 		name: "<account name>",
 		creator: {
-			account_id: "<root account id>"
+			account_id: "<root account id>", // The platform ID we received in the previous step.
+			sub_account_id: "<user id on the platform>" // This id is used together to identify the user on Primas network.
 		},
-		created: new Date().getTime(),
-		status: "created",
-		address: "<account address>"
+		extra: {
+		    hash: "<a hex string>" // In case of sensitive user data that needs proof-of-existence, the data hash can be stored here.
+		}
 	},
 	function(err, res) {
 		if (err) {
 			// handle error
 			return;
 		}
-		// handle res
+		
+		// For sub accounts. No account id is returned at the moment.
+		// The sub account is identified user root account id and user id on the platform.
+		// console.log(res.id);
+		
+		console.log(res.dna);
 	}
 );
 
