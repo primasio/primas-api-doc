@@ -35,6 +35,12 @@ machine. To generate a new Ethereum account, type the following command in the c
 
 ```bash
 $ ./offline-signer account --passwd "password"
+
+Account created successfully
+Account Address:  0x284111d30E36029B6Aa9245d******Bb4b83e420A
+Account Mnemonic:  cover **** drum defense **** curious **** very muscle **** okay slab
+Account Keystore:  keystore:///Users/barry/gopath/src/github.com/kooksee/pstoff/kdata/keystore/UTC--2018-08-03T05-13-24.876762121Z--284111d30e36029b6aa9245ddbd6bbb4b83e420a
+
 ```
 
 Now we have the mnemonic words of the private key and the account address. Write down the mnemonic words on a paper
@@ -196,43 +202,51 @@ async operation to avoid blocking:**
  * Post content with embedded images
  */
 
-// Upgrade link function call before posting
-var images = fetchAllImageUrls(html); // parse html text and find all img src
-images.forEach((image) => {
-	client.Query.content({
-		qs: {
-			url: encodeURI(image)
-		}
-	}, function (err, res) {
-		if (err) {
-			// handle error
-			return;
-		}
-		html.replace(imageUrl, "<end point>/dtcp/raw/" + res.data.id);
-	})
-})
-client.Content.create({
-	version: "1.0",
-	type: "object",
-	tag: "article",
-	title: "<article title>",
-	creator: {
-		account_id: "<article id>"
-	},
-	abstract: "<article abstract>",
-	language: "en-US",
-	category: "<article category>",
-	created: new Date().getTime(),
-	content: base64(html),
-	content_hash: sha256(html),
-	status: "created"
-}, function (err, res) {
-	if (err) {
-		// handle error
-		return;
-	}
-	// handle res
-})
+var htmlContent = "<p>The original HTML content.</p>";
+
+// Upgrade DTCP links before posting
+// This function call might take a long while to complete.
+client.Content.upgradeDTCPLinks(htmlContent, function (err, content) {
+    
+    if (err) {
+        // handle error
+        return;
+    }
+    
+    // The content will be processed again
+    // to remove the `src` and `href` of DTCP links.
+    // Then the content hash is calculated.
+    // After that the whole metadata is signed and sent to the API.
+    
+    client.Content.create({
+    	title: "<article title>",
+    	creator: {
+    		account_id: "<root account id>",
+    		sub_account_id: "<sub_account_id>",
+    		
+    		// If the sub account is not registered separated before,
+    		// provide the name here can it will be created automatically.
+    		// sub_account_name: "<sub_account_name>"
+    	},
+    	abstract: "<article abstract>",
+    	language: "en-US",
+    	category: "<article category>",
+    	content: content
+    }, function (err, res) {
+        
+    	if (err) {
+    		// handle error
+    		return;
+    	}
+    	
+    	// Article ID and DNA will be returned.
+    	
+    	console.log(res.id);
+    	console.log(res.dna);
+    })
+});
+
+
 ```
 
 Note that in this case, the `src` and `href` attribute will **NOT** be replaced by the cached version on Primas Node
