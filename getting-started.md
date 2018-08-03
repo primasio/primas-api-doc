@@ -228,7 +228,7 @@ client.Content.upgradeDTCPLinks(htmlContent, function (err, content) {
     		sub_account_id: "<sub_account_id>",
     		
     		// If the sub account is not registered separated before,
-    		// provide the name here can it will be created automatically.
+    		// provide the name here and it will be created automatically.
     		// sub_account_name: "<sub_account_name>"
     	},
     	abstract: "<article abstract>",
