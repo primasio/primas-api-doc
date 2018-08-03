@@ -173,7 +173,7 @@ For updating, only the changed metadata need to be provided.
 | title               | string  | y        | Content title. |
 | abstract            | string  | y        | Content abstract. |
 | category            | string  | y        | Content categories. Comma separated words list. |
-| content             | string  | y        | Raw content in base64 encoded format. |
+| content             | string  | y        | Raw content. |
 | content_hash        | string  | y        | Lowercase hex string of the SHA256 hash of the raw content. |
 | license             | object  | y        | [Content authorization license](./dtcp.md#content-licensing). "none" is used if empty. |
 | signature           | string  | n        | [Metadata signature](./dtcp.md#metadata-signature). |

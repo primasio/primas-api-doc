@@ -433,6 +433,8 @@ $ curl -x https://rigel-a.primas.network/v3/content -d '{"type":"article","conte
 
 [POST] /shares/{share_id}/comments
 
+The way comment content is processed is the same as [post content API](./content.md#3-post-content).
+
 #### Request
 
 | Name                | Type    | Optional | Description |
