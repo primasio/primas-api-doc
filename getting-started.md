@@ -49,7 +49,7 @@ prepared for different languages. In this guide we use the [NodeJS SDK](https://
 ```js
 
 /**
- * Create root(application) account
+ * Create root account
  */
 
 var Primas = require("primas-sdk-nodejs");
