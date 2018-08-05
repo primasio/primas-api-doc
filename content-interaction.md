@@ -421,7 +421,7 @@ $ curl -x https://rigel-a.primas.network/v3/content -d '{"type":"article","conte
 
 ### 9. Get replying comments of a comment
 
-[GET] /comments/{comment_id}/comments
+[GET] /comments/{comment_id}/reply/comments
 
 #### Example
 
