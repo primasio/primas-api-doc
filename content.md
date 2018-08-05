@@ -4,65 +4,6 @@
 
 Content(articles and images) related APIs. Posting and reading content.
 
-### Content Licensing
-
-When posting, the author could attach a license to the content
-to describe how the content could be used or disseminated.
-
-DTCP supports the register of all kinds of licenses while in Primas however,
-only 2 types of standard license is currently supported. 
-
-There's a widely used license for freely content sharing
-called [Creative Commons](https://creativecommons.org/), or CC in short,
-which has a combination of different parameters to fully customize the way
-content can be shared.
-
-Primas supports CC 4.0 by filling "cc" in the `license.name` field.
-Different options can also be specified in the `license.parameters` field.
-
-```
-{
-  "name": "cc",
-  "version": "4.0",
-  "parameters": [
-    {
-      "name": "derivative",     // Whether Derivation is allowed.
-      "value": "y"              // "y", "n" or "sa" for share-alike
-    },
-    {
-      "name": "commercial",     // Whether commercial usage is allowed
-      "value": "n"              // "y" or "n"
-    }
-  ]
-}
-``` 
-
-Beside CC license, Primas supports commercial license as well, which allows the author
-to set a price on the authorization of the content:
-
-```
-{
-  "name": "commercial",
-  "version": "2.0",
-  "parameters": [
-    {
-      "name": "derivative",     // Whether Derivation is allowed.
-      "value": "y"              // "y", "n"
-    },
-    {
-      "name": "currency",       // Currency used for payment
-      "value": "PST"            // Only PST is supported in Primas network
-    },
-    {
-      "name": "price",
-      "value": 100
-    }
-  ]
-}
-``` 
-
-### Content Format
-
 ### 1. Get content metadata
 
 [GET] /content/{content_id}
@@ -82,7 +23,7 @@ to set a price on the authorization of the content:
 | updated             | integer | n        | Content last updating time. Unix timestamp. |
 | content             | string  | n        | Content URI. In the case of IPFS, a link starts with "ipfs://" |
 | content_hash        | string  | n        | Lowercase hex string of the SHA256 hash of the raw content. |
-| license             | object  | y        | [Content authorization license](./content.md#content-licensing). |
+| license             | object  | y        | [Content authorization license](./dtcp.md#content-licensing). |
 | signature           | string  | n        | [Metadata signature](./dtcp.md#metadata-signature). |
 | dna                 | string  | n        | Content DNA. |
 | extra               | object  | n        | Extra content metadata. |
@@ -161,6 +102,14 @@ $ curl -x https://rigel-a.primas.network/v3/content/1GFYUNP815RUIFDNNRKLNU78RPCF
 
 [POST] /content
 
+If the data is sent using JSON(Content-Type: application/json), the content field should be encoded in base64
+format as defined in [RFC4648](https://tools.ietf.org/html/rfc4648). This can be used to send both article and image.
+
+If the data is sent using Form-Data(Content-Type: application/x-www-form-urlencoded), the content should stay in
+its raw format. This is only for the article.
+
+If you're uploading an image(Content-Type: multipart-formdata), the content is the binary data of the image.
+
 #### Request
 
 | Name                | Type    | Optional | Description |
@@ -174,9 +123,9 @@ $ curl -x https://rigel-a.primas.network/v3/content/1GFYUNP815RUIFDNNRKLNU78RPCF
 | language            | string  | n        | Content language. [RFC4646](http://www.ietf.org/rfc/rfc4646.txt) defined locales such as "en-US" |
 | category            | string  | n        | Content categories. Comma separated words list. |
 | created             | integer | n        | Content creation time. Unix timestamp. |
-| content             | string  | n        | Raw [content](./content.md#content-format) in base64 encoded format. |
+| content             | string  | n        | Raw [content](./content.md#content-format). |
 | content_hash        | string  | n        | Lowercase hex string of the SHA256 hash of the raw content. |
-| license             | object  | y        | [Content authorization license](./content.md#content-licensing). "none" is used if empty. |
+| license             | object  | y        | [Content authorization license](./dtcp.md#content-licensing). "none" is used if empty. |
 | status              | string  | n        | Fixed to "created". |
 | signature           | string  | n        | [Metadata signature](./dtcp.md#metadata-signature). |
 
@@ -224,9 +173,9 @@ For updating, only the changed metadata need to be provided.
 | title               | string  | y        | Content title. |
 | abstract            | string  | y        | Content abstract. |
 | category            | string  | y        | Content categories. Comma separated words list. |
-| content             | string  | y        | Raw content in base64 encoded format. |
+| content             | string  | y        | Raw content. |
 | content_hash        | string  | y        | Lowercase hex string of the SHA256 hash of the raw content. |
-| license             | object  | y        | [Content authorization license](./content.md#content-licensing). "none" is used if empty. |
+| license             | object  | y        | [Content authorization license](./dtcp.md#content-licensing). "none" is used if empty. |
 | signature           | string  | n        | [Metadata signature](./dtcp.md#metadata-signature). |
 
 #### Response

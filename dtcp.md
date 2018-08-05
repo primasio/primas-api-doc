@@ -5,16 +5,129 @@
 ### Metadata
 
 DTCP models the digital world as a set of digital objects and the links between them. On the top level there're
-only 2 types of data, "object" and "link". links connect different objects together and forms a network. For example,
-"article" is a digital object, "account" is also a digital object, "comment", however, is a link between an "article"
+only 2 types of data, "object" and "link". links connect different objects together and form a network. For example,
+"article" is a digital object, "account" is also a digital object, "comment" is a link between an "article"
  and an "account".
 
-In DTCP, both objects and links are described with a collection of metadata. For example, "article" is
-described with "title", "abstract", "content", "author". "comment" is described with "src_id" which points
-to an account and "dest_id" with points to an account, and there's another field "content" contains the
-comment content.
+In DTCP, both objects and links are described by a collection of metadata. "article" is
+described with `title`, `abstract`, `content`, `author`. "comment" is described with `src_id` which points
+to an account and `dest_id` which points to an account, and `content` contains the comment content.
 
 DTCP is all about a series of standards of how metadata is defined for different kinds of objects and links.
+
+Primas, however, is mainly dealing with content, such as article and video, which are also objects in DTCP.
+A limited set of content related objects and links are also used in Primas network.
+
+### Content Format
+
+There're different types of content such as articles, images, audios and videos. Among all the types, article is a 
+special type which can be seen as a container for other types of content. An article may contain several images and
+texts at the same time.
+
+DTCP uses HTML to encode the article content, to support mixture of different content types and better display
+formatting. The only difference between the HTML DTCP used and any arbitrary HTML is about the links, which include
+hypertext links between URLs and object sources such as image sources and video sources.
+
+An important part of DTCP is the upgrade to the hypertext links. In DTCP the link is between 2 DTCP objects rather than
+between URLs in WWW, which gives better ability of content sourcing and content identification and interpretation.
+
+DTCP aims to replace WWW. As the Internet using WWW right now is large and filled with huge amounts of hypertext links.
+It is more feasible to make the upgrade a step by step process. At the beginning hypertext links and DTCP links will
+co-exist in DTCP. Newly created content and links will be in DTCP format. If the content contains link to URL and
+the link target content is not registered on DTCP network yet, the link will be saved in its original form. Otherwise if
+the link target content can be found on DTCP network, the link will be converted into a DTCP link whose target is a
+[Metadata ID](./dtcp.md#metadata-dna-and-metadata-id) rather than a URL.
+
+At this stage, it is the application's responsibility to decide which type of link to use. Primas Node provides API to
+fetch and check the content of a URL to see if it is a registered object on DTCP network. Application should do the
+converting from hypertext link to DTCP link if the content is found. Primas Node will reject the posting request if the
+converting is not performed.
+
+Primas network supports articles and images only at this time. Technically, before posting articles, the `<a>` and
+`<img>` elements should be checked.
+
+For `<img>` element, the `src` attribute should be checked. If the image can be found on the DTCP network, the `src` 
+attribute of the `<img>` element should be replaced with the image's metadata ID:
+
+```html
+<img data-dtcp-id="{metadata_id}" />
+```
+
+If the image is newly created and is uploading from local computer, the image should be post to DTCP in a separated
+content publishing API call, then the DTCP link in above format should be created using the returned metadata ID.
+
+Note that the image in DTCP link format cannot be directly displayed in normal web browsers. This is not a problem
+since the DTCP data will not be directly read by end users anyway, Primas Node will read DTCP data and transform the
+DTCP links into traditional hypertext links. Primas Node will also build a cache locally, the transformed links will be
+under Primas Node's own domain so that the access is faster. Primas Node is acting like a CDN edge server in this case.
+
+For `<a>` hypertext links, the `href` should also be checked. The target URL should be a "reproduction" if found on the
+DTCP network. Then the hypertext link should be changed to a DTCP link with reproduction's metadata ID:
+
+```html
+<a data-dtcp-id="{metadata_id}" ></a>
+```
+
+The last thing to mention is that if the link is transformed to DTCP link, the original `src` and `href` attribute should
+not be included in the signature string. This is especially important in the scenario of web based text editors. To
+preview the image in the editor, `<img>` element should contain a `src` attribute which points to the URL of image cache
+on Primas Node. But when signing the content, `src` attribute should be removed.
+
+### Content Licensing
+
+In DTCP, the author could attach a license to the content to describe how the content could be used or disseminated.
+
+DTCP supports the register of all kinds of licenses while in Primas however,
+only 2 types of standard license is currently supported. 
+
+There's a widely used license for freely content sharing
+called [Creative Commons](https://creativecommons.org/), or CC in short,
+which has a combination of different parameters to fully customize the way
+content can be shared.
+
+Primas supports CC 4.0 by filling "cc" in the `license.name` field.
+Different options can also be specified in the `license.parameters` field.
+
+```
+{
+  "name": "cc",
+  "version": "4.0",
+  "parameters": [
+    {
+      "name": "derivative",     // Whether Derivation is allowed.
+      "value": "y"              // "y", "n" or "sa" for share-alike
+    },
+    {
+      "name": "commercial",     // Whether commercial usage is allowed
+      "value": "n"              // "y" or "n"
+    }
+  ]
+}
+``` 
+
+Beside CC license, Primas supports commercial license as well, which allows the author
+to set a price on the authorization of the content:
+
+```
+{
+  "name": "commercial",
+  "version": "2.0",
+  "parameters": [
+    {
+      "name": "derivative",     // Whether Derivation is allowed.
+      "value": "y"              // "y", "n"
+    },
+    {
+      "name": "currency",       // Currency used for payment
+      "value": "PST"            // Only PST is supported in Primas network
+    },
+    {
+      "name": "price",
+      "value": 100
+    }
+  ]
+}
+``` 
 
 ### Metadata DNA and Metadata ID
 
@@ -266,14 +379,16 @@ For all the metadata related APIs such as person registration, article posting, 
 the metadata in DTCP standard is post in request body. And the metadata is saved
 in the same format in decentralized storage.
 
-For content posting APIs there's a small difference in metadata however
-which is about the raw content. Since DTCP concerns about metadata only so the raw data
-is not stored in DTCP metadata. DTCP contains a field called `content` which is used
-to store a URI to the raw content. The raw content is stored separately in other places
-that can be accessed using URI.
+In DTCP, metadata and raw content are stored separately. The decentralized storage assigns different keys to raw content
+and the collection of metadata. The retrieval of complete content is divided into 2 steps. Firstly get content metadata
+using [Metadata ID](./dtcp.md#metadata-dna-and-metadata-id), then get the URI containing the storage key to the raw
+content from the metadata and get the raw content using storage key.
 
-In Primas API however, the raw content in its base64 encoded form should be filled in the `content`
-field in the post metadata. Primas Node extracts the content from metadata
+The storage of content in DTCP is also divided into 2 steps. Firstly store the raw content, getting the storage key.
+Then update the metadata's `content` field with the storage key and store the metadata.
+
+For content posting APIs in Primas there's a small difference however.The raw content in its base64 encoded form
+should be filled in the `content` field in the post metadata. Primas Node extracts the content from metadata
 and saves it in decentralized storage, gets a URI(in the case of IPFS, a link starts with "ipfs://"),
 and puts the URI in the `content` field and saves the metadata to decentralized storage then.
 

@@ -27,7 +27,6 @@ When interacting with content, the corresponding group id must be provided.
 | creator             | object  | n        | Creator. |
 | created             | integer | n        | Share created time. Unix timestamp. |
 | updated             | integer | n        | Share updated time. Unix timestamp. |
-| status              | string  | n        | Fixed to "created". |
 | extra               | object  | y        | Extra metadata. |
 | signature           | string  | n        | [Metadata signature](./dtcp.md#metadata-signature). |
 | dna                 | string  | n        | Latest share DNA. |
@@ -46,7 +45,7 @@ When interacting with content, the corresponding group id must be provided.
 
 | Name           | Type    | Optional | Description |
 | -------------- | ------- | -------- | ----------------------------------------------- |
-| share_id       | string  | n        | Parent share id. |
+| share_id       | string  | y        | Parent share id. |
 | likes_total    | integer | n        | Total likes number.    |
 | comments_total | integer | n        | Total comments number. |
 | shares_total   | integer | n        | Total shares number.   |
@@ -94,7 +93,6 @@ $ curl -x https://rigel-a.primas.network/v3/content -d '{"type":"article","conte
 | creator             | object  | n        | Creator. |
 | created             | integer | n        | Share created time. Unix timestamp. |
 | updated             | integer | n        | Share updated time. Unix timestamp. |
-| status              | string  | n        | Fixed to "created". |
 | extra               | object  | y        | Extra metadata. |
 | signature           | string  | n        | [Metadata signature](./dtcp.md#metadata-signature). |
 | dna                 | string  | n        | Latest share DNA. |
@@ -217,7 +215,7 @@ $ curl -x https://rigel-a.primas.network/v3/content -d '{"type":"article","conte
 
 | Name          | Type    | Optional | Description |
 | ------------- | ------- | -------- | ------------------------------------------------ |
-| content       | string  | n        | base64 encoded report [content](./content.md#content-format). |
+| content       | string  | n        | base64 encoded report [content](./dtcp.md#content-format). |
 | content_hash  | string  | n        | Lowercase hex string of the SHA256 hash of the raw content. |
 | report_type   | string  | n        | Report type. |
 | report_status | string  | n        | Fixed to "pending". |
@@ -263,7 +261,6 @@ $ curl -x https://rigel-a.primas.network/v3/content -d '{"type":"article","conte
 | creator             | object  | n        | Creator. |
 | created             | integer | n        | Like created time. Unix timestamp. |
 | updated             | integer | n        | Like updated time. Unix timestamp. |
-| status              | string  | n        | Fixed to "created". |
 | dna                 | string  | n        | Like DNA. |
 | signature           | string  | n        | [Metadata signature](./dtcp.md#metadata-signature). |
 | transaction_id      | string  | n        | Latest transaction id. |
@@ -386,7 +383,6 @@ $ curl -x https://rigel-a.primas.network/v3/content -d '{"type":"article","conte
 | creator             | object  | n        | Creator. |
 | created             | integer | n        | Comment created time. Unix timestamp. |
 | updated             | integer | n        | Comment created time. Unix timestamp. |
-| status              | string  | n        | Fixed to "created". |
 | extra               | object  | n        | Extra metadata. |
 | signature           | string  | n        | [Metadata signature](./dtcp.md#metadata-signature). |
 | transaction_id      | string  | n        | Latest transaction id. |
@@ -437,6 +433,8 @@ $ curl -x https://rigel-a.primas.network/v3/content -d '{"type":"article","conte
 
 [POST] /shares/{share_id}/comments
 
+The way comment content is processed is the same as [post content API](./content.md#3-post-content).
+
 #### Request
 
 | Name                | Type    | Optional | Description |
@@ -466,6 +464,7 @@ $ curl -x https://rigel-a.primas.network/v3/content -d '{"type":"article","conte
 | ----------------- | ------- | -------- | ------------------------------------------------ |
 | parent_comment_id | string  | y        | Parent comment id.                               |
 | content           | string  | n        | Comment content. |
+| content_hash      | string  | n        | Lowercase hex string of the SHA256 hash of the raw content. |
 
 #### Response
 
@@ -514,6 +513,7 @@ $ curl -x https://rigel-a.primas.network/v3/content -d '{"type":"article","conte
 | Name          | Type    | Optional | Description |
 | ------------- | ------- | -------- | ------------------------------------------------ |
 | content       | string  | n        | Comment content. |
+| content_hash  | string  | n        | Lowercase hex string of the SHA256 hash of the raw content. |
 
 #### Response
 
