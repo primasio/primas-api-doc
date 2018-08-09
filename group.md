@@ -399,7 +399,7 @@ $ curl -x https://rigel-a.primas.network/v3/content -d '{"type":"article","conte
 
 ### 9. Get group member whitelist
 
-[GET] /groups/{group_id}/members/whitelist
+[GET] /groups/{group_id}/whitelist/members
 
 #### Query parameters
 
@@ -453,7 +453,7 @@ $ curl -x https://rigel-a.primas.network/v3/content -d '{"type":"article","conte
 
 ### 10. Add group member whitelist
 
-[POST] /groups/{group_id}/members/whitelist
+[POST] /groups/{group_id}/whitelist/members
 
 #### Request
 
@@ -503,7 +503,7 @@ $ curl -x https://rigel-a.primas.network/v3/content -d '{"type":"article","conte
 
 ### 11. Approve or decline group member whitelist
 
-[PUT] /groups/{group_id}/members/whitelist/{whitelist_id}
+[PUT] /groups/{group_id}/whitelist/members/{whitelist_id}
 
 #### Request
 
@@ -550,7 +550,7 @@ $ curl -x https://rigel-a.primas.network/v3/content -d '{"type":"article","conte
 
 ### 12. Quit group member whitelist
 
-[DELETE] /groups/{group_id}/members/whitelist/{whitelist_id}
+[DELETE] /groups/{group_id}/whitelist/members/{whitelist_id}
 
 #### Request
 
