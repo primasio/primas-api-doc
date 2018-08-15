@@ -71,25 +71,34 @@ var client = new Primas({
 	node: "https://rigel-a.primas.network"
 });
 
-client.Account.create(
+var account = client.Account.create(
 	{
 		name: "<account name>",
 		// avatar: "", // Avatar should be a metadata ID which can only be uploaded after the account creation.
 		address: "<account address>"
-	},
-	function(err, res) {
-	    
-		if (err) {
-			// handle error
-			return;
-		}
-		
-		// The response contains the account id and metadata dna
-		
-		console.log(res.id);
-		console.log(res.dna);
+	});
+// if your have keystore in your workspace, just send
+account.send(function(err, res) {
+    
+	if (err) {
+		// handle error
+		return;
 	}
-);
+	
+	// The response contains the account id and metadata dna
+	
+	console.log(res.id);
+	console.log(res.dna);
+})
+	
+// else your will use your signer
+var dataJson = account.beforeSign(); 
+// do sign now
+var signature = sign(dataJson); // this will return signature
+// after sign
+account.sign(signature);
+// then send, like the above
+account.send(...);
 ```
 
 After that the root account is fully prepared and can be used to sign API requests.
@@ -116,7 +125,7 @@ profile data to Primas network.
  * Create sub(user) account 
  */
 
-client.Account.create(
+var account = client.Account.create(
 	{
 		name: "<account name>",
 		creator: {
@@ -126,8 +135,9 @@ client.Account.create(
 		extra: {
 		    hash: "<a hex string>" // In case of sensitive user data that needs proof-of-existence, the data hash can be stored here.
 		}
-	},
-	function(err, res) {
+	}
+);
+account.send(function(err, res) {
 		if (err) {
 			// handle error
 			return;
@@ -138,8 +148,7 @@ client.Account.create(
 		// console.log(res.id);
 		
 		console.log(res.dna);
-	}
-);
+	})
 
 ```
 
@@ -216,7 +225,7 @@ client.Content.upgradeDTCPLinks(htmlContent, function (err, content) {
     // Then the content hash is calculated.
     // After that the whole metadata is signed and sent to the API.
     
-    client.Content.create({
+    var content = client.Content.create({
     	title: "<article title>",
     	creator: {
     		account_id: "<root account id>",
@@ -230,7 +239,9 @@ client.Content.upgradeDTCPLinks(htmlContent, function (err, content) {
     	language: "en-US",
     	category: "<article category>",
     	content: content
-    }, function (err, res) {
+    })
+    
+    content.send(function (err, res) {
         
     	if (err) {
     		// handle error
@@ -275,7 +286,7 @@ There're different options to customize the group rules when creating the group:
  * Creat a group
  */
 
-client.Group.create({
+var group = client.Group.create({
 	title: "<group title>",
 	creator: {
 		account_id: "<account id>",
@@ -293,7 +304,9 @@ client.Group.create({
 		allow_join: "all", // How member could join the group. "all" or "application".
 		allow_post: "all"  // How content could be shared in the group. "all", "none" or "application".
 	}
-}, function (err, res) {
+});
+
+group.send(function (err, res) {
 	if (err) {
 		// handle error
 		return;
@@ -302,7 +315,7 @@ client.Group.create({
 	
 	console.log(res.id);
 	console.log(res.dna);
-});
+})
 ```
 
 ### 5. Join a group
@@ -315,7 +328,7 @@ group requires application before joining, the `application_status` parameter sh
  * Join a group
  */
 
-client.Group.join("<group id>",
+var group = client.Group.join("<group id>",
 {
 	title: "<group title>",
 	src_id: "<account id>",
@@ -334,7 +347,9 @@ client.Group.join("<group id>",
 		application_status: "pending",
 		application_expire:  Date.now() + 24 * 3600 // The application will expire after 24 hours.
 	}
-}, function (err, res) {
+});
+
+group.send(function (err, res) {
 	if (err) {
 		// handle error
 		return;
@@ -344,7 +359,7 @@ client.Group.join("<group id>",
 	
 	console.log(res.id);
 	console.log(res.dna);
-});
+})
 ```
 
 ### 6. Share content to a group
@@ -361,7 +376,7 @@ If the group requires application before sharing, set the `application_status` f
  */
 
 // Group requires application
-client.Group.createShare("<group id>",
+var group = client.Group.createShare("<group id>",
 {
 	src_id: "<content id>",
 	dest_id: "<group id>",
@@ -384,7 +399,8 @@ client.Group.createShare("<group id>",
         application_expire:  Date.now() + 24 * 3600 // The application will expire after 24 hours.
 	}
 	
-}, function (err, res) {
+});
+group.send(function (err, res) {
 	if (err) {
 		// handle error
 		return;
@@ -394,7 +410,7 @@ client.Group.createShare("<group id>",
 	
 	console.log(res.id);
 	console.log(res.dna);
-});
+})
 ```
 
 ### 7. Discuss about the content
@@ -408,7 +424,7 @@ only visible in the group.
  * Like a share
  */
 
-client.ContentInteraction.createLike("<share id>",
+var ci = client.ContentInteraction.createLike("<share id>",
 {
 	src_id: "<account id>",
 	dest_id: "<share id>",
@@ -420,19 +436,20 @@ client.ContentInteraction.createLike("<share id>",
         // provide the name here and it will be created automatically.
         // sub_account_name: "<sub_account_name>"
 	}
-}, function (err, res) {
+});
+ci.send(function (err, res) {
 	if (err) {
 		// handle error
 		return;
 	}
 	// handle res
-});
+})
 
 /**
  * Comment on a share
  */
 
-client.ContentInteraction.createComment("<share id>",
+var ci = client.ContentInteraction.createComment("<share id>",
 {
 	src_id: "<account id>",
 	dest_id: "<share id>",
@@ -448,7 +465,8 @@ client.ContentInteraction.createComment("<share id>",
 	    parent_comment_id: "<parent comment id>", // If this comment is a reply to another comment, the comment id should be set.
 		content: "<comment HTML content>" // HTML format comment content, DTCP links still need to be upgraded.
 	}
-}, function (err, res) {
+});
+ci.send(function (err, res) {
 	if (err) {
 		// handle error
 		return;
@@ -457,5 +475,5 @@ client.ContentInteraction.createComment("<share id>",
 	
 	console.log(res.id);
 	console.log(res.dna);
-});
+})
 ```
