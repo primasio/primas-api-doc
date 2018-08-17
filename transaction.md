@@ -2,8 +2,8 @@
 
 | Name                | Type        | Optional | Description                                                   |
 | ------------------- | ----------- | -------- | ------------------------------------------------------------- |
-| id                  | string      | n        | Transaction hash.                                             |
-| block_number        | integer     | n        | Block number of this transaction.                             |
-| block_confirmations | integer     | n        | Block confirmation time.                                      |
+| transaction_id      | string      | y        | Transaction hash.                                             |
+| block_number        | integer     | y        | Block number of this transaction.                             |
+| block_confirmations | integer     | y        | Block confirmation time.                                      |
 | estimated_time      | integer     | n        | Estimated confirmation time. Unix timestamp.                  |
-| confirmed_time      | integer     | n        | Confirmation time. Unix timestamp.                            |
+| confirmed_time      | integer     | y        | Confirmation time. Unix timestamp.                            |

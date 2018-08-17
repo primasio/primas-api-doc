@@ -126,7 +126,7 @@ Response `data` is an array whose element containing:
 | amount              | big integer | n        | Withdrawal amount.                                            |
 | node_fee            | big integer | n        | Node charged withdrawal fee.                                  |
 | status              | string      | n        | Withdrawal status. "pending", "done" or "cancelled".          |
-| transaction_id      | string      | y        | Withdrawal transaction id.                                  |
+| transaction         | object      | n        | Withdrawal [transaction object](./transaction.md#transaction) |
 
 #### Example
 
