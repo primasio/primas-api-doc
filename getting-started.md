@@ -92,11 +92,11 @@ account.send(function(err, res) {
 })
 	
 // else your will use your signer
-var dataJson = account.beforeSign(); 
+var dataJson = account.getRawMetadata(); 
 // do sign now
 var signature = sign(dataJson); // this will return signature
 // after sign
-account.sign(signature);
+account.setSignature(signature);
 // then send, like the above
 account.send(...);
 ```
