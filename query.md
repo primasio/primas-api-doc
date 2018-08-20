@@ -55,7 +55,7 @@ $ curl -x https://rigel-a.primas.network/v3/content -d '{"type":"article","conte
 ```
 
 
-### 3. Find reproductions using URL
+### 3. Find reproductions using URL(designing)
 
 [GET] /query/reproductions
 
