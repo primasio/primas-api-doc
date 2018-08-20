@@ -512,7 +512,7 @@ $ curl -x https://rigel-a.primas.network/v3/content -d '{"type":"article","conte
 
 ### 17. Get address metadata
 
-[GET] "/main/accounts/{address}/metadata
+[GET] /main/accounts/{address}/metadata
 
 Get main account metadata by address.
 
