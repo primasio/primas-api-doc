@@ -71,13 +71,12 @@ var client = new Primas({
 	node: "https://rigel-a.primas.network"
 });
 
-var account = client.Account.create(
-	{
-		name: "<account name>",
-		// avatar: "", // Avatar should be a metadata ID which can only be uploaded after the account creation.
-		address: "<account address>"
-	});
-// if your have keystore in your workspace, just send
+var account = client.Account.create({
+	name: "<account name>",
+	// avatar: "",  // Avatar should be a metadata ID which can only be uploaded after the account creation.
+	address: "<account address>"
+});
+
 account.send(function(err, res) {
     
 	if (err) {
@@ -91,14 +90,6 @@ account.send(function(err, res) {
 	console.log(res.dna);
 })
 	
-// else your will use your signer
-var dataJson = account.getRawMetadata(); 
-// do sign now
-var signature = sign(dataJson); // this will return signature
-// after sign
-account.setSignature(signature);
-// then send, like the above
-account.send(...);
 ```
 
 After that the root account is fully prepared and can be used to sign API requests.
@@ -125,8 +116,7 @@ profile data to Primas network.
  * Create sub(user) account 
  */
 
-var account = client.Account.create(
-	{
+var account = client.Account.create({
 		name: "<account name>",
 		creator: {
 			account_id: "<root account id>", // The platform ID we received in the previous step.
@@ -138,17 +128,17 @@ var account = client.Account.create(
 	}
 );
 account.send(function(err, res) {
-		if (err) {
-			// handle error
-			return;
-		}
-		
-		// For sub accounts. No account id is returned at the moment.
-		// The sub account is identified user root account id and user id on the platform.
-		// console.log(res.id);
-		
-		console.log(res.dna);
-	})
+	if (err) {
+		// handle error
+		return;
+	}
+	
+	// For sub accounts. No account id is returned at the moment.
+	// The sub account is identified user root account id and user id on the platform.
+	// console.log(res.id);
+	
+	console.log(res.dna);
+})
 
 ```
 
@@ -328,8 +318,7 @@ group requires application before joining, the `application_status` parameter sh
  * Join a group
  */
 
-var group = client.Group.join("<group id>",
-{
+var group = client.Group.join("<group id>", {
 	title: "<group title>",
 	src_id: "<account id>",
 	dest_id: "<group id>",
@@ -376,8 +365,7 @@ If the group requires application before sharing, set the `application_status` f
  */
 
 // Group requires application
-var group = client.Group.createShare("<group id>",
-{
+var group = client.Group.createShare("<group id>", {
 	src_id: "<content id>",
 	dest_id: "<group id>",
 	creator: {
@@ -424,8 +412,7 @@ only visible in the group.
  * Like a share
  */
 
-var ci = client.ContentInteraction.createLike("<share id>",
-{
+var ci = client.ContentInteraction.createLike("<share id>", {
 	src_id: "<account id>",
 	dest_id: "<share id>",
 	creator: {
@@ -449,8 +436,7 @@ ci.send(function (err, res) {
  * Comment on a share
  */
 
-var ci = client.ContentInteraction.createComment("<share id>",
-{
+var ci = client.ContentInteraction.createComment("<share id>", {
 	src_id: "<account id>",
 	dest_id: "<share id>",
 	creator: {
