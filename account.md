@@ -509,3 +509,49 @@ $ curl -x https://rigel-a.primas.network/v3/content -d '{"type":"article","conte
 {"result_code":0,"data":{"dna":"", ...}}
 
 ```
+
+### 17. Get address metadata
+
+[GET] "/main/accounts/{address}/metadata
+
+Get main account metadata by address.
+
+#### Response
+
+| Name                | Type    | Optional | Description |
+| --------------      | ------- | -------- | ---------------------------------------- |
+| id                  | string  | n        | Account id. |
+| address             | string  | n        | Account address. |
+| title               | string  | n        | Account name. |
+| abstract            | string  | y        | Description. |
+| avatar              | string  | y        | An image id used for avatar. |
+| creator             | object  | y        | Creator of the [sub account](./dtcp.md#sub-accounts). |
+| created             | integer | n        | Account creation time. Unix timestamp. |
+| updated             | integer | n        | Account last updating time. Unix timestamp. |
+| extra               | object  | y        | Extra metadata. |
+| signature           | string  | n        | [Metadata signature](./dtcp.md#metadata-signature). |
+| dna                 | string  | n        | DNA of the account. |
+| credits             | integer | n        | Current credits. |
+| transaction_id      | string  | n        | Latest transaction id. |
+
+`creator` object:
+
+| Name                | Type    | Optional | Description |
+| --------------      | ------- | -------- | ---------------------------------------- |
+| account_id          | string  | n        | Root account id. |
+| account_name        | string  | n        | Root account name. |
+
+`extra` object:
+
+| Name                | Type    | Optional | Description |
+| --------------      | ------- | -------- | ---------------------------------------- |
+| hash                | string  | y        | In the case of proof of existence of secret data. The hash can be filled in this field. |
+
+#### Example
+
+```bash
+$ curl -x https://rigel-a.primas.network/v3/content -d '{"type":"article","content":"...","signature":"..."}'
+
+{"result_code":0,"data":{"dna":"", ...}}
+
+```
