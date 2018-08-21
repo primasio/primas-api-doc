@@ -117,6 +117,7 @@ $ curl -x https://rigel-a.primas.network/v3/content -d '{"type":"article","conte
 | comments_total | integer | n        | Total comments number. |
 | shares_total   | integer | n        | Total shares number.   |
 | pst_total      | big integer | n    | Total PST earned.      |
+| hp             | integer | n        | hp value. |
 
 #### Example
 
