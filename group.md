@@ -627,6 +627,7 @@ $ curl -x https://rigel-a.primas.network/v3/content -d '{"type":"article","conte
 | tag                 | string  | n        | Fixed to "group_share". |
 | src_id              | string  | n        | Content id. |
 | dest_id             | string  | n        | Group id. |
+| hp                  | integer | n        | hp value. Greater than or equal to zero. |
 | creator             | object  | n        | Creator. |
 | created             | integer | n        | Share created time. Unix timestamp. |
 | status              | string  | n        | Fixed to "created". |

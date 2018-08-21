@@ -54,6 +54,7 @@ When interacting with content, the corresponding group id must be provided.
 | is_liked       | bool    | y        | Whether current account liked this share. |
 | content        | object  | n        | Share related content. |
 | report         | object  | y        | Report metadata. |
+| hp             | integer | n        | hp value. |
 
 `content` object contains the related [content metadata](./content.md#1-get-content-metadata).
 
@@ -258,6 +259,7 @@ $ curl -x https://rigel-a.primas.network/v3/content -d '{"type":"article","conte
 | id                  | string  | n        | Like id. |
 | src_id              | string  | n        | Account id. |
 | dest_id             | string  | n        | Share id. |
+| hp                  | integer | n        | hp value. |
 | creator             | object  | n        | Creator. |
 | created             | integer | n        | Like created time. Unix timestamp. |
 | updated             | integer | n        | Like updated time. Unix timestamp. |
@@ -297,6 +299,7 @@ $ curl -x https://rigel-a.primas.network/v3/content -d '{"type":"article","conte
 | tag                 | string  | n        | Fixed to "share_like". |
 | src_id              | string  | n        | Account id. |
 | dest_id             | string  | n        | Share id. |
+| hp                  | integer | n        | hp value. Greater than or equal to zero. |
 | creator             | object  | n        | Creator. |
 | created             | integer | n        | Like created time. Unix timestamp. |
 | status              | string  | n        | Fixed to "created". |
@@ -380,6 +383,7 @@ $ curl -x https://rigel-a.primas.network/v3/content -d '{"type":"article","conte
 | id                  | string  | n        | Comment id. |
 | src_id              | string  | n        | Account id. |
 | dest_id             | string  | n        | Share id. |
+| hp                  | integer | n        | hp value. |
 | creator             | object  | n        | Creator. |
 | created             | integer | n        | Comment created time. Unix timestamp. |
 | updated             | integer | n        | Comment created time. Unix timestamp. |
@@ -444,6 +448,7 @@ The way comment content is processed is the same as [post content API](./content
 | tag                 | string  | n        | Fixed to "share_comment". |
 | src_id              | string  | n        | Account id. |
 | dest_id             | string  | n        | Share id. |
+| hp                  | integer | n        | hp value. Greater than or equal to zero. |
 | creator             | object  | n        | Creator. |
 | created             | integer | n        | Comment created time. Unix timestamp. |
 | status              | string  | n        | Fixed to "created". |
