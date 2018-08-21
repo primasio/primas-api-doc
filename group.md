@@ -105,7 +105,7 @@ $ curl -x https://rigel-a.primas.network/v3/content -d '{"type":"article","conte
 ```
 
 
-### 3. Update group
+### 3. Update group(designing)
 
 [PUT] /groups/{group_id}
 
@@ -152,7 +152,7 @@ $ curl -x https://rigel-a.primas.network/v3/content -d '{"type":"article","conte
 ```
 
 
-### 4. Dismiss group
+### 4. Dismiss group(designing)
 
 [DELETE] /groups/{group_id}
 

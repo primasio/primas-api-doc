@@ -129,7 +129,7 @@ $ curl -x https://rigel-a.primas.network/v3/content -d '{"type":"article","conte
 ```
 
 
-### 3. Get share reports
+### 3. Get share reports(designing)
 
 [GET] /shares/{share_id}/reports
 
@@ -172,7 +172,7 @@ $ curl -x https://rigel-a.primas.network/v3/content -d '{"type":"article","conte
 | Name          | Type    | Optional | Description |
 | ------------- | ------- | -------- | ------------------------------------------------ |
 | content       | string  | n        | Content URI. In the case of IPFS, a link starts with "ipfs://" |
-| content_hash  | string  | n        | Lowercase hex string of the SHA256 hash of the raw content. |
+| content_hash  | string  | n        | Lowercase hex string of the Keccak256 hash of the raw content. |
 | report_type   | string  | n        | Report type. |
 | report_status | string  | n        | "pending", "approved" or "declined". |
 
@@ -186,7 +186,7 @@ $ curl -x https://rigel-a.primas.network/v3/content -d '{"type":"article","conte
 ```
 
 
-### 4. Report share
+### 4. Report share(designing)
 
 [POST] /shares/{share_id}/reports
 
@@ -218,7 +218,7 @@ $ curl -x https://rigel-a.primas.network/v3/content -d '{"type":"article","conte
 | Name          | Type    | Optional | Description |
 | ------------- | ------- | -------- | ------------------------------------------------ |
 | content       | string  | n        | base64 encoded report [content](./dtcp.md#content-format). |
-| content_hash  | string  | n        | Lowercase hex string of the SHA256 hash of the raw content. |
+| content_hash  | string  | n        | Lowercase hex string of the Keccak256 hash of the raw content. |
 | report_type   | string  | n        | Report type. |
 | report_status | string  | n        | Fixed to "pending". |
 
@@ -331,7 +331,7 @@ $ curl -x https://rigel-a.primas.network/v3/content -d '{"type":"article","conte
 ```
 
 
-### 7. Cancel the like of a group share
+### 7. Cancel the like of a group share(designing)
 
 [DELETE] /shares/{share_id}/likes/{like_id}
 
@@ -470,7 +470,7 @@ The way comment content is processed is the same as [post content API](./content
 | ----------------- | ------- | -------- | ------------------------------------------------ |
 | parent_comment_id | string  | y        | Parent comment id.                               |
 | content           | string  | n        | Comment content. |
-| content_hash      | string  | n        | Lowercase hex string of the SHA256 hash of the raw content. |
+| content_hash      | string  | n        | Lowercase hex string of the Keccak256 hash of the raw content. |
 
 #### Response
 
@@ -489,7 +489,7 @@ $ curl -x https://rigel-a.primas.network/v3/content -d '{"type":"article","conte
 ```
 
 
-### 11. Update the comment of a group share
+### 11. Update the comment of a group share(designing)
 
 [PUT] /shares/{share_id}/comments/{comment_id}
 
@@ -519,7 +519,7 @@ $ curl -x https://rigel-a.primas.network/v3/content -d '{"type":"article","conte
 | Name          | Type    | Optional | Description |
 | ------------- | ------- | -------- | ------------------------------------------------ |
 | content       | string  | n        | Comment content. |
-| content_hash  | string  | n        | Lowercase hex string of the SHA256 hash of the raw content. |
+| content_hash  | string  | n        | Lowercase hex string of the Keccak256 hash of the raw content. |
 
 #### Response
 
@@ -537,7 +537,7 @@ $ curl -x https://rigel-a.primas.network/v3/content -d '{"type":"article","conte
 ```
 
 
-### 12. Delete the comment of a group share
+### 12. Delete the comment of a group share(designing)
 
 [DELETE] /shares/{share_id}/comments/{comment_id}
 

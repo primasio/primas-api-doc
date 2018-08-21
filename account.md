@@ -380,7 +380,7 @@ $ curl -x https://rigel-a.primas.network/v3/content -d '{"type":"article","conte
 ```
 
 
-### 13. Get account report list
+### 13. Get account report list(designing)
 
 [GET] /accounts/{account_id}/reports
 
@@ -408,7 +408,7 @@ $ curl -x https://rigel-a.primas.network/v3/content -d '{"type":"article","conte
 ```
 
 
-### 14. Get account notifications
+### 14. Get account notifications(designing)
 
 [GET] /accounts/{account_id}/notifications
 

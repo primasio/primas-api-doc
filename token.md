@@ -232,7 +232,7 @@ $ curl -x https://rigel-a.primas.network/v3/content -d '{"type":"article","conte
 ```
 
 
-### 8. Unlock pre-locked tokens
+### 8. Unlock pre-locked tokens(designing)
 
 [DELETE] /accounts/{account_id}/tokens/pre_locks
 

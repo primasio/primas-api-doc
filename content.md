@@ -22,7 +22,7 @@ Content(articles and images) related APIs. Posting and reading content.
 | created             | integer | n        | Content creation time. Unix timestamp. |
 | updated             | integer | n        | Content last updating time. Unix timestamp. |
 | content             | string  | n        | Content URI. In the case of IPFS, a link starts with "ipfs://" |
-| content_hash        | string  | n        | Lowercase hex string of the SHA256 hash of the raw content. |
+| content_hash        | string  | n        | Lowercase hex string of the Keccak256 hash of the raw content. |
 | license             | object  | y        | [Content authorization license](./dtcp.md#content-licensing). |
 | signature           | string  | n        | [Metadata signature](./dtcp.md#metadata-signature). |
 | dna                 | string  | n        | Content DNA. |
@@ -93,7 +93,7 @@ Response is raw image data.
 ```bash
 $ curl -x https://rigel-a.primas.network/v3/content/1GFYUNP815RUIFDNNRKLNU78RPCFLNL5DWGT7EXODHFVRCRVXJ/content
 
-{"result_code":0,"data":{"content:"..."}}
+{"result_code":0,"data":{"content":"..."}}
 
 ```
 
@@ -124,7 +124,7 @@ If you're uploading an image(Content-Type: multipart-formdata), the content is t
 | category            | string  | n        | Content categories. Comma separated words list. |
 | created             | integer | n        | Content creation time. Unix timestamp. |
 | content             | string  | n        | Raw [content](./content.md#content-format). |
-| content_hash        | string  | n        | Lowercase hex string of the SHA256 hash of the raw content. |
+| content_hash        | string  | n        | Lowercase hex string of the Keccak256 hash of the raw content. |
 | license             | object  | y        | [Content authorization license](./dtcp.md#content-licensing). "none" is used if empty. |
 | status              | string  | n        | Fixed to "created". |
 | signature           | string  | n        | [Metadata signature](./dtcp.md#metadata-signature). |
@@ -154,7 +154,7 @@ $ curl -x https://rigel-a.primas.network/v3/content -d '{"type":"article","conte
 ```
 
 
-### 4. Update content
+### 4. Update content(designing)
 
 [PUT] /content/{content_id}
 
@@ -174,7 +174,7 @@ For updating, only the changed metadata need to be provided.
 | abstract            | string  | y        | Content abstract. |
 | category            | string  | y        | Content categories. Comma separated words list. |
 | content             | string  | y        | Raw content. |
-| content_hash        | string  | y        | Lowercase hex string of the SHA256 hash of the raw content. |
+| content_hash        | string  | y        | Lowercase hex string of the Keccak256 hash of the raw content. |
 | license             | object  | y        | [Content authorization license](./dtcp.md#content-licensing). "none" is used if empty. |
 | signature           | string  | n        | [Metadata signature](./dtcp.md#metadata-signature). |
 

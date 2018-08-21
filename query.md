@@ -39,7 +39,7 @@ $ curl -x https://rigel-a.primas.network/v3/content -d '{"type":"article","conte
 | Name               | Type     | Optional | Description                                                          |
 | ------------------ | -------- | -------- | -------------------------------------------------------------------- |
 | url                | string   | y        | Url encoded url.                                                     |
-| hash               | string   | y        | Lowercase hex string of the SHA256 hash of the raw content.          |
+| hash               | string   | y        | Lowercase hex string of the Keccak256 hash of the raw content.       |
 
 #### Response
 
