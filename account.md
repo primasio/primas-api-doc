@@ -555,3 +555,29 @@ $ curl -x https://rigel-a.primas.network/v3/content -d '{"type":"article","conte
 {"result_code":0,"data":{"dna":"", ...}}
 
 ```
+
+### 18. Get account joined groups list
+
+[GET] /accounts/{account_id}/joined/groups
+
+[GET] /accounts/{account_id}/sub/{sub_account_id}/joined/groups
+
+#### Query parameters
+
+| Name               | Type     | Optional | Description                                         |
+| ------------------ | -------- | -------- | --------------------------------------------------- |
+| page               | integer  | y        | Page number. Starts from 0.                         |
+| page_size          | integer  | y        | Page size. Default to 20.                           |
+
+#### Response
+
+`data` is an array of [group](./group.md#1-get-group-metadata).
+
+#### Example
+
+```bash
+$ curl -x https://rigel-a.primas.network/v3/content -d '{"type":"article","content":"...","signature":"..."}'
+
+{"result_code":0,"data":{"dna":"", ...}}
+
+```
