@@ -64,7 +64,7 @@
 | tag                 | string  | n        | Fixed to "group". |
 | title               | string  | n        | Group title. |
 | creator             | object  | n        | Creator. |
-| avatar              | string  | n        | An image id used for avatar. |
+| avatar              | string  | y        | An image id used for avatar. |
 | abstract            | string  | n        | Group introduction. |
 | language            | string  | n        | Group language. [RFC4646](http://www.ietf.org/rfc/rfc4646.txt) defined locales such as "en-US" |
 | category            | string  | n        | Group categories. Comma separated words list. |
