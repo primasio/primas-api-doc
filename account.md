@@ -23,7 +23,8 @@
 | extra               | object  | y        | Extra metadata. |
 | signature           | string  | n        | [Metadata signature](./dtcp.md#metadata-signature). |
 | dna                 | string  | n        | DNA of the account. |
-| hp                  | integer | n        | hp value. |
+| hp                  | integer | n        | available hp value. |
+| total_hp            | integer | n        | total hp value. |
 | credits             | integer | n        | Current credits. |
 | transaction_id      | string  | n        | Latest transaction id. |
 
