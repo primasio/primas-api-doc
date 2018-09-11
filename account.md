@@ -100,7 +100,7 @@ $ curl -x https://rigel-a.primas.network/v3/content -d '{"type":"article","conte
 ```
 
 
-### 3. Update account metadata
+### 3. Update account metadata(designing)
 
 [PUT] /accounts/{account_id}
 
