@@ -1,14 +1,6 @@
 # Primas Node API Documentation
 
-**Notice: this document is in a working draft status.
-We're still tweaking many aspects of the APIs.
-Parameters are constantly changing. Examples are missing.
-APIs can't be found on the mainnet.
-We're trying our best to release it soon.**
-
-**Status update: This document is almost finalized. Our focus is on the SDK now. The API examples will be
-provided with the implementation and testing of the SDK. The parameters of APIs might still be changed slightly
-during this process.**
+**Status update: The APIs are finally live on the mainnet. At this moment, all the APIs writing data require the whitelisting of your address. Contact the dev team on Slack to get whitelisted.**
 
 **Join Primas developer community on Slack: [https://slack.primas.io](https://slack.primas.io/)**
 
