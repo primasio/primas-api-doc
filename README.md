@@ -28,7 +28,8 @@ Testnet: [https://staging.primas.io](https://staging.primas.io)
 
 Mainnet Nodes:
 
-* Rigel A: [https://rigel-a.primas.network](https://rigel-a.primas.network)
+* Rigel A: [https://pstdaily.com](https://pstdaily.com)
+* Betelgeuse: [https://betelgeuse.primas.network](https://betelgeuse.primas.network)
 
 ### Getting Started
 
